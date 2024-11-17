@@ -119,4 +119,72 @@ class EntitiesTest {
         assertEquals(status, coverage.getOverallStatus());
         assertEquals(pullRequest, coverage.getPullRequest());
     }
+
+    @Test
+    void testFileCoverageEntity() {
+        UUID fileCoverageId = UUID.randomUUID();
+        CoverageStatus status = CoverageStatus.PASSED;
+        int totalLines = 200;
+        float coveragePercentage = 80.0f;
+        float generalCoverage = 85.0f;
+        float lineCoverage = 90.0f;
+        float methodCoverage = 75.0f;
+        float classCoverage = 95.0f;
+        File file = new File();
+
+        FileCoverage fileCoverage = new FileCoverage();
+        fileCoverage.setFileCoverageId(fileCoverageId);
+        fileCoverage.setStatus(status);
+        fileCoverage.setTotalLines(totalLines);
+        fileCoverage.setCoveragePercentage(coveragePercentage);
+        fileCoverage.setCoverageGeneral(generalCoverage);
+        fileCoverage.setLineCoverage(lineCoverage);
+        fileCoverage.setMethodCoverage(methodCoverage);
+        fileCoverage.setClassCoverage(classCoverage);
+        fileCoverage.setFileId(file);
+
+        assertEquals(fileCoverageId, fileCoverage.getFileCoverageId());
+        assertEquals(status, fileCoverage.getStatus());
+        assertEquals(totalLines, fileCoverage.getTotalLines());
+        assertEquals(coveragePercentage, fileCoverage.getCoveragePercentage());
+        assertEquals(generalCoverage, fileCoverage.getCoverageGeneral());
+        assertEquals(lineCoverage, fileCoverage.getLineCoverage());
+        assertEquals(methodCoverage, fileCoverage.getMethodCoverage());
+        assertEquals(classCoverage, fileCoverage.getClassCoverage());
+        assertEquals(file, fileCoverage.getFileId());
+    }
+
+    @Test
+    void testIssueEntity() {
+        UUID issueId = UUID.randomUUID();
+        int lineNumber = 42;
+        int index = 5;
+        String message = "NullPointerException possible";
+        IssueType issueType = IssueType.DUPLICATE_CODE;
+        SeverityType severityType = SeverityType.HIGH;
+        LocalDateTime createdAt = LocalDateTime.now();
+        LocalDateTime updatedAt = LocalDateTime.now();
+        FileCoverage fileCoverage = new FileCoverage();
+
+        Issue issue = new Issue();
+        issue.setIssueId(issueId);
+        issue.setLineNumber(lineNumber);
+        issue.setIndex(index);
+        issue.setMessage(message);
+        issue.setIssueType(issueType);
+        issue.setSeverityType(severityType);
+        issue.setCreatedAt(createdAt);
+        issue.setUpdatedAt(updatedAt);
+        issue.setFileCoverage(fileCoverage);
+
+        assertEquals(issueId, issue.getIssueId());
+        assertEquals(lineNumber, issue.getLineNumber());
+        assertEquals(index, issue.getIndex());
+        assertEquals(message, issue.getMessage());
+        assertEquals(issueType, issue.getIssueType());
+        assertEquals(severityType, issue.getSeverityType());
+        assertEquals(createdAt, issue.getCreatedAt());
+        assertEquals(updatedAt, issue.getUpdatedAt());
+        assertEquals(fileCoverage, issue.getFileCoverage());
+    }
 }
