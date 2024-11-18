@@ -23,11 +23,9 @@ jobs:
           distribution: 'adopt'
           cache: 'gradle'
 
-      - name: Change directory to apirest
-        run: cd apirest
-
       - name: Build with Gradle
-        run: ./gradlew build --no-daemon 
+        run: |
+          cd apirest && ./gradlew build --no-daemon 
 
   check_commits_convention:
     name: Check Conventional Commits Message
