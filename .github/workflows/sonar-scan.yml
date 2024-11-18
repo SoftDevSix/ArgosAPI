@@ -30,9 +30,6 @@ jobs:
       - name: Compile
         run: ./gradlew compileJava --no-daemon
 
-      - name: Test
-        run: ./gradlew test --no-daemon
-
       - name: Generate coverage reports
         run: ./gradlew jacocoTestReport --no-daemon
 
