@@ -2,6 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot") version "3.3.5"
 	id("io.spring.dependency-management") version "1.1.6"
+	id("jacoco")
 }
 
 group = "com.argos"
@@ -39,4 +40,28 @@ dependencies {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+jacoco {
+	toolVersion = "0.8.8"
+}
+
+tasks.jacocoTestReport {
+	dependsOn(tasks.test)
+	reports {
+		xml.required.set(true)
+		csv.required.set(false)
+		html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
+	}
+}
+
+tasks.jacocoTestCoverageVerification {
+	dependsOn(tasks.jacocoTestReport)
+	violationRules {
+		rule {
+			limit {
+				minimum = "0.8".toBigDecimal()
+			}
+		}
+	}
 }
