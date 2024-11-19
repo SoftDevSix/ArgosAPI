@@ -26,8 +26,8 @@ jobs:
           cd apirest && ./gradlew build --no-daemon
 
       - name: Compile
-        run: .|
-          cd apirest && /gradlew compileJava --no-daemon
+        run: |
+          cd apirest && ./gradlew compileJava --no-daemon
 
       - name: Generate coverage reports
         run: |
