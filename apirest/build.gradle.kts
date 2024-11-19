@@ -2,6 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot") version "3.3.5"
 	id("io.spring.dependency-management") version "1.1.6"
+	id("org.sonarqube") version "5.1.0.4882"
 	id("jacoco")
 }
 
@@ -11,6 +12,16 @@ version = "0.0.1-SNAPSHOT"
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+sonarqube {
+	properties {
+		property("sonar.projectKey", "ArgosAPI")
+		property("sonar.projectName", "ArgosAPI")
+		property("sonar.host.url", "http://sonarqube-argos.ukwest.cloudapp.azure.com")
+		property("sonar.login", "sqp_e64464b0470a58dedb1ccd4b406abab7fd9aa471")
+		property("sonar.qualitygate.wait", "true")
 	}
 }
 
