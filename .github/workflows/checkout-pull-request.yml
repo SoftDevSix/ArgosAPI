@@ -24,8 +24,7 @@ jobs:
           cache: 'gradle'
 
       - name: Build with Gradle
-        run: |
-          cd apirest && ./gradlew build --no-daemon 
+        run: ./gradlew build --no-daemon
 
   check_commits_convention:
     name: Check Conventional Commits Message
