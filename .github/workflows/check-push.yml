@@ -24,8 +24,7 @@ jobs:
           cache: 'gradle'
 
       - name: Build with Gradle
-        run: |
-          cd apirest && ./gradlew build --no-daemon
+        run: ./gradlew build --no-daemon
 
   semantic_pull_request:
     name: Check Conventional PR Title
