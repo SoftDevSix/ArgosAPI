@@ -24,14 +24,14 @@ public class PullRequestCoverageDTO {
     private int totalAnalyzedFiles;
 
     /**
-     * The status of the pull request coverage (e.g., passed, failed).
+     * The overall status of the pull request coverage (e.g., Passed, Failed).
      */
-    private boolean status;
+    private String overallStatus;
 
     /**
      * The overall coverage percentage of the pull request.
      */
-    private float coveragePercentage;
+    private float overallCoveragePercentage;
 
     /**
      * The required coverage percentage to pass the pull request's coverage check.
@@ -39,14 +39,14 @@ public class PullRequestCoverageDTO {
     private float requiredCoveragePercentage;
 
     /**
-     * The code rating of the pull request (e.g., good, average, bad).
+     * The code rating of the pull request (e.g., A, B, C, D).
      */
     private String codeRating;
 
     /**
      * The required code rating that the pull request must meet.
      */
-    private String requiredCodeRating;
+    private String requiredRating;
 
     /**
      * The date and time when the analysis of the pull request coverage was conducted.
@@ -58,21 +58,22 @@ public class PullRequestCoverageDTO {
      *
      * @param pullRequestId The unique identifier of the pull request.
      * @param totalAnalyzedFiles The total number of files analyzed.
-     * @param status The status of the pull request coverage.
-     * @param coveragePercentage The overall coverage percentage.
+     * @param overallStatus The overall status of the pull request coverage.
+     * @param overallCoveragePercentage The overall coverage percentage.
      * @param requiredCoveragePercentage The required coverage percentage.
      * @param codeRating The code rating of the pull request.
-     * @param requiredCodeRating The required code rating.
+     * @param requiredRating The required code rating.
      * @param analysisDate The date and time when the analysis was performed.
      */
-    public PullRequestCoverageDTO(String pullRequestId, int totalAnalyzedFiles, boolean status, float coveragePercentage, float requiredCoveragePercentage, String codeRating, String requiredCodeRating, LocalDateTime analysisDate) {
+    public PullRequestCoverageDTO(String pullRequestId, int totalAnalyzedFiles, String overallStatus, float overallCoveragePercentage,
+                                  float requiredCoveragePercentage, String codeRating, String requiredRating, LocalDateTime analysisDate) {
         this.pullRequestId = pullRequestId;
         this.totalAnalyzedFiles = totalAnalyzedFiles;
-        this.status = status;
-        this.coveragePercentage = coveragePercentage;
+        this.overallStatus = overallStatus;
+        this.overallCoveragePercentage = overallCoveragePercentage;
         this.requiredCoveragePercentage = requiredCoveragePercentage;
         this.codeRating = codeRating;
-        this.requiredCodeRating = requiredCodeRating;
+        this.requiredRating = requiredRating;
         this.analysisDate = analysisDate;
     }
 }

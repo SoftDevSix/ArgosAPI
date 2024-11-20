@@ -4,6 +4,7 @@ import com.argos.apirest.types.CoverageStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.util.UUID;
 
 /**
@@ -30,11 +31,6 @@ public class FileCoverage {
     private CoverageStatus status;
 
     /**
-     * The number of lines in the file that were analyzed for coverage.
-     */
-    private int linesAnalyzed;
-
-    /**
      * The total number of lines in the file.
      */
     private int totalLines;
@@ -43,6 +39,26 @@ public class FileCoverage {
      * The percentage of the file that is covered by tests.
      */
     private float coveragePercentage;
+
+    /**
+     * The general coverage percentage of the file.
+     */
+    private float coverageGeneral;
+
+    /**
+     * The line coverage percentage of the file.
+     */
+    private float lineCoverage;
+
+    /**
+     * The method coverage percentage of the file.
+     */
+    private float methodCoverage;
+
+    /**
+     * The class coverage percentage of the file.
+     */
+    private float classCoverage;
 
     /**
      * The file associated with this coverage record.
@@ -59,15 +75,23 @@ public class FileCoverage {
      * @param status The coverage status (e.g., PASSED or FAILED).
      * @param linesAnalyzed The number of analyzed lines.
      * @param totalLines The total number of lines in the file.
-     * @param coveragePercentage The coverage percentage of the file.
+     * @param coveragePercentage The overall coverage percentage of the file.
+     * @param coverageGeneral The general coverage percentage of the file.
+     * @param lineCoverage The line coverage percentage of the file.
+     * @param methodCoverage The method coverage percentage of the file.
+     * @param classCoverage The class coverage percentage of the file.
      * @param fileId The file associated with this coverage.
      */
-    public FileCoverage(UUID fileCoverageId, CoverageStatus status, int linesAnalyzed, int totalLines, float coveragePercentage, File fileId) {
+    public FileCoverage(UUID fileCoverageId, CoverageStatus status, int totalLines, float coveragePercentage,
+                        float coverageGeneral, float lineCoverage, float methodCoverage, float classCoverage, File fileId) {
         this.fileCoverageId = fileCoverageId;
         this.status = status;
-        this.linesAnalyzed = linesAnalyzed;
         this.totalLines = totalLines;
         this.coveragePercentage = coveragePercentage;
+        this.coverageGeneral = coverageGeneral;
+        this.lineCoverage = lineCoverage;
+        this.methodCoverage = methodCoverage;
+        this.classCoverage = classCoverage;
         this.fileId = fileId;
     }
 
