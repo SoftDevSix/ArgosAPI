@@ -1,0 +1,29 @@
+{
+  "projectName": "argos",
+  "classList": [
+    {
+      "className": "App.java",
+      "pathClass": "src/org/example/App",
+      "methods": [
+        {
+          "name": "<init>()V",
+          "desc": "Constructor method",
+          "allStatements": [0, 1, 2, 4, 5],
+          "coveragedStatements": [4, 5]
+        },
+        {
+          "name": "getGreeting()Ljava/lang/String;",
+          "desc": "Returns greeting message",
+          "allStatements": [8],
+          "coveragedStatements": [8]
+        },
+        {
+          "name": "main([Ljava/lang/String;)V",
+          "desc": "Main entry point",
+          "allStatements": [12, 13],
+          "coveragedStatements": []
+        }
+      ]
+    }
+  ]
+}
