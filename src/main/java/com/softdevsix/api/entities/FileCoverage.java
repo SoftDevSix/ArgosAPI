@@ -2,7 +2,9 @@ package com.softdevsix.api.entities;
 
 import com.softdevsix.api.types.CoverageStatus;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
@@ -14,20 +16,19 @@ import java.util.UUID;
  */
 @Setter
 @Getter
-@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class FileCoverage {
 
     /**
      * The unique identifier for the file coverage record.
      */
-    @Id
     @GeneratedValue
     private UUID fileCoverageId;
 
     /**
      * The coverage status for the file (e.g., PASSED or FAILED).
      */
-    @Enumerated(EnumType.STRING)
     private CoverageStatus status;
 
     /**
@@ -64,14 +65,5 @@ public class FileCoverage {
      * The file associated with this coverage record.
      * This creates a relationship between the coverage record and the file.
      */
-    @ManyToOne
-    @JoinColumn(name = "file_id", nullable = false)
     private File fileId;
-
-    /**
-     * Default constructor for the FileCoverage entity.
-     */
-    public FileCoverage() {
-        // Intentionally left empty for JPA use.
-    }
 }

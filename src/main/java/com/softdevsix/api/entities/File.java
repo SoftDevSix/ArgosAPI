@@ -1,7 +1,9 @@
 package com.softdevsix.api.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -13,13 +15,13 @@ import java.util.UUID;
  */
 @Getter
 @Setter
-@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class File {
 
     /**
      * The unique identifier for the file.
      */
-    @Id
     @GeneratedValue
     private UUID fileId;
 
@@ -42,53 +44,15 @@ public class File {
      * The timestamp indicating when the file was created.
      * This field is not updatable once the file is created.
      */
-    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     /**
      * The timestamp indicating when the file was last updated.
      */
-    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     /**
      * The project to which the file belongs.
      */
-    @ManyToOne
-    @JoinColumn(name = "project_id", nullable = false)
     private Project project;
-
-    /**
-     * Constructor to initialize a File entity with all required properties.
-     *
-     * @param fileId The unique identifier for the file.
-     * @param path The path to the file within the project.
-     * @param content The content of the file.
-     * @param language The programming language of the file.
-     * @param createdAt The timestamp when the file was created.
-     * @param updatedAt The timestamp when the file was last updated.
-     * @param project The project to which the file belongs.
-     */
-    public File(UUID fileId, String path, String content, String language, LocalDateTime createdAt, LocalDateTime updatedAt, Project project) {
-        this.fileId = fileId;
-        this.path = path;
-        this.content = content;
-        this.language = language;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.project = project;
-    }
-
-    /**
-     * Default constructor for the File entity.
-     * <p>
-     * This constructor is required by JPA for entity instantiation.
-     * It is intentionally left empty and should not be used directly
-     * in business logic.
-     * </p>
-     */
-    public File() {
-        // Intentionally left empty for JPA use.
-    }
-
 }

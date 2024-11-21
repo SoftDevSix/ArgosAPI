@@ -2,7 +2,9 @@ package com.softdevsix.api.entities;
 
 import com.softdevsix.api.types.CoverageStatus;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -14,13 +16,13 @@ import java.util.UUID;
  */
 @Getter
 @Setter
-@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Coverage {
 
     /**
      * The unique identifier for the coverage record.
      */
-    @Id
     @GeneratedValue
     private UUID coverageId;
 
@@ -52,30 +54,15 @@ public class Coverage {
     /**
      * The overall status of the coverage check (e.g., PASSED, FAILED).
      */
-    @Enumerated(EnumType.STRING)
     private CoverageStatus overallStatus;
 
     /**
      * The date and time when the coverage analysis was performed.
      */
-    @Column(name = "analysis_date", nullable = false)
     private LocalDateTime analysisDate;
 
     /**
      * The associated pull request for which the coverage is being tracked.
      */
-    @ManyToOne
-    @JoinColumn(name = "pull_request_id", nullable = false)
     private PullRequest pullRequest;
-
-    /**
-     * Default constructor for Coverage entity.
-     * <p>
-     * This constructor is required by JPA for entity instantiation.
-     * Do not remove or modify this constructor.
-     * </p>
-     */
-    public Coverage() {
-        // Intentionally left empty for JPA use.
-    }
 }

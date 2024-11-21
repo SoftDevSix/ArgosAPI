@@ -1,7 +1,9 @@
 package com.softdevsix.api.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,13 +16,13 @@ import java.util.UUID;
  */
 @Getter
 @Setter
-@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Project {
 
     /**
      * The unique identifier for the project.
      */
-    @Id
     @GeneratedValue
     private UUID projectId;
 
@@ -37,45 +39,16 @@ public class Project {
     /**
      * The timestamp when the project was created.
      */
-    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     /**
      * The timestamp when the project was last updated.
      */
-    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     /**
      * The list of pull requests associated with the project.
      * This establishes a one-to-many relationship between Project and PullRequest entities.
      */
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PullRequest> pullRequests;
-
-    /**
-     * Constructor to initialize a Project entity with all required properties.
-     *
-     * @param projectId The unique identifier for the project.
-     * @param name The name of the project.
-     * @param repositoryUrl The URL of the project's repository.
-     * @param createdAt The timestamp when the project was created.
-     * @param updatedAt The timestamp when the project was last updated.
-     * @param pullRequests The list of pull requests associated with the project.
-     */
-    public Project(UUID projectId, String name, String repositoryUrl, LocalDateTime createdAt, LocalDateTime updatedAt, List<PullRequest> pullRequests) {
-        this.projectId = projectId;
-        this.name = name;
-        this.repositoryUrl = repositoryUrl;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.pullRequests = pullRequests;
-    }
-
-    /**
-     * Default constructor for the Project entity.
-     */
-    public Project() {
-        // Intentionally left empty for JPA use.
-    }
 }

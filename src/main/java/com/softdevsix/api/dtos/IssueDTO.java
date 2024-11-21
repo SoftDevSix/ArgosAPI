@@ -2,7 +2,9 @@ package com.softdevsix.api.dtos;
 
 import com.softdevsix.api.types.IssueType;
 import com.softdevsix.api.types.SeverityType;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -12,6 +14,8 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class IssueDTO {
 
     /**
@@ -38,21 +42,4 @@ public class IssueDTO {
      * The severity of the issue (e.g., low, medium, high).
      */
     private SeverityType severityType;
-
-    /**
-     * Constructor for IssueDTO.
-     *
-     * @param lineNumber The line number where the issue was found.
-     * @param indexNumber The index number of the issue.
-     * @param message A descriptive message explaining the issue.
-     * @param issueType The type of issue (e.g., TEST_ISSUE, QUALITY_ISSUE).
-     * @param severityType The severity of the issue (e.g., LOW, MEDIUM, HIGH).
-     */
-    public IssueDTO(int lineNumber, int indexNumber, String message, IssueType issueType, SeverityType severityType) {
-        this.lineNumber = lineNumber;
-        this.indexNumber = indexNumber;
-        this.message = message;
-        this.issueType = issueType;
-        this.severityType = severityType;
-    }
 }
