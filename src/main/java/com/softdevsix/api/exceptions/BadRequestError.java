@@ -1,4 +1,4 @@
-package com.argos.apirest.exceptions;
+package com.softdevsix.api.exceptions;
 
 /**
  * Custom exception to represent a 400 Bad Request error.
@@ -8,19 +8,19 @@ package com.argos.apirest.exceptions;
  * and an HTTP status code of 400 (Bad Request).
  * </p>
  */
-public class BadRequestException implements IApiException {
+public class BadRequestError implements IApiException {
     private final String message;
     private final int statusCode;
 
     /**
-     * Constructs a new BadRequestException with the specified detail message.
+     * Constructs a new BadRequestError with the specified detail message.
      * <p>
      * The message typically provides more details about the cause of the bad request.
      * </p>
      *
      * @param message the detail message for this exception
      */
-    public BadRequestException(String message) {
+    public BadRequestError(String message) {
         this.message = message;
         this.statusCode = 400;
     }

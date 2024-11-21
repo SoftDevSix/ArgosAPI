@@ -1,4 +1,4 @@
-package com.argos.apirest.entities;
+package com.softdevsix.api.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -81,6 +81,14 @@ public class File {
 
     /**
      * Default constructor for the File entity.
+     * <p>
+     * This constructor is required by JPA for entity instantiation.
+     * It is intentionally left empty and should not be used directly
+     * in business logic.
+     * </p>
      */
-    public File() {}
+    public File() {
+        // Intentionally left empty for JPA use.
+    }
+
 }

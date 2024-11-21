@@ -1,4 +1,4 @@
-package com.argos.apirest.dtos;
+package com.softdevsix.api.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -52,28 +52,4 @@ public class PullRequestCoverageDTO {
      * The date and time when the analysis of the pull request coverage was conducted.
      */
     private LocalDateTime analysisDate;
-
-    /**
-     * Constructor for PullRequestCoverageDTO.
-     *
-     * @param pullRequestId The unique identifier of the pull request.
-     * @param totalAnalyzedFiles The total number of files analyzed.
-     * @param overallStatus The overall status of the pull request coverage.
-     * @param overallCoveragePercentage The overall coverage percentage.
-     * @param requiredCoveragePercentage The required coverage percentage.
-     * @param codeRating The code rating of the pull request.
-     * @param requiredRating The required code rating.
-     * @param analysisDate The date and time when the analysis was performed.
-     */
-    public PullRequestCoverageDTO(String pullRequestId, int totalAnalyzedFiles, String overallStatus, float overallCoveragePercentage,
-                                  float requiredCoveragePercentage, String codeRating, String requiredRating, LocalDateTime analysisDate) {
-        this.pullRequestId = pullRequestId;
-        this.totalAnalyzedFiles = totalAnalyzedFiles;
-        this.overallStatus = overallStatus;
-        this.overallCoveragePercentage = overallCoveragePercentage;
-        this.requiredCoveragePercentage = requiredCoveragePercentage;
-        this.codeRating = codeRating;
-        this.requiredRating = requiredRating;
-        this.analysisDate = analysisDate;
-    }
 }

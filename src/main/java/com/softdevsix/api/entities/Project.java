@@ -1,4 +1,4 @@
-package com.argos.apirest.entities;
+package com.softdevsix.api.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -75,5 +75,7 @@ public class Project {
     /**
      * Default constructor for the Project entity.
      */
-    public Project() {}
+    public Project() {
+        // Intentionally left empty for JPA use.
+    }
 }

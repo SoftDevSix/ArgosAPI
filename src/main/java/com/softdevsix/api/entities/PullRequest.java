@@ -1,4 +1,4 @@
-package com.argos.apirest.entities;
+package com.softdevsix.api.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -75,5 +75,7 @@ public class PullRequest {
     /**
      * Default constructor for the PullRequest entity.
      */
-    public PullRequest() {}
+    public PullRequest() {
+        // Intentionally left empty for JPA use.
+    }
 }

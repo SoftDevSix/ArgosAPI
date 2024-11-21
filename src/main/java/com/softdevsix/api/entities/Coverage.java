@@ -1,6 +1,6 @@
-package com.argos.apirest.entities;
+package com.softdevsix.api.entities;
 
-import com.argos.apirest.types.CoverageStatus;
+import com.softdevsix.api.types.CoverageStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -69,33 +69,13 @@ public class Coverage {
     private PullRequest pullRequest;
 
     /**
-     * Constructor for creating a Coverage entity with all required properties.
-     *
-     * @param coverageId The unique identifier for the coverage record.
-     * @param totalAnalyzedFiles The total number of files analyzed.
-     * @param overallCoveragePercentage The overall coverage percentage.
-     * @param requiredCoveragePercentage The required coverage percentage.
-     * @param codeRating The code rating of the pull request.
-     * @param requiredRating The required code rating.
-     * @param overallStatus The overall status of the coverage check.
-     * @param analysisDate The date and time when the coverage analysis was performed.
-     * @param pullRequest The associated pull request for which the coverage is tracked.
-     */
-    public Coverage(UUID coverageId, int totalAnalyzedFiles, float overallCoveragePercentage, float requiredCoveragePercentage,
-                    String codeRating, String requiredRating, CoverageStatus overallStatus, LocalDateTime analysisDate, PullRequest pullRequest) {
-        this.coverageId = coverageId;
-        this.totalAnalyzedFiles = totalAnalyzedFiles;
-        this.overallCoveragePercentage = overallCoveragePercentage;
-        this.requiredCoveragePercentage = requiredCoveragePercentage;
-        this.codeRating = codeRating;
-        this.requiredRating = requiredRating;
-        this.overallStatus = overallStatus;
-        this.analysisDate = analysisDate;
-        this.pullRequest = pullRequest;
-    }
-
-    /**
      * Default constructor for Coverage entity.
+     * <p>
+     * This constructor is required by JPA for entity instantiation.
+     * Do not remove or modify this constructor.
+     * </p>
      */
-    public Coverage() {}
+    public Coverage() {
+        // Intentionally left empty for JPA use.
+    }
 }

@@ -1,7 +1,7 @@
-package com.argos.apirest.entities;
+package com.softdevsix.api.entities;
 
-import com.argos.apirest.types.IssueType;
-import com.argos.apirest.types.SeverityType;
+import com.softdevsix.api.types.IssueType;
+import com.softdevsix.api.types.SeverityType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -73,32 +73,9 @@ public class Issue {
     private LocalDateTime updatedAt;
 
     /**
-     * Constructor to initialize an Issue entity with all required properties.
-     *
-     * @param issueId The unique identifier for the issue.
-     * @param lineNumber The line number where the issue was found.
-     * @param index The index of the issue.
-     * @param message The message describing the issue.
-     * @param issueType The type of issue (e.g., TEST_ISSUE or QUALITY_ISSUE).
-     * @param severityType The severity of the issue (e.g., LOW, MEDIUM, HIGH, CRITICAL).
-     * @param fileCoverage The file coverage associated with this issue.
-     * @param createdAt The creation timestamp of the issue.
-     * @param updatedAt The last updated timestamp of the issue.
-     */
-    public Issue(UUID issueId, int lineNumber, int index, String message, IssueType issueType, SeverityType severityType, FileCoverage fileCoverage, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.issueId = issueId;
-        this.lineNumber = lineNumber;
-        this.index = index;
-        this.message = message;
-        this.issueType = issueType;
-        this.severityType = severityType;
-        this.fileCoverage = fileCoverage;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
-
-    /**
      * Default constructor for the Issue entity.
      */
-    public Issue() {}
+    public Issue() {
+        // Intentionally left empty for JPA use.
+    }
 }

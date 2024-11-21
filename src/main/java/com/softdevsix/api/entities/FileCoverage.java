@@ -1,6 +1,6 @@
-package com.argos.apirest.entities;
+package com.softdevsix.api.entities;
 
-import com.argos.apirest.types.CoverageStatus;
+import com.softdevsix.api.types.CoverageStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -69,34 +69,9 @@ public class FileCoverage {
     private File fileId;
 
     /**
-     * Constructor to initialize a FileCoverage entity with all required properties.
-     *
-     * @param fileCoverageId The unique identifier for the file coverage record.
-     * @param status The coverage status (e.g., PASSED or FAILED).
-     * @param linesAnalyzed The number of analyzed lines.
-     * @param totalLines The total number of lines in the file.
-     * @param coveragePercentage The overall coverage percentage of the file.
-     * @param coverageGeneral The general coverage percentage of the file.
-     * @param lineCoverage The line coverage percentage of the file.
-     * @param methodCoverage The method coverage percentage of the file.
-     * @param classCoverage The class coverage percentage of the file.
-     * @param fileId The file associated with this coverage.
-     */
-    public FileCoverage(UUID fileCoverageId, CoverageStatus status, int totalLines, float coveragePercentage,
-                        float coverageGeneral, float lineCoverage, float methodCoverage, float classCoverage, File fileId) {
-        this.fileCoverageId = fileCoverageId;
-        this.status = status;
-        this.totalLines = totalLines;
-        this.coveragePercentage = coveragePercentage;
-        this.coverageGeneral = coverageGeneral;
-        this.lineCoverage = lineCoverage;
-        this.methodCoverage = methodCoverage;
-        this.classCoverage = classCoverage;
-        this.fileId = fileId;
-    }
-
-    /**
      * Default constructor for the FileCoverage entity.
      */
-    public FileCoverage() {}
+    public FileCoverage() {
+        // Intentionally left empty for JPA use.
+    }
 }

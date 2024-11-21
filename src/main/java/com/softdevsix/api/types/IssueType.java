@@ -1,4 +1,4 @@
-package com.argos.apirest.types;
+package com.softdevsix.api.types;
 
 public enum IssueType {
     SYNTAX_ERROR,

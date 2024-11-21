@@ -1,7 +1,7 @@
-package com.argos.apirest.dtos;
+package com.softdevsix.api.dtos;
 
-import com.argos.apirest.types.IssueType;
-import com.argos.apirest.types.SeverityType;
+import com.softdevsix.api.types.IssueType;
+import com.softdevsix.api.types.SeverityType;
 import lombok.Getter;
 import lombok.Setter;
 

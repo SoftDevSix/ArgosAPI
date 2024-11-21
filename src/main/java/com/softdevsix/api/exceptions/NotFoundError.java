@@ -1,4 +1,4 @@
-package com.argos.apirest.exceptions;
+package com.softdevsix.api.exceptions;
 
 /**
  * Custom exception to represent a 404 Not Found error.
@@ -7,12 +7,12 @@ package com.argos.apirest.exceptions;
  * The exception includes a message and an HTTP status code of 404 (Not Found).
  * </p>
  */
-public class NotFoundException implements IApiException {
+public class NotFoundError implements IApiException {
     private final String message;
     private final int statusCode;
 
     /**
-     * Constructs a new NotFoundException with the specified detail message.
+     * Constructs a new NotFoundError with the specified detail message.
      * <p>
      * The message typically describes the resource that was not found or provides
      * additional context about the error.
@@ -20,7 +20,7 @@ public class NotFoundException implements IApiException {
      *
      * @param message the detail message for this exception
      */
-    public NotFoundException(String message) {
+    public NotFoundError(String message) {
         this.message = message;
         this.statusCode = 404;
     }

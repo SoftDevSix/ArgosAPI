@@ -1,4 +1,4 @@
-package com.argos.apirest;
+package com.softdevsix.api;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

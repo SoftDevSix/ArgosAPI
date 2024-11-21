@@ -1,4 +1,4 @@
-package com.argos.apirest.exceptions;
+package com.softdevsix.api.exceptions;
 
 /**
  * Interface for custom API exception types.
