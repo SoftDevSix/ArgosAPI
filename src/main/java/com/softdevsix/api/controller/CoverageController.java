@@ -3,11 +3,9 @@ package com.softdevsix.api.controller;
 import com.softdevsix.api.dtos.FileCoverageDTO;
 import com.softdevsix.api.service.CoverageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * REST Controller to manage operations related to file coverage.
@@ -37,5 +35,10 @@ public class CoverageController {
     public ResponseEntity<FileCoverageDTO> getCoverageFile(@RequestParam String fileId) {
         FileCoverageDTO fileCoverage = coverageService.getFileCoverage(fileId);
         return ResponseEntity.ok(fileCoverage);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
     }
 }

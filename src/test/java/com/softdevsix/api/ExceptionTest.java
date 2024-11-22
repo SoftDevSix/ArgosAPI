@@ -1,16 +1,12 @@
 package com.softdevsix.api;
 
-import com.softdevsix.api.dtos.FileCoverageDTO;
 import com.softdevsix.api.exception.FileCoverageException;
 import com.softdevsix.api.exception.JsonDataLoadException;
-import com.softdevsix.api.service.CoverageService;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ExceptionTest {
+class ExceptionTest {
 
     @Test
     void testFileCoverageExceptionWithMessage() {
@@ -41,10 +37,9 @@ public class ExceptionTest {
         IOException cause = new IOException("I/O error");
 
         JsonDataLoadException exception = new JsonDataLoadException("Invalid JSON data", cause);
-        
+
         assertEquals("Invalid JSON data", exception.getMessage());
         assertEquals(cause, exception.getCause());
     }
-
 
 }
