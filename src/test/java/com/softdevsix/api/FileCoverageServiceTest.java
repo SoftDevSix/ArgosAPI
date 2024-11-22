@@ -1,19 +1,26 @@
 package com.softdevsix.api;
 
-import com.softdevsix.api.DTO.FileCoverageDTO;
-import com.softdevsix.api.Entity.ClassData;
-import com.softdevsix.api.Entity.MethodData;
-import com.softdevsix.api.Repository.CoverageRepository;
-import com.softdevsix.api.Service.FileCoverageService;
+import com.softdevsix.api.dtos.FileCoverageDTO;
+import com.softdevsix.api.entity.ClassData;
+import com.softdevsix.api.entity.MethodData;
+import com.softdevsix.api.exception.FileCoverageException;
+import com.softdevsix.api.exception.JsonDataLoadException;
+import com.softdevsix.api.repository.CoverageRepository;
+import com.softdevsix.api.service.FileCoverageService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 
 
@@ -27,7 +34,7 @@ class FileCoverageServiceTest {
     private FileCoverageService fileCoverageService;
 
     @Test
-    public void testGetFileCoverage() {
+    void testGetFileCoverage() {
         List<MethodData> methods = new ArrayList<>();
 
         MethodData method1 = new MethodData();
@@ -59,11 +66,8 @@ class FileCoverageServiceTest {
         assertEquals(7, result.getLinesCode());
     }
 
-    /**
-     * Test case when JSON is empty.
-     */
     @Test
-    public void testEmptyJson() {
+    void testEmptyJson() {
         Mockito.when(coverageRepository.getClassData()).thenReturn(List.of());
 
         RuntimeException exception = org.junit.jupiter.api.Assertions.assertThrows(RuntimeException.class, () -> {
@@ -72,4 +76,34 @@ class FileCoverageServiceTest {
 
         assertEquals("Error loading JSON data", exception.getMessage());
     }
+
+    @Test
+    void testInvalidJsonThrowsCustomException() {
+        Mockito.doThrow(new JsonDataLoadException("Error loading JSON data from file", new IOException("Invalid JSON")))
+                .when(coverageRepository).getClassData();
+
+        JsonDataLoadException exception = Assertions.assertThrows(
+                JsonDataLoadException.class,
+                () -> coverageRepository.getClassData()
+        );
+
+        assertEquals("Error loading JSON data from file", exception.getMessage());
+
+        Throwable cause = exception.getCause();
+        assertTrue(cause instanceof IOException);
+        assertEquals("Invalid JSON", cause.getMessage());
+    }
+
+    @Test
+    void testEmptyClassDataThrowsException() {
+        Mockito.when(coverageRepository.getClassData()).thenReturn(List.of());
+
+        FileCoverageException exception = Assertions.assertThrows(
+                FileCoverageException.class,
+                () -> fileCoverageService.getFileCoverage("123")
+        );
+
+        assertEquals("Error loading JSON data", exception.getMessage());
+    }
+
 }

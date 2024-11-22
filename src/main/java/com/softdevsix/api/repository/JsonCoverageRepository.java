@@ -1,9 +1,10 @@
-package com.softdevsix.api.Repository;
+package com.softdevsix.api.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.softdevsix.api.Entity.ClassData;
+import com.softdevsix.api.entity.ClassData;
+import com.softdevsix.api.exception.JsonDataLoadException;
 import org.springframework.stereotype.Repository;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,7 +36,7 @@ public class JsonCoverageRepository implements CoverageRepository {
             JsonNode rootNode = objectMapper.readTree(inputStream).get("classList");
             return objectMapper.readValue(rootNode.toString(), new TypeReference<List<ClassData>>() {});
         } catch (IOException e) {
-            throw new RuntimeException("Error loading JSON data", e);
+            throw new JsonDataLoadException("Error loading JSON data", e);
         }
     }
 }

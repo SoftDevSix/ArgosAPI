@@ -1,4 +1,4 @@
-package com.softdevsix.api.Entity;
+package com.softdevsix.api.entity;
 
 import lombok.Data;
 import java.util.List;

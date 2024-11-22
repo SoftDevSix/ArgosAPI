@@ -1,4 +1,4 @@
-package com.softdevsix.api.DTO;
+package com.softdevsix.api.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,9 +1,10 @@
-package com.softdevsix.api.Service;
+package com.softdevsix.api.service;
 
-import com.softdevsix.api.DTO.FileCoverageDTO;
-import com.softdevsix.api.Entity.ClassData;
-import com.softdevsix.api.Entity.MethodData;
-import com.softdevsix.api.Repository.CoverageRepository;
+import com.softdevsix.api.dtos.FileCoverageDTO;
+import com.softdevsix.api.entity.ClassData;
+import com.softdevsix.api.entity.MethodData;
+import com.softdevsix.api.exception.FileCoverageException;
+import com.softdevsix.api.repository.CoverageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -36,7 +37,7 @@ public class FileCoverageService implements CoverageService {
         List<ClassData> classDataList = coverageRepository.getClassData();
 
         if (classDataList == null || classDataList.isEmpty()) {
-            throw new RuntimeException("Error loading JSON data");
+            throw new FileCoverageException("Error loading JSON data");
         }
 
         ClassData classData = classDataList.get(0);

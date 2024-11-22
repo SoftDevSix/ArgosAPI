@@ -1,6 +1,6 @@
-package com.softdevsix.api.Service;
+package com.softdevsix.api.service;
 
-import com.softdevsix.api.DTO.FileCoverageDTO;
+import com.softdevsix.api.dtos.FileCoverageDTO;
 
 /**
  * Interface for coverage service operations.
