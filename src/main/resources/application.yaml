@@ -1,7 +1,15 @@
-spring.datasource.url=jdbc:postgresql://localhost:5432/apirestDB
-spring.datasource.username=postgres
-spring.datasource.password=admin
+spring:
+  flyway:
+    enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: none
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
-spring.flyway.enabled=false
-logging.level.org.springframework=DEBUG
-spring.jpa.hibernate.ddl-auto=none
+server:
+  port: 8081
+
+logging:
+  level:
+    org.springframework: DEBUG
