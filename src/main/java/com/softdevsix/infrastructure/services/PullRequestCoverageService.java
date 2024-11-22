@@ -1,7 +1,6 @@
 package com.softdevsix.infrastructure.services;
 
 import com.softdevsix.application.dtos.PullRequestCoverageDTO;
-import com.softdevsix.application.repositories.IPullRequestCoverageRepository;
 import com.softdevsix.application.services.IPullRequestCoverageService;
 import org.springframework.stereotype.Service;
 
