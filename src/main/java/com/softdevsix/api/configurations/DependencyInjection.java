@@ -16,7 +16,7 @@ public class DependencyInjection {
     }
 
     @Bean
-    public IPullRequestCoverageService pullRequestCoverageService(IPullRequestCoverageRepository pullRequestCoverageRepository) {
-        return new PullRequestCoverageService(pullRequestCoverageRepository);
+    public IPullRequestCoverageService pullRequestCoverageService() {
+        return new PullRequestCoverageService();
     }
 }

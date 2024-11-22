@@ -10,13 +10,6 @@ import java.util.UUID;
 
 @Service
 public class PullRequestCoverageService implements IPullRequestCoverageService {
-
-    private final IPullRequestCoverageRepository pullRequestCoverageRepository;
-
-    public PullRequestCoverageService(IPullRequestCoverageRepository pullRequestCoverageRepository) {
-        this.pullRequestCoverageRepository = pullRequestCoverageRepository;
-    }
-
     @Override
     public PullRequestCoverageDTO getByPullRequestId(UUID pullRequestId) {
         return new PullRequestCoverageDTO(pullRequestId, 10, true, 80, 80, "A", "A", new Date());
