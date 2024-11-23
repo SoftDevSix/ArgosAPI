@@ -1,6 +1,6 @@
-package com.softdevsix.api.repository;
+package com.softdevsix.api.repositories;
 
-import com.softdevsix.api.entity.ClassData;
+import com.softdevsix.api.entities.ClassData;
 import java.util.List;
 
 /**

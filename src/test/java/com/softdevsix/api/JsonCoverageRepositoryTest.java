@@ -1,8 +1,8 @@
 package com.softdevsix.api;
 
-import com.softdevsix.api.entity.ClassData;
+import com.softdevsix.api.entities.ClassData;
 import com.softdevsix.api.exception.JsonDataLoadException;
-import com.softdevsix.api.repository.JsonCoverageRepository;
+import com.softdevsix.api.repositories.JsonCoverageRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.util.List;

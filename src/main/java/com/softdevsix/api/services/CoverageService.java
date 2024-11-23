@@ -1,4 +1,4 @@
-package com.softdevsix.api.service;
+package com.softdevsix.api.services;
 
 import com.softdevsix.api.dtos.FileCoverageDTO;
 

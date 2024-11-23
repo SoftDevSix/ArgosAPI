@@ -1,12 +1,12 @@
 package com.softdevsix.api;
 
 import com.softdevsix.api.dtos.FileCoverageDTO;
-import com.softdevsix.api.entity.ClassData;
-import com.softdevsix.api.entity.MethodData;
+import com.softdevsix.api.entities.ClassData;
+import com.softdevsix.api.entities.MethodData;
 import com.softdevsix.api.exception.FileCoverageException;
 import com.softdevsix.api.exception.JsonDataLoadException;
-import com.softdevsix.api.repository.CoverageRepository;
-import com.softdevsix.api.service.FileCoverageService;
+import com.softdevsix.api.repositories.CoverageRepository;
+import com.softdevsix.api.services.FileCoverageService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

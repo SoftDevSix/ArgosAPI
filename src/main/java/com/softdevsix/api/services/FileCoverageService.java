@@ -1,10 +1,10 @@
-package com.softdevsix.api.service;
+package com.softdevsix.api.services;
 
 import com.softdevsix.api.dtos.FileCoverageDTO;
-import com.softdevsix.api.entity.ClassData;
-import com.softdevsix.api.entity.MethodData;
+import com.softdevsix.api.entities.ClassData;
+import com.softdevsix.api.entities.MethodData;
 import com.softdevsix.api.exception.FileCoverageException;
-import com.softdevsix.api.repository.CoverageRepository;
+import com.softdevsix.api.repositories.CoverageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

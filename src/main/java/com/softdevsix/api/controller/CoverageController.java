@@ -1,7 +1,7 @@
 package com.softdevsix.api.controller;
 
 import com.softdevsix.api.dtos.FileCoverageDTO;
-import com.softdevsix.api.service.CoverageService;
+import com.softdevsix.api.services.CoverageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

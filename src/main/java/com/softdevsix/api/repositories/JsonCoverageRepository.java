@@ -1,9 +1,9 @@
-package com.softdevsix.api.repository;
+package com.softdevsix.api.repositories;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.softdevsix.api.entity.ClassData;
+import com.softdevsix.api.entities.ClassData;
 import com.softdevsix.api.exception.JsonDataLoadException;
 import org.springframework.stereotype.Repository;
 import java.io.IOException;

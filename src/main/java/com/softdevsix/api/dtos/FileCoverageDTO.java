@@ -34,4 +34,3 @@ public class FileCoverageDTO {
      */
     private String methodCoverage;
 }
-

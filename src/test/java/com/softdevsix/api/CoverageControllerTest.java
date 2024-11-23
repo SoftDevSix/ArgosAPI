@@ -2,7 +2,7 @@ package com.softdevsix.api;
 
 import com.softdevsix.api.controller.CoverageController;
 import com.softdevsix.api.dtos.FileCoverageDTO;
-import com.softdevsix.api.service.CoverageService;
+import com.softdevsix.api.services.CoverageService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
