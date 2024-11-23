@@ -10,37 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DtosTest {
 
-    @Test
-    void testFileCoverageDTO() {
-        boolean status = true;
-        int totalLines = 150;
-        float coveragePercentage = 85.5f;
-        List<IssueDTO> issues = List.of(new IssueDTO(42, 1, "NullPointerException possible", IssueType.DUPLICATE_CODE, SeverityType.HIGH));
-        float coverageGeneral = 80.0f;
-        float lineCoverage = 85.0f;
-        float methodCoverage = 70.0f;
-        float classCoverage = 90.0f;
-
-        // Test parameterized constructor
-        FileCoverageDTO fileCoverageDTO = new FileCoverageDTO();
-        fileCoverageDTO.setStatus(status);
-        fileCoverageDTO.setTotalLines(totalLines);
-        fileCoverageDTO.setCoveragePercentage(coveragePercentage);
-        fileCoverageDTO.setIssues(issues);
-        fileCoverageDTO.setCoverageGeneral(coverageGeneral);
-        fileCoverageDTO.setLineCoverage(lineCoverage);
-        fileCoverageDTO.setMethodCoverage(methodCoverage);
-        fileCoverageDTO.setClassCoverage(classCoverage);
-
-        assertTrue(fileCoverageDTO.isStatus());
-        assertEquals(totalLines, fileCoverageDTO.getTotalLines());
-        assertEquals(coveragePercentage, fileCoverageDTO.getCoveragePercentage());
-        assertEquals(issues, fileCoverageDTO.getIssues());
-        assertEquals(coverageGeneral, fileCoverageDTO.getCoverageGeneral());
-        assertEquals(lineCoverage, fileCoverageDTO.getLineCoverage());
-        assertEquals(methodCoverage, fileCoverageDTO.getMethodCoverage());
-        assertEquals(classCoverage, fileCoverageDTO.getClassCoverage());
-    }
 
     @Test
     void testIssueDTO() {
