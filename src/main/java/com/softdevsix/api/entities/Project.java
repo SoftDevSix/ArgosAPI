@@ -32,23 +32,13 @@ public class Project {
     private String name;
 
     /**
-     * The URL of the repository associated with the project.
+     * The total percentage coverage project.
      */
-    private String repositoryUrl;
+    private int requiredCoveragePercentage;
 
     /**
-     * The timestamp when the project was created.
+     * The required code rating that the pull request must meet.
      */
-    private LocalDateTime createdAt;
+    private String requiredRating;
 
-    /**
-     * The timestamp when the project was last updated.
-     */
-    private LocalDateTime updatedAt;
-
-    /**
-     * The list of pull requests associated with the project.
-     * This establishes a one-to-many relationship between Project and PullRequest entities.
-     */
-    private List<PullRequest> pullRequests;
 }

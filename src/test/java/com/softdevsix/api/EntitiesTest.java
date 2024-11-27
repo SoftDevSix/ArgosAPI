@@ -52,19 +52,26 @@ class EntitiesTest {
     void testProjectEntity() {
         UUID projectId = UUID.randomUUID();
         String name = "Test Project";
-        String repositoryUrl = "https://github.com/example/project";
-        LocalDateTime createdAt = LocalDateTime.now();
-        LocalDateTime updatedAt = LocalDateTime.now();
-        List<PullRequest> pullRequests = List.of(new PullRequest());
+        int requiredCoveragePercentage = 85;
+        String requiredRating = "B";
 
-        Project project = new Project(projectId, name, repositoryUrl, createdAt, updatedAt, pullRequests);
+        Project project = new Project(projectId, name, requiredCoveragePercentage, requiredRating);
 
         assertEquals(projectId, project.getProjectId());
         assertEquals(name, project.getName());
-        assertEquals(repositoryUrl, project.getRepositoryUrl());
-        assertEquals(createdAt, project.getCreatedAt());
-        assertEquals(updatedAt, project.getUpdatedAt());
-        assertEquals(pullRequests, project.getPullRequests());
+        assertEquals(requiredCoveragePercentage, project.getRequiredCoveragePercentage());
+        assertEquals(requiredRating, project.getRequiredRating());
+
+        Project defaultProject = new Project();
+        defaultProject.setProjectId(projectId);
+        defaultProject.setName(name);
+        defaultProject.setRequiredCoveragePercentage(requiredCoveragePercentage);
+        defaultProject.setRequiredRating(requiredRating);
+
+        assertEquals(projectId, defaultProject.getProjectId());
+        assertEquals(name, defaultProject.getName());
+        assertEquals(requiredCoveragePercentage, defaultProject.getRequiredCoveragePercentage());
+        assertEquals(requiredRating, defaultProject.getRequiredRating());
     }
 
     @Test
@@ -89,35 +96,36 @@ class EntitiesTest {
     @Test
     void testCoverageEntity() {
         UUID coverageId = UUID.randomUUID();
-        int totalFiles = 10;
-        float overallCoverage = 85.0f;
-        float requiredCoverage = 90.0f;
+        int totalAnalyzedFiles = 10;
+        float overallCoveragePercentage = 85.0f;
         String codeRating = "A";
-        String requiredRating = "B";
+        CoverageStatus overallStatus = CoverageStatus.PASSED;
         LocalDateTime analysisDate = LocalDateTime.now();
-        CoverageStatus status = CoverageStatus.PASSED;
-        PullRequest pullRequest = new PullRequest();
 
-        Coverage coverage = new Coverage();
-        coverage.setCoverageId(coverageId);
-        coverage.setTotalAnalyzedFiles(totalFiles);
-        coverage.setOverallCoveragePercentage(overallCoverage);
-        coverage.setRequiredCoveragePercentage(requiredCoverage);
-        coverage.setCodeRating(codeRating);
-        coverage.setRequiredRating(requiredRating);
-        coverage.setAnalysisDate(analysisDate);
-        coverage.setOverallStatus(status);
-        coverage.setPullRequest(pullRequest);
+        Coverage coverage = new Coverage(coverageId, totalAnalyzedFiles, overallCoveragePercentage, codeRating, overallStatus, analysisDate);
 
         assertEquals(coverageId, coverage.getCoverageId());
-        assertEquals(totalFiles, coverage.getTotalAnalyzedFiles());
-        assertEquals(overallCoverage, coverage.getOverallCoveragePercentage());
-        assertEquals(requiredCoverage, coverage.getRequiredCoveragePercentage());
+        assertEquals(totalAnalyzedFiles, coverage.getTotalAnalyzedFiles());
+        assertEquals(overallCoveragePercentage, coverage.getOverallCoveragePercentage(), 0.01);
         assertEquals(codeRating, coverage.getCodeRating());
-        assertEquals(requiredRating, coverage.getRequiredRating());
+        assertEquals(overallStatus, coverage.getOverallStatus());
         assertEquals(analysisDate, coverage.getAnalysisDate());
-        assertEquals(status, coverage.getOverallStatus());
-        assertEquals(pullRequest, coverage.getPullRequest());
+
+        // Test default constructor and setters
+        Coverage defaultCoverage = new Coverage();
+        defaultCoverage.setCoverageId(coverageId);
+        defaultCoverage.setTotalAnalyzedFiles(totalAnalyzedFiles);
+        defaultCoverage.setOverallCoveragePercentage(overallCoveragePercentage);
+        defaultCoverage.setCodeRating(codeRating);
+        defaultCoverage.setOverallStatus(overallStatus);
+        defaultCoverage.setAnalysisDate(analysisDate);
+
+        assertEquals(coverageId, defaultCoverage.getCoverageId());
+        assertEquals(totalAnalyzedFiles, defaultCoverage.getTotalAnalyzedFiles());
+        assertEquals(overallCoveragePercentage, defaultCoverage.getOverallCoveragePercentage(), 0.01);
+        assertEquals(codeRating, defaultCoverage.getCodeRating());
+        assertEquals(overallStatus, defaultCoverage.getOverallStatus());
+        assertEquals(analysisDate, defaultCoverage.getAnalysisDate());
     }
 
     @Test

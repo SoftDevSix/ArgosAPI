@@ -36,20 +36,11 @@ public class Coverage {
      */
     private float overallCoveragePercentage;
 
-    /**
-     * The required coverage percentage to pass the pull request's coverage check.
-     */
-    private float requiredCoveragePercentage;
 
     /**
      * The code rating of the pull request (e.g., A, B, C, D).
      */
     private String codeRating;
-
-    /**
-     * The required code rating that the pull request must meet.
-     */
-    private String requiredRating;
 
     /**
      * The overall status of the coverage check (e.g., PASSED, FAILED).
@@ -61,8 +52,4 @@ public class Coverage {
      */
     private LocalDateTime analysisDate;
 
-    /**
-     * The associated pull request for which the coverage is being tracked.
-     */
-    private PullRequest pullRequest;
 }
