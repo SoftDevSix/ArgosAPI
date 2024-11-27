@@ -12,6 +12,6 @@ import java.util.UUID;
 public class CodeAnalysisResult {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private char expectedRating;
-    private char actualRating;
+    private Rating expectedRating;
+    private Rating actualRating;
 }
