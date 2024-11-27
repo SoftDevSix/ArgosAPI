@@ -111,7 +111,6 @@ class EntitiesTest {
         assertEquals(overallStatus, coverage.getOverallStatus());
         assertEquals(analysisDate, coverage.getAnalysisDate());
 
-        // Test default constructor and setters
         Coverage defaultCoverage = new Coverage();
         defaultCoverage.setCoverageId(coverageId);
         defaultCoverage.setTotalAnalyzedFiles(totalAnalyzedFiles);
