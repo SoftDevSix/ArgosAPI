@@ -5,7 +5,6 @@ import com.softdevsix.api.exception.JsonDataLoadException;
 import com.softdevsix.api.repositories.JsonCoverageRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -58,4 +57,13 @@ class JsonCoverageRepositoryTest {
                 "Expected JsonDataLoadException to be thrown due to IOException.");
     }
 
+    @Test
+    void testJsonCoverageRepositoryLoadsDataWhenFileExists() {
+        JsonCoverageRepository repository = new JsonCoverageRepository();
+
+        List<ClassData> classDataList = repository.getClassData();
+
+        Assertions.assertNotNull(classDataList, "Class data should not be null");
+        Assertions.assertFalse(classDataList.isEmpty(), "Class data should not be empty");
+    }
 }
