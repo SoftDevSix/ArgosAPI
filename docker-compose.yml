@@ -1,0 +1,36 @@
+services:
+  argos_dev:
+    image: argos-dev-app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    environment:
+      SPRING_DATASOURCE_URL: ${DEV_DB_URL}
+      SPRING_DATASOURCE_USERNAME: ${DEV_DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DEV_DB_PASSWORD}
+      SPRING_PROFILES_ACTIVE: dev
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres_dev
+    profiles:
+      - development
+    env_file:
+      - .env
+
+  postgres_dev:
+    container_name: postgres_dev_db
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${DEV_PSQL_DB_URL}
+      POSTGRES_USER: ${DEV_DB_USERNAME}
+      POSTGRES_PASSWORD: ${DEV_DB_PASSWORD}
+    ports:
+      - "5436:5432"
+    volumes:
+      - postgres_development_data:/var/lib/postgresql/data
+    profiles:
+      - development
+
+volumes:
+  postgres_development_data: {}
