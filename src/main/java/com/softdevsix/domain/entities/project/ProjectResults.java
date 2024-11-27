@@ -1,7 +1,7 @@
-package com.softdevsix.api.domain.entities.project;
+package com.softdevsix.domain.entities.project;
 
-import com.softdevsix.api.domain.coverage.ProjectCoverageResult;
-import com.softdevsix.api.domain.staticanalysis.CodeAnalysisResult;
+import com.softdevsix.domain.coverage.ProjectCoverageResult;
+import com.softdevsix.domain.staticanalysis.CodeAnalysisResult;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.softdevsix.api.domain.staticanalysis;
+package com.softdevsix.domain.coverage;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,9 +9,9 @@ import java.util.UUID;
 
 @Data
 @Builder
-public class CodeAnalysisResult {
+public class ProjectCoverageResult {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private Rating expectedRating;
-    private Rating actualRating;
+    private float requiredCoverage;
+    private float totalCoverage;
 }

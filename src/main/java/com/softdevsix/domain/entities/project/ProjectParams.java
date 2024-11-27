@@ -1,4 +1,4 @@
-package com.softdevsix.api.domain.coverage;
+package com.softdevsix.domain.entities.project;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,9 +9,9 @@ import java.util.UUID;
 
 @Data
 @Builder
-public class ProjectCoverageResult {
+public class ProjectParams {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private float requiredCoverage;
-    private float totalCoverage;
+    private float requiredCoveragePercentage;
+    private char requiredCodeRating;
 }
