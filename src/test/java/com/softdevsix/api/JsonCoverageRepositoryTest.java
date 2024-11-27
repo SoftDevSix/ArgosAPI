@@ -5,9 +5,14 @@ import com.softdevsix.api.exception.JsonDataLoadException;
 import com.softdevsix.api.repositories.JsonCoverageRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class JsonCoverageRepositoryTest {
 
@@ -41,6 +46,16 @@ class JsonCoverageRepositoryTest {
         List<ClassData> result = repository.getClassData();
 
         assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void testJsonCoverageRepositoryThrowsExceptionForIOException() {
+
+        JsonCoverageRepository repository = mock(JsonCoverageRepository.class);
+        when(repository.getClassData()).thenThrow(new JsonDataLoadException("Error loading JSON data", new IOException("I/O Exception")));
+
+        Assertions.assertThrows(JsonDataLoadException.class, () -> repository.getClassData(),
+                "Expected JsonDataLoadException to be thrown due to IOException.");
     }
 
 }

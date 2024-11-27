@@ -4,7 +4,6 @@ import com.softdevsix.api.types.IssueType;
 import com.softdevsix.api.types.SeverityType;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
-import java.util.List;
 import com.softdevsix.api.dtos.*;
 import static org.junit.jupiter.api.Assertions.*;
 
