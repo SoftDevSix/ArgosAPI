@@ -1,13 +1,13 @@
 plugins {
     application
-    `jacoco`
+    jacoco
     alias(libs.plugins.sonarqube) apply true
     alias(libs.plugins.dependency.management) apply true
     alias(libs.plugins.springboot) apply true
     alias(libs.plugins.lombok) apply true
 }
 
-group = "com.softdevsix.argos"
+group = "com.softdevsix"
 version = "0.0.1-SNAPSHOT"
 
 java {
@@ -59,13 +59,12 @@ dependencies {
 }
 
 application {
-    mainClass.set("com.softdevsix.api.ArgosApplication")
+    mainClass.set("com.softdevsix.ArgosApplication")
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
-
 
 jacoco {
     toolVersion = "0.8.8"
