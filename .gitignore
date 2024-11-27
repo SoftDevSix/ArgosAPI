@@ -36,5 +36,8 @@ out/
 ### VS Code ###
 .vscode/
 
+<<<<<<< HEAD
 ### Environment Variables ###
+=======
+>>>>>>> eabf1f6 (build: enable `Swagger` configuration)
 .env
