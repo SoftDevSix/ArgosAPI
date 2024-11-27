@@ -1,4 +1,4 @@
-package com.softdevsix.api.domain.staticanalysis;
+package com.softdevsix.domain.staticanalysis;
 
 public enum Rating {
     A,

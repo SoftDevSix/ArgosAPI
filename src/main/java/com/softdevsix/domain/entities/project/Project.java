@@ -1,6 +1,6 @@
-package com.softdevsix.api.domain.entities.project;
+package com.softdevsix.domain.entities.project;
 
-import com.softdevsix.api.domain.entities.file.File;
+import com.softdevsix.domain.entities.file.File;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.Builder;
