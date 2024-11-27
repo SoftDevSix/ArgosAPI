@@ -1,4 +1,4 @@
-package com.softdevsix.api.domain.entities.file;
+package com.softdevsix.domain.entities.file;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
