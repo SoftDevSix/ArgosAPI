@@ -1,4 +1,11 @@
 package com.softdevsix.api.repositories;
 
-public interface IProjectRepository {
+import java.util.UUID;
+
+public interface IProjectRepository<T> {
+    void save(T proyect);
+
+    T findById(UUID proyectId);
+
+    void delete(UUID proyectId);
 }
