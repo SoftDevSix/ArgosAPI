@@ -13,5 +13,7 @@ import java.util.UUID;
 public class FileCoverageResult {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    private float methodCoveragePercentage;
+    private float coveragePercentage;
     private List<MethodCoverageResult> allStatements;
 }
