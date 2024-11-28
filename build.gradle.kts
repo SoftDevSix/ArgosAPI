@@ -38,10 +38,14 @@ repositories {
     mavenCentral()
 }
 
+val springDocVersion = "2.6.0"
+val mockitoDocVersion = "5.5.0"
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-rest")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion")
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-database-postgresql")
     compileOnly("org.projectlombok:lombok")
@@ -49,6 +53,7 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation ("org.mockito:mockito-core:$mockitoDocVersion")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
