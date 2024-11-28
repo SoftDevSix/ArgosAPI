@@ -8,7 +8,8 @@ import com.softdevsix.services.IFileService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -55,12 +56,13 @@ public class FileController {
     }
 
     @PostMapping
-    public ResponseEntity<FileCoverageResult> getFileCoverageResults(@RequestBody File file) {
-        if (file.getCoverageResult() == null) {
-            FileCoverageResult result = FILE_SERVICE.processCoverage(file);
-            return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<List<FileCoverageResult>> getFileCoverageResults(@RequestBody File file) {
+        if (file.getFileCoverageResults() == null) {
+            FileCoverageResult result = FILE_SERVICE.processCoverage(file.getFileId());
+            List<FileCoverageResult> resultFileCoverageResult = Collections.singletonList(result);
+            return new ResponseEntity<>(resultFileCoverageResult, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(file.getCoverageResult(), HttpStatus.OK);
+            return new ResponseEntity<>(file.getFileCoverageResults(), HttpStatus.OK);
         }
 
     }

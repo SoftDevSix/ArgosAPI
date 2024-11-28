@@ -11,6 +11,6 @@ public interface IFileService {
     void saveFile(File file);
     File getFile(UUID fileId) throws FileNotFoundException;
     void deleteFile(UUID fileId);
-    FileCoverageResult processCoverage(UUID fileId) throws FileNotFoundException;
+    FileCoverageResult processCoverage(UUID fileId);
 
 }

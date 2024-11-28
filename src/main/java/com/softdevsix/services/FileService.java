@@ -35,8 +35,13 @@ public class FileService implements IFileService {
     }
 
     @Override
-    public FileCoverageResult processCoverage(UUID fileId) throws FileNotFoundException {
-        File file = getFile(fileId);
+    public FileCoverageResult processCoverage(UUID fileId) {
+        File file = null;
+        try {
+            file = getFile(fileId);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         int totalStatements = 0;
         int coveredStatements = 0;
@@ -45,7 +50,6 @@ public class FileService implements IFileService {
                 .flatMap(fileCoverageResult -> fileCoverageResult.getAllStatements().stream())
                 .collect(Collectors.toList());
 
-        // Iteramos sobre cada MethodCoverageResult y calculamos la cobertura
         for (MethodCoverageResult methodCoverageResult : allMethodCoverageResults) {
             Map<Integer, Boolean> statements = methodCoverageResult.getStatements();
 
