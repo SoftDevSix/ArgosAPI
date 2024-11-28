@@ -1,8 +1,7 @@
 package com.softdevsix.api.controllers;
 
 import com.softdevsix.api.domain.entities.file.File;
-import com.softdevsix.api.domain.entities.file.FileCoverageResult;
-import com.softdevsix.api.domain.entities.project.Project;
+import com.softdevsix.api.dto.FileCoverageDto;
 import com.softdevsix.api.services.IFileService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +21,17 @@ public class FileCoverageController {
     }
 
     @GetMapping("/{idFile}")
-    public ResponseEntity<FileCoverageResult> getProjectCoverage(@PathVariable UUID idFile) {
+    public ResponseEntity<FileCoverageDto> getFileCoverage(@PathVariable UUID idFile) {
         File file = fileService.getFileById(idFile);
-          return null;
-    }
 
+        FileCoverageDto dto = new FileCoverageDto(
+                file.getFileName(),
+                file.getPath(),
+                file.getLineCode(),
+                fileService.calculateFileMethodCoverage(file),
+                fileService.calculateFileCoverage(file)
+        );
+
+        return ResponseEntity.ok(dto);
+    }
 }

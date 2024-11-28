@@ -4,17 +4,23 @@ import com.softdevsix.api.domain.entities.file.File;
 import com.softdevsix.api.domain.entities.file.MethodCoverageResult;
 import com.softdevsix.api.exceptions.ProjectNotFoundException;
 import com.softdevsix.api.repositories.IFileRepository;
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.UUID;
 
+@Service
 public class FileService implements IFileService {
-    private final IFileRepository fileRepository;
+    private IFileRepository fileRepository;
 
     public FileService(IFileRepository fileRepository) {
         this.fileRepository = fileRepository;
     }
 
+    @Autowired
+    public void setFileRepository(IFileRepository fileRepository) {
+        this.fileRepository = fileRepository;
+    }
     @Override
     public File getFileById(UUID fileId) {
         return fileRepository.findById(fileId).orElseThrow(() ->
@@ -23,19 +29,7 @@ public class FileService implements IFileService {
     }
 
     @Override
-    public float calculateFileCoverage(List<File> files) {
-        float totalCoverage = 0f;
-
-        for (File file : files) {
-            float fileCoverage = calculateFileCoverageForFile(file);
-            totalCoverage += fileCoverage;
-        }
-
-        return totalCoverage / files.size();
-    }
-
-    @Override
-    public float calculateFileMethodCoverage(File file) {
+    public float calculateFileCoverage(File file) {
         float totalMethodCoverage = 0f;
         int methodCount = 0;
 
@@ -52,7 +46,8 @@ public class FileService implements IFileService {
         return methodCount > 0 ? totalMethodCoverage / methodCount : 0f;
     }
 
-    public static float calculateFileCoverageForFile(File file) {
+    @Override
+    public float calculateFileMethodCoverage(File file) {
         int totalStatements = 0;
         int coveredStatements = 0;
 
@@ -64,7 +59,6 @@ public class FileService implements IFileService {
                 }
             }
         }
-
         return (totalStatements > 0) ? (coveredStatements * 100f) / totalStatements : 0f;
     }
 
