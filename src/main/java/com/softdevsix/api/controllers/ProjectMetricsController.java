@@ -1,6 +1,5 @@
 package com.softdevsix.api.controllers;
 
-import com.softdevsix.api.domain.coverage.ProjectCoverageResult;
 import com.softdevsix.api.domain.entities.project.Project;
 import com.softdevsix.api.domain.entities.project.ProjectResults;
 import com.softdevsix.api.services.IProjectService;
@@ -14,20 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/coverage")
-public class ProjectCoverageController {
+@RequestMapping("/metrics")
+public class ProjectMetricsController {
     private final IProjectService PROJECT_SERVICE;
 
-    public ProjectCoverageController(IProjectService projectService) {
+    public ProjectMetricsController(IProjectService projectService) {
         this.PROJECT_SERVICE = projectService;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProjectResults> getProjectCoverage(@PathVariable UUID id) {
+    public ResponseEntity<ProjectResults> getProjectMetrics(@PathVariable UUID id) {
         try {
-            Project project = PROJECT_SERVICE.getProjectById(id);
-
-            return new ResponseEntity<>(project.getProjectResults(), HttpStatus.OK);
+            ProjectResults results = PROJECT_SERVICE.calculateProjectResults(id);
+            return new ResponseEntity<>(results, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -28,7 +28,9 @@ public class ProjectService implements IProjectService {
                 );
     }
 
-    public Project calculateProjectCoverage(Project project) {
+    public void calculateProjectCoverage(UUID projectId) {
+        Project project = getProjectById(projectId);
+
         float totalCoverage = 0f;
 
         for(File file : project.getCoveredFiles()) {
@@ -38,15 +40,18 @@ public class ProjectService implements IProjectService {
         totalCoverage /= project.getCoveredFiles().size();
         project.getProjectResults().getCoverageResult().setTotalCoverage(totalCoverage);
 
-        return PROJECT_REPOSITORY.save(project);
+        PROJECT_REPOSITORY.save(project);
     }
 
-    public Project calculateProjectRating(Project project) {
+    public void calculateProjectRating(UUID projectId) {
+        Project project = getProjectById(projectId);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.A);
-        return PROJECT_REPOSITORY.save(project);
+        PROJECT_REPOSITORY.save(project);
     }
 
-    public Project calculateProjectStatus(Project project) {
+    public void calculateProjectStatus(UUID projectId) {
+        Project project = getProjectById(projectId);
+
         ProjectResults projectResults = project.getProjectResults();
 
         ProjectCoverageResult coverageResult = projectResults.getCoverageResult();
@@ -57,8 +62,18 @@ public class ProjectService implements IProjectService {
 
         if(coveragePassed && analysisPassed) {
             projectResults.setStatus(Status.PASSED);
+        } else {
+            projectResults.setStatus(Status.FAILED);
         }
 
-        return PROJECT_REPOSITORY.save(project);
+        PROJECT_REPOSITORY.save(project);
+    }
+
+    public ProjectResults calculateProjectResults(UUID projectId) {
+        calculateProjectCoverage(projectId);
+        calculateProjectRating(projectId);
+        calculateProjectStatus(projectId);
+
+        return getProjectById(projectId).getProjectResults();
     }
 }
