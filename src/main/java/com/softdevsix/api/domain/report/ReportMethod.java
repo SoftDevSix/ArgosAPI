@@ -1,14 +1,14 @@
 package com.softdevsix.api.domain.report;
 
-import java.util.ArrayList;
-import java.util.List;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 @Getter
-@Builder
+@Setter
 public class ReportMethod {
     private String name;
     private String returnType;
-    @Builder.Default private List<ReportLine> statements = new ArrayList<>();
+    private List<ReportLine> statements;
 }
