@@ -2,11 +2,16 @@ package com.softdevsix.services;
 
 import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.domain.entities.file.FileCoverageResult;
+import com.softdevsix.domain.entities.file.MethodCoverageResult;
 import com.softdevsix.exceptions.FileNotFoundException;
 import com.softdevsix.repositories.IFileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.UUID;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class FileService implements IFileService {
@@ -16,21 +21,47 @@ public class FileService implements IFileService {
 
     @Override
     public void saveFile(File file) {
-
+        fileRepository.save(file);
     }
 
     @Override
     public File getFile(UUID fileId) throws FileNotFoundException {
-        return null;
+        return fileRepository.findById(fileId).orElseThrow(() -> new FileNotFoundException("File not found"));
     }
 
     @Override
     public void deleteFile(UUID fileId) {
-
+        fileRepository.deleteById(fileId);
     }
 
     @Override
-    public FileCoverageResult processCoverage(File file) {
-        return null;
+    public FileCoverageResult processCoverage(UUID fileId) throws FileNotFoundException {
+        File file = getFile(fileId);
+
+        int totalStatements = 0;
+        int coveredStatements = 0;
+
+        List<MethodCoverageResult> allMethodCoverageResults = file.getFileCoverageResults().stream()
+                .flatMap(fileCoverageResult -> fileCoverageResult.getAllStatements().stream())
+                .collect(Collectors.toList());
+
+        // Iteramos sobre cada MethodCoverageResult y calculamos la cobertura
+        for (MethodCoverageResult methodCoverageResult : allMethodCoverageResults) {
+            Map<Integer, Boolean> statements = methodCoverageResult.getStatements();
+
+            totalStatements += statements.size();
+            coveredStatements += statements.values().stream()
+                    .filter(Boolean::booleanValue)
+                    .count();
+        }
+
+        int coveragePercentage = totalStatements == 0 ? 0 : (int) ((coveredStatements / (double) totalStatements) * 100);
+
+        FileCoverageResult fileCoverageResult = FileCoverageResult.builder()
+                .id(file.getFileId())
+                .allStatements(allMethodCoverageResults)
+                .build();
+
+        return fileCoverageResult;
     }
 }
