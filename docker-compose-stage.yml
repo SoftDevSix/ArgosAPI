@@ -1,0 +1,36 @@
+services:
+  argos_stage:
+    image: argos-stage-app
+    build:
+      context: .
+      dockerfile: Dockerfile.stage
+    environment:
+      SPRING_DATASOURCE_URL: ${STAGE_DB_URL}
+      SPRING_DATASOURCE_USERNAME: ${STAGE_DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${STAGE_DB_PASSWORD}
+      SPRING_PROFILES_ACTIVE: stage
+    ports:
+      - "8181:8181"
+    depends_on:
+      - postgres_stage
+    profiles:
+      - stage
+    env_file:
+      - .env
+
+  postgres_stage:
+    container_name: postgres_stage_db
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${STAGE_PSQL_DB_URL}
+      POSTGRES_USER: ${STAGE_DB_USERNAME}
+      POSTGRES_PASSWORD: ${STAGE_DB_PASSWORD}
+    ports:
+      - "5437:5432"
+    volumes:
+      - postgres_stage_data:/var/lib/postgresql/data
+    profiles:
+      - stage
+
+volumes:
+  postgres_stage_data: {}
