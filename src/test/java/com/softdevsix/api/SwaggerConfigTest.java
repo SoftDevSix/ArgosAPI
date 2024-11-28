@@ -9,13 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class SwaggerConfigTest {
+class SwaggerConfigTest {
 
     @Autowired
     private SwaggerConfig swaggerConfig;
 
     @Test
-    public void testCustomOpenAPI() {
+    void testCustomOpenAPI() {
         OpenAPI openAPI = swaggerConfig.customOpenAPI();
 
         assertThat(openAPI).isNotNull();

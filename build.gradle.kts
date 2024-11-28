@@ -39,6 +39,7 @@ repositories {
 }
 
 val springDocVersion = "2.6.0"
+val mockitoDocVersion = "5.5.0"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -52,7 +53,7 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation ("org.mockito:mockito-core:5.5.0")
+    testImplementation ("org.mockito:mockito-core:$mockitoDocVersion")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
