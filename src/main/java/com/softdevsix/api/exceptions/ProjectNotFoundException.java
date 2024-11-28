@@ -1,4 +1,4 @@
 package com.softdevsix.api.exceptions;
 
-public class ProjectNotFoundException {
+public class ProjectNotFoundException extends Exception{
 }
