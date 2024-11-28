@@ -2,6 +2,7 @@ package com.softdevsix.controllers;
 
 import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.domain.entities.file.FileCoverageResult;
+import com.softdevsix.dtos.SaveFileDTO;
 import com.softdevsix.exceptions.FileNotFoundException;
 import com.softdevsix.services.IFileService;
 import org.springframework.http.HttpStatus;
@@ -30,20 +31,37 @@ public class FileController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> saveFile(@RequestBody File file) {
+    public ResponseEntity<File> saveFile(@RequestBody SaveFileDTO fileDTO) {
+        File file = File.builder()
+                .fileName(fileDTO.getFileName())
+                .path(fileDTO.getPath())
+                .build();
+        
         FILE_SERVICE.saveFile(file);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        
+        return new ResponseEntity<>(file, HttpStatus.CREATED);
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteFileById(@RequestBody UUID id) {
+        try {
+            FILE_SERVICE.getFile(id);
+        } catch (FileNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        
         FILE_SERVICE.deleteFile(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping
     public ResponseEntity<FileCoverageResult> getFileCoverageResults(@RequestBody File file) {
-        FileCoverageResult result = FILE_SERVICE.processCoverage(file);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        if (file.getCoverageResult() == null) {
+            FileCoverageResult result = FILE_SERVICE.processCoverage(file);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(file.getCoverageResult(), HttpStatus.OK);
+        }
+
     }
 }

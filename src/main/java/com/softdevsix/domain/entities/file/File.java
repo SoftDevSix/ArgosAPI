@@ -14,5 +14,5 @@ public class File {
     private UUID fileId;
     private String fileName;
     private String path;
-    private List<MethodCoverageResult> methodCoverageResults;
+    private FileCoverageResult coverageResult;
 }
