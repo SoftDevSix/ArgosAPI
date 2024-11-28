@@ -4,7 +4,6 @@ import com.softdevsix.api.domain.entities.file.File;
 import com.softdevsix.api.domain.entities.file.MethodCoverageResult;
 import com.softdevsix.api.exceptions.ProjectNotFoundException;
 import com.softdevsix.api.repositories.IFileRepository;
-
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -70,4 +69,3 @@ public class FileService implements IFileService {
     }
 
 }
-

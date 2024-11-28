@@ -9,5 +9,4 @@ public interface IFileService {
     File getFileById(UUID fileId);
     float calculateFileCoverage(List<File> files);
     float calculateFileMethodCoverage(File file);
-
 }
