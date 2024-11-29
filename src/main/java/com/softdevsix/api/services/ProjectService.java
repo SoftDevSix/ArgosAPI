@@ -15,15 +15,15 @@ import java.util.UUID;
 
 @Service
 public class ProjectService implements IProjectService {
-    private final IProjectRepository PROJECT_REPOSITORY;
+    private final IProjectRepository PROJECTREPOSITORY;
 
     public ProjectService(IProjectRepository projectRepository) {
-        this.PROJECT_REPOSITORY = projectRepository;
+        this.PROJECTREPOSITORY = projectRepository;
     }
 
     public Project getProjectById(UUID projectId) {
-        Project project = PROJECT_REPOSITORY.findById(projectId);
-        if(project == null) {
+        Project project = PROJECTREPOSITORY.findById(projectId);
+        if (project == null) {
             throw new ProjectNotFoundException("Project with Id: " + projectId + " not found");
         }
         return project;
@@ -34,20 +34,20 @@ public class ProjectService implements IProjectService {
 
         float totalCoverage = 0f;
 
-        for(File file : project.getCoveredFiles()) {
+        for (File file : project.getCoveredFiles()) {
             totalCoverage += file.getCoverageResult().getCoveragePercentage();
         }
 
         totalCoverage /= project.getCoveredFiles().size();
         project.getProjectResults().getCoverageResult().setTotalCoverage(totalCoverage);
 
-        PROJECT_REPOSITORY.save(project);
+        PROJECTREPOSITORY.save(project);
     }
 
     public void calculateProjectRating(UUID projectId) {
         Project project = getProjectById(projectId);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.A);
-        PROJECT_REPOSITORY.save(project);
+        PROJECTREPOSITORY.save(project);
     }
 
     public void calculateProjectStatus(UUID projectId) {
@@ -61,13 +61,13 @@ public class ProjectService implements IProjectService {
         CodeAnalysisResult analysisResult = projectResults.getCodeAnalysisResult();
         boolean analysisPassed = analysisResult.getActualRating().compareTo(analysisResult.getExpectedRating()) <= 0;
 
-        if(coveragePassed && analysisPassed) {
+        if (coveragePassed && analysisPassed) {
             projectResults.setStatus(Status.PASSED);
         } else {
             projectResults.setStatus(Status.FAILED);
         }
 
-        PROJECT_REPOSITORY.save(project);
+        PROJECTREPOSITORY.save(project);
     }
 
     public ProjectResults calculateProjectResults(UUID projectId) {

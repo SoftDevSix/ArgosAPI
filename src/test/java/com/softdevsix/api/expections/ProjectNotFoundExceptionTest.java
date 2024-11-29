@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ProjectNotFoundExceptionTest {
+class ProjectNotFoundExceptionTest {
 
     @Test
-    public void testProjectNotFoundExceptionMessage() {
+    void testProjectNotFoundExceptionMessage() {
         String expectedMessage = "Project not found: project123";
         ProjectNotFoundException exception = new ProjectNotFoundException(expectedMessage);
 

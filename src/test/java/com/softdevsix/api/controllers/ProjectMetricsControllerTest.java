@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class ProjectMetricsControllerTest {
+class ProjectMetricsControllerTest {
     @Mock
     private IProjectService projectService;
 
@@ -26,13 +26,13 @@ public class ProjectMetricsControllerTest {
     private MockMvc mockMvc;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(projectMetricsController).build();
     }
 
     @Test
-    public void testGetProjectMetrics_Success() throws Exception {
+    void testGetProjectMetrics_Success() throws Exception {
         UUID projectId = UUID.randomUUID();
         ProjectResults mockResults = ProjectResults.builder()
                 .projectId(projectId)
@@ -44,7 +44,7 @@ public class ProjectMetricsControllerTest {
     }
 
     @Test
-    public void testGetProjectMetrics_NotFound() throws Exception {
+    void testGetProjectMetrics_NotFound() throws Exception {
         UUID projectId = UUID.randomUUID();
         when(projectService.calculateProjectResults(projectId)).thenThrow(new RuntimeException("Project not found"));
 
