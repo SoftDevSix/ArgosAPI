@@ -19,6 +19,8 @@ springboot-starter-web-jpa = { module = "org.springframework.boot:spring-boot-st
 springboot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "springboot" }
 springdoc-openapi = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springDocVersion" }
 springboot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
+springboot-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+springboot-json = { module = "org.springframework.boot:spring-boot-starter-json" }
 springboot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
 junit-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }

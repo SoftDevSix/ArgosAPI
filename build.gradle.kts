@@ -41,6 +41,8 @@ repositories {
 dependencies {
     implementation(libs.springboot.starter.web.rest)
     implementation(libs.springboot.starter.web.jpa)
+    implementation(libs.springboot.web)
+    implementation(libs.springboot.json)
     implementation(libs.springboot.starter)
     implementation(libs.springdoc.openapi)
     implementation(libs.flyway.core)

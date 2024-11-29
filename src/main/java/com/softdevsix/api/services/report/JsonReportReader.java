@@ -4,7 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.softdevsix.api.domain.report.Report;
 import com.softdevsix.api.exceptions.ReportReaderException;
+import org.springframework.stereotype.Component;
 
+@Component
 public class JsonReportReader implements IReportReader {
     @Override
     public Report read(String coverageReport) {
