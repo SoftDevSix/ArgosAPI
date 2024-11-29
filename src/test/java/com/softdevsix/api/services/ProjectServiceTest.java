@@ -84,7 +84,6 @@ class ProjectServiceTest {
 
         project.setProjectResults(results);
 
-
         return project;
     }
 
@@ -101,8 +100,52 @@ class ProjectServiceTest {
     }
 
     @Test
-    void calculateProjectStatus() {
+    void calculateProjectStatus_CoverageAndAnalysisPassed() {
         Project project = buildProject();
+        project.getProjectResults().getCoverageResult().setTotalCoverage(85f);
+        project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.B);
+        ProjectService projectService = new ProjectService(projectRepository);
+        projectRepository.save(project);
+
+        projectService.calculateProjectStatus(project.getProjectId());
+
+        Project updatedProject = projectService.getProjectById(project.getProjectId());
+        assertEquals(Status.PASSED, updatedProject.getProjectResults().getStatus());
+    }
+
+    @Test
+    void calculateProjectStatus_OnlyCoveragePassed() {
+        Project project = buildProject();
+        project.getProjectResults().getCoverageResult().setTotalCoverage(85f);
+        project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.C);
+        ProjectService projectService = new ProjectService(projectRepository);
+        projectRepository.save(project);
+
+        projectService.calculateProjectStatus(project.getProjectId());
+
+        Project updatedProject = projectService.getProjectById(project.getProjectId());
+        assertEquals(Status.FAILED, updatedProject.getProjectResults().getStatus());
+    }
+
+    @Test
+    void calculateProjectStatus_OnlyAnalysisPassed() {
+        Project project = buildProject();
+        project.getProjectResults().getCoverageResult().setTotalCoverage(70f);
+        project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.B);
+        ProjectService projectService = new ProjectService(projectRepository);
+        projectRepository.save(project);
+
+        projectService.calculateProjectStatus(project.getProjectId());
+
+        Project updatedProject = projectService.getProjectById(project.getProjectId());
+        assertEquals(Status.FAILED, updatedProject.getProjectResults().getStatus());
+    }
+
+    @Test
+    void calculateProjectStatus_BothFailed() {
+        Project project = buildProject();
+        project.getProjectResults().getCoverageResult().setTotalCoverage(70f);
+        project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.C);
         ProjectService projectService = new ProjectService(projectRepository);
         projectRepository.save(project);
 
