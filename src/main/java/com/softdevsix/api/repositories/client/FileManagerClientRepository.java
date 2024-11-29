@@ -16,6 +16,12 @@ public class FileManagerClientRepository implements IFileManagerClientRepository
     private final RestTemplate restTemplate;
     private final String baseUrl;
 
+    private static final String FILES_ENDPOINT = "/files";
+    private static final String FILE_ENDPOINT = "/file";
+    private static final String PROJECT_ID_PARAM = "projectId";
+    private static final String FILE_PATH_PARAM = "filePath";
+    private static final String COVERAGE_JSON_FILENAME = "coverage.json";
+
     public FileManagerClientRepository(RestTemplate restTemplate,
                                        @Value("${file.manager.base-url}") String baseUrl) {
         this.restTemplate = restTemplate;
@@ -24,7 +30,7 @@ public class FileManagerClientRepository implements IFileManagerClientRepository
 
     @Override
     public List<String> listFiles(String projectId) {
-        String url = baseUrl + "/files?projectId=" + projectId;
+        String url = baseUrl + FILES_ENDPOINT + "?" + PROJECT_ID_PARAM + "=" + projectId;
         ResponseEntity<List<String>> response = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
@@ -37,7 +43,8 @@ public class FileManagerClientRepository implements IFileManagerClientRepository
 
     @Override
     public String getFileContent(String projectId, String filePath) {
-        String url = baseUrl + "/file?projectId=" + projectId + "&filePath=" + filePath;
+        String url = baseUrl + FILE_ENDPOINT + "?" + PROJECT_ID_PARAM + "="
+                + projectId + "&" + FILE_PATH_PARAM + "=" + filePath;
         return restTemplate.getForObject(url, String.class);
     }
 
@@ -45,7 +52,7 @@ public class FileManagerClientRepository implements IFileManagerClientRepository
     public Optional<String> getCoverageJson(String projectId) {
         List<String> files = listFiles(projectId);
         String coveragePath = files.stream()
-                .filter(file -> file.contains("coverage.json"))
+                .filter(file -> file.contains(COVERAGE_JSON_FILENAME))
                 .findFirst()
                 .orElse(null);
 
