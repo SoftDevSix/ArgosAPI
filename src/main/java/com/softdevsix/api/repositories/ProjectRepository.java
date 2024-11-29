@@ -4,6 +4,7 @@ import com.softdevsix.api.domain.entities.project.Project;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -21,5 +22,9 @@ public class ProjectRepository implements IProjectRepository {
 
     public void save(Project project) {
         projects.put(project.getProjectId(), project);
+    }
+
+    public List<Project> getAll(){
+        return projects.values().stream().toList();
     }
 }
