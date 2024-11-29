@@ -1,5 +1,6 @@
 package com.softdevsix.api.domain.entities.project;
 
+import com.softdevsix.api.domain.staticanalysis.Rating;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.Builder;
@@ -13,5 +14,5 @@ public class ProjectParams {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private float requiredCoveragePercentage;
-    private char requiredCodeRating;
+    private Rating requiredCodeRating;
 }
