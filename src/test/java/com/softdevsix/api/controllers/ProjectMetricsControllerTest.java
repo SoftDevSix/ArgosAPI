@@ -39,7 +39,7 @@ class ProjectMetricsControllerTest {
                 .build();
         when(projectService.calculateProjectResults(projectId)).thenReturn(mockResults);
 
-        mockMvc.perform(get("/coverage/{id}", projectId))
+        mockMvc.perform(get("/coverage/project/{id}", projectId))
                 .andExpect(status().isOk());
     }
 
@@ -48,7 +48,7 @@ class ProjectMetricsControllerTest {
         UUID projectId = UUID.randomUUID();
         when(projectService.calculateProjectResults(projectId)).thenThrow(new RuntimeException("Project not found"));
 
-        mockMvc.perform(get("/coverage/{id}", projectId))
+        mockMvc.perform(get("/coverage/project/{id}", projectId))
                 .andExpect(status().isNotFound());
     }
 }
