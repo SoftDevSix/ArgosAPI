@@ -1,6 +1,6 @@
 services:
-  argos_dev:
-    image: argos-dev-app
+  argos_api_app_dev:
+    image: argos-api-app-dev
     build:
       context: .
       dockerfile: Dockerfile.dev
@@ -12,14 +12,14 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - postgres_dev
+      - argos_api_postgres_dev
     profiles:
       - development
     env_file:
       - .env
 
-  postgres_dev:
-    container_name: postgres_dev_db
+  argos_api_postgres_dev:
+    container_name: argos_api_postgres_dev
     image: postgres:latest
     environment:
       POSTGRES_DB: ${DEV_PSQL_DB_URL}

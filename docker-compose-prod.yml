@@ -1,6 +1,6 @@
 services:
-  argos_prod:
-    image: argos-prod-app
+  argos_api_app_prod:
+    image: argos-api-app-prod
     build:
       context: .
       dockerfile: Dockerfile.prod
@@ -12,14 +12,14 @@ services:
     ports:
       - "8282:8282"
     depends_on:
-      - postgres_prod
+      - argos_api_postgres_prod
     profiles:
       - production
     env_file:
       - .env
 
-  postgres_prod:
-    container_name: postgres_prod_db
+  argos_api_postgres_prod:
+    container_name: argos_api_postgres_prod
     image: postgres:latest
     environment:
       POSTGRES_DB: ${PROD_PSQL_DB_URL}
