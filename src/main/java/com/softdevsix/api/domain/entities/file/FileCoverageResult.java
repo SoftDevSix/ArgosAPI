@@ -1,7 +1,7 @@
 package com.softdevsix.api.domain.entities.file;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,5 +13,10 @@ import java.util.UUID;
 public class FileCoverageResult {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @ManyToOne
+    @JoinColumn(name = "fileId")
+    private File file;
+    @OneToMany(mappedBy = "fileCoverageResult", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<MethodCoverageResult> allStatements;
 }
