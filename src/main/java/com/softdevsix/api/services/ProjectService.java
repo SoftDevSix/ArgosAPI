@@ -22,10 +22,11 @@ public class ProjectService implements IProjectService {
     }
 
     public Project getProjectById(UUID projectId) {
-        return PROJECT_REPOSITORY.findById(projectId)
-                .orElseThrow(() ->
-                        new ProjectNotFoundException("Project with Id: " + projectId + " not found")
-                );
+        Project project = PROJECT_REPOSITORY.findById(projectId);
+        if(project == null) {
+            throw new ProjectNotFoundException("Project with Id: " + projectId + " not found");
+        }
+        return project;
     }
 
     public void calculateProjectCoverage(UUID projectId) {

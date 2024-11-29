@@ -5,6 +5,7 @@ import jakarta.persistence.GenerationType;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -14,5 +15,6 @@ public class MethodCoverageResult {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private float coveragePercentage;
-    private Map<Integer, Boolean> statements;
+    @Builder.Default
+    private Map<Integer, Boolean> statements = new HashMap<>();
 }

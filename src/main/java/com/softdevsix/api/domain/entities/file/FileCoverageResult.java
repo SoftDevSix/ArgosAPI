@@ -5,6 +5,7 @@ import jakarta.persistence.GenerationType;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,5 +16,6 @@ public class FileCoverageResult {
     private UUID id;
     private float methodCoveragePercentage;
     private float coveragePercentage;
-    private List<MethodCoverageResult> allStatements;
+    @Builder.Default
+    private List<MethodCoverageResult> allStatements = new ArrayList<>();
 }

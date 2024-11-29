@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,5 +19,6 @@ public class Project {
     private String description;
     private ProjectParams projectParams;
     private ProjectResults projectResults;
-    private List<File> coveredFiles;
+    @Builder.Default
+    private List<File> coveredFiles = new ArrayList<>();
 }

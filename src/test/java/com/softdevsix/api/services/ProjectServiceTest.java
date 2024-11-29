@@ -6,9 +6,11 @@ import com.softdevsix.api.domain.entities.file.FileCoverageResult;
 import com.softdevsix.api.domain.entities.project.Project;
 import com.softdevsix.api.domain.entities.project.ProjectParams;
 import com.softdevsix.api.domain.entities.project.ProjectResults;
+import com.softdevsix.api.domain.entities.project.Status;
 import com.softdevsix.api.domain.staticanalysis.CodeAnalysisResult;
 import com.softdevsix.api.domain.staticanalysis.Rating;
 import com.softdevsix.api.repositories.IProjectRepository;
+import com.softdevsix.api.repositories.ProjectRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -18,7 +20,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProjectServiceTest {
-    IProjectRepository projectRepository;
+    IProjectRepository projectRepository = new ProjectRepository();;
     private Project buildProject() {
         ProjectParams params = ProjectParams.builder()
                 .id(UUID.randomUUID())
@@ -54,7 +56,7 @@ public class ProjectServiceTest {
 
         FileCoverageResult coverageResult2 = FileCoverageResult.builder()
                 .id(UUID.randomUUID())
-                .coveragePercentage(100f)
+                .coveragePercentage(0f)
                 .build();
 
         file1.setCoverageResult(coverageResult1);
@@ -67,11 +69,14 @@ public class ProjectServiceTest {
 
         CodeAnalysisResult analysisResult = CodeAnalysisResult.builder()
                 .id(UUID.randomUUID())
+                .expectedRating(params.getRequiredCodeRating())
+                .actualRating(Rating.A)
                 .build();
 
         ProjectResults results = ProjectResults.builder()
                 .projectId(project.getProjectId())
-
+                .coverageResult(coverageResult)
+                .codeAnalysisResult(analysisResult)
                 .build();
 
         project.setProjectResults(results);
@@ -90,5 +95,17 @@ public class ProjectServiceTest {
 
         Project updatedProject = projectService.getProjectById(project.getProjectId());
         assertEquals(50f, updatedProject.getProjectResults().getCoverageResult().getTotalCoverage());
+    }
+
+    @Test
+    public void calculateProjectStatus() {
+        Project project = buildProject();
+        ProjectService projectService = new ProjectService(projectRepository);
+        projectRepository.save(project);
+
+        projectService.calculateProjectStatus(project.getProjectId());
+
+        Project updatedProject = projectService.getProjectById(project.getProjectId());
+        assertEquals(Status.FAILED, updatedProject.getProjectResults().getStatus());
     }
 }
