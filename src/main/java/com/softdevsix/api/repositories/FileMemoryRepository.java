@@ -121,7 +121,7 @@ public class FileMemoryRepository implements IFileRepository {
 
     @Override
     public List<File> getAll() {
-        return files.values().stream().collect(Collectors.toList());
+        return files.values().stream().toList();
     }
 
     @Override

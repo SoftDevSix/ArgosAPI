@@ -49,7 +49,7 @@ public class FileService implements IFileService {
         for (MethodCoverageResult methodCoverage : file.getCoverageResult().getAllStatements()) {
             for (Map.Entry<Integer, Boolean> entry : methodCoverage.getStatements().entrySet()) {
                 totalStatements++;
-                if (entry.getValue()) {
+                if (entry.getValue() != null && entry.getValue()) {
                     coveredStatements++;
                 }
             }
