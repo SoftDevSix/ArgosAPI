@@ -5,6 +5,7 @@ import com.softdevsix.api.services.report.IReportService;
 import com.softdevsix.api.services.client.ICoverageService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
@@ -17,7 +18,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.doThrow;
 
-public class CoverageControllerTest {
+class CoverageControllerTest {
 
     @Test
     void testGetCoverageFileFileExists() {
@@ -34,7 +35,7 @@ public class CoverageControllerTest {
 
         ResponseEntity<String> response = controller.processCoverageFile(projectId);
 
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("Report processed and saved successfully.", response.getBody());
 
         verify(coverageService).getCoverageJson(projectId);
@@ -43,7 +44,6 @@ public class CoverageControllerTest {
 
     @Test
     void testGetCoverageFileFileNotFound() {
-
         ICoverageService coverageService = Mockito.mock(ICoverageService.class);
         IReportService reportService = Mockito.mock(IReportService.class);
         CoverageController controller = new CoverageController(coverageService, reportService);
@@ -54,7 +54,7 @@ public class CoverageControllerTest {
 
         ResponseEntity<String> response = controller.processCoverageFile(projectId);
 
-        assertEquals(404, response.getStatusCodeValue());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 
         verify(coverageService).getCoverageJson(projectId);
         verify(reportService, never()).processAndSaveReport(anyString());
@@ -62,7 +62,6 @@ public class CoverageControllerTest {
 
     @Test
     void testGetCoverageFileProcessingError() {
-
         ICoverageService coverageService = Mockito.mock(ICoverageService.class);
         IReportService reportService = Mockito.mock(IReportService.class);
         CoverageController controller = new CoverageController(coverageService, reportService);
@@ -76,7 +75,7 @@ public class CoverageControllerTest {
 
         ResponseEntity<String> response = controller.processCoverageFile(projectId);
 
-        assertEquals(500, response.getStatusCodeValue());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
         assertEquals("Error processing report: Error processing report", response.getBody());
 
         verify(coverageService).getCoverageJson(projectId);
