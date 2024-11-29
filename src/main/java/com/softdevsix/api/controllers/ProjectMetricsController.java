@@ -1,6 +1,5 @@
 package com.softdevsix.api.controllers;
 
-import com.softdevsix.api.domain.entities.project.Project;
 import com.softdevsix.api.domain.entities.project.ProjectResults;
 import com.softdevsix.api.services.IProjectService;
 import org.springframework.http.HttpStatus;

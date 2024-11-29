@@ -1,12 +1,13 @@
 package com.softdevsix.api.repositories;
 
 import com.softdevsix.api.domain.entities.project.Project;
-import com.softdevsix.api.exceptions.FileNotFoundException;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+@Repository
 public class ProjectRepository implements IProjectRepository {
     Map<UUID, Project> projects;
 

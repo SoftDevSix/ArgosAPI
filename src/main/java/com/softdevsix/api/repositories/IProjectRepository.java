@@ -2,7 +2,6 @@ package com.softdevsix.api.repositories;
 
 
 import com.softdevsix.api.domain.entities.project.Project;
-import com.softdevsix.api.exceptions.FileNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;

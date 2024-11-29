@@ -2,8 +2,6 @@ package com.softdevsix.api.services;
 
 import com.softdevsix.api.domain.entities.project.Project;
 import com.softdevsix.api.domain.entities.project.ProjectResults;
-import com.softdevsix.api.repositories.IProjectRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
