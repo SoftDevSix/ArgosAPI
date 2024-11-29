@@ -9,7 +9,8 @@ public class FileCoverageDto {
     private int linesCode;
     private float methodCoverage;
     private float coveragePercentage;
+    private Integer[] uncoveredLines;
 
-    public FileCoverageDto(String fileName, String path, int codeLines, float calculateFileMethodCoverage, float calculateFileCoverage) {
+    public FileCoverageDto(String fileName, String path, int codeLines, float calculateFileMethodCoverage, float calculateFileCoverage, Integer[] uncoveredLines) {
     }
 }

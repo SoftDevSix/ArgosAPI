@@ -7,4 +7,5 @@ public interface IFileService {
     File getFileById(UUID fileId);
     float calculateFileCoverage(File file);
     float calculateFileMethodCoverage(File file);
+    Integer[] getUncoveredLines(File file);
 }
