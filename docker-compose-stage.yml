@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile.stage
     ports:
-      - "8181:8181"
+      - "8082:8082"
     depends_on:
       - argos_api_postgres_stage
     profiles:
