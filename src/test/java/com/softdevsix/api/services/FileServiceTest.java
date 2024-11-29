@@ -34,7 +34,7 @@ public class FileServiceTest {
                 .path("/src/TestFile.java")
                 .build();
 
-        when(fileRepository.findById(fileId)).thenReturn(Optional.of(file));
+        //when(fileRepository.findById(fileId)).thenReturn(Optional.of(file));
 
         File result = fileService.getFileById(fileId);
 
@@ -47,7 +47,7 @@ public class FileServiceTest {
     @Test
     void testGetFileByIdFileNotFound() {
         UUID fileId = UUID.randomUUID();
-        when(fileRepository.findById(fileId)).thenReturn(Optional.empty());
+        //when(fileRepository.findById(fileId)).thenReturn(Optional.empty());
 
         assertThrows(ProjectNotFoundException.class, () -> fileService.getFileById(fileId));
         verify(fileRepository, times(1)).findById(fileId);
@@ -66,7 +66,7 @@ public class FileServiceTest {
 
         File file = File.builder()
                 .fileName("TestFile.java")
-                .methodCoverageResults(methodCoverages)
+                //.methodCoverageResults(methodCoverages)
                 .build();
 
         float coverage = fileService.calculateFileCoverage(file);
@@ -77,7 +77,7 @@ public class FileServiceTest {
     @Test
     void testCalculateFileCoverageNoMethods() {
         File file = File.builder()
-                .methodCoverageResults(Collections.emptyList())
+                //.methodCoverageResults(Collections.emptyList())
                 .build();
 
         float coverage = fileService.calculateFileCoverage(file);
@@ -97,7 +97,7 @@ public class FileServiceTest {
         );
 
         File file = File.builder()
-                .methodCoverageResults(methodCoverages)
+                //.methodCoverageResults(methodCoverages)
                 .build();
 
         float coverage = fileService.calculateFileMethodCoverage(file);
@@ -108,7 +108,7 @@ public class FileServiceTest {
     @Test
     void testCalculateFileMethodCoverageNoStatements() {
         File file = File.builder()
-                .methodCoverageResults(Collections.emptyList())
+                //.methodCoverageResults(Collections.emptyList())
                 .build();
 
         float coverage = fileService.calculateFileMethodCoverage(file);

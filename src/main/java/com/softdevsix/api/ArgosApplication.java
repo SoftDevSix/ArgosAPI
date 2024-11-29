@@ -2,12 +2,8 @@ package com.softdevsix.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan("com.softdevsix.api.domain.entities")
-@EnableJpaRepositories("com.softdevsix.api.repositories")
 public class ArgosApplication {
 
     public static void main(String[] args) {
