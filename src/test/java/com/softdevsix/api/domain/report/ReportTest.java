@@ -5,16 +5,11 @@ import com.softdevsix.api.services.report.IReportReader;
 import com.softdevsix.api.services.report.JsonReportReader;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 import static com.softdevsix.api.Utils.readFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class ReportTest {
+class ReportTest {
     @Test
     void verifyReportReader() {
         String jsonFile = readFile("coverage-report.json");
@@ -24,12 +19,12 @@ public class ReportTest {
     }
 
     @Test
-    void verifyInvalidJSON(){
+    void verifyInvalidJSON() {
         IReportReader reportReader = new JsonReportReader();
         try {
             reportReader.read("%n");
             fail();
-        }catch (ReportReaderException e){
+        } catch (ReportReaderException e) {
             assertEquals("Could not read coverage file", e.getMessage());
         }
     }
