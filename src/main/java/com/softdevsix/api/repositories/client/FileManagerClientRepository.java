@@ -1,6 +1,9 @@
 package com.softdevsix.api.repositories.client;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,20 +16,28 @@ public class FileManagerClientRepository implements IFileManagerClientRepository
     private final RestTemplate restTemplate;
     private final String baseUrl;
 
-    public FileManagerClientRepository(RestTemplate restTemplate, @Value("${filemanager.api.base-url}") String baseUrl) {
+    public FileManagerClientRepository(RestTemplate restTemplate,
+                                       @Value("${file.manager.base-url}") String baseUrl) {
         this.restTemplate = restTemplate;
         this.baseUrl = baseUrl;
     }
 
     @Override
     public List<String> listFiles(String projectId) {
-        String url = baseUrl + "/api/files?projectId=" + projectId;
-        return restTemplate.getForObject(url, List.class);
+        String url = baseUrl + "/files?projectId=" + projectId;
+        ResponseEntity<List<String>> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<>() {
+                }
+        );
+        return response.getBody();
     }
 
     @Override
     public String getFileContent(String projectId, String filePath) {
-        String url = baseUrl + "/api/file?projectId=" + projectId + "&filePath=" + filePath;
+        String url = baseUrl + "/file?projectId=" + projectId + "&filePath=" + filePath;
         return restTemplate.getForObject(url, String.class);
     }
 

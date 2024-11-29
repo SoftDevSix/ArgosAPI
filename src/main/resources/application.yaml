@@ -12,3 +12,7 @@ server:
 logging:
   level:
     org.springframework: DEBUG
+
+file:
+  manager:
+    base-url: http://localhost:8081/fileManager
