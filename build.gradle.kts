@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.lombok) apply true
 }
 
-group = "com.softdevsix"
+group = "com.softdevsix.argos"
 version = "0.0.1-SNAPSHOT"
 
 java {
@@ -59,12 +59,13 @@ dependencies {
 }
 
 application {
-    mainClass.set("com.softdevsix.ArgosApplication")
+    mainClass.set("com.softdevsix.api.ArgosApplication")
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
 
 jacoco {
     toolVersion = "0.8.8"

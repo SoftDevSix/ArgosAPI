@@ -13,12 +13,12 @@ import java.util.UUID;
 @Data
 @Builder
 public class Project {
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private UUID projectId;
-  private String name;
-  private String description;
-  private ProjectParams projectParams;
-  private ProjectResults projectResults;
-  @Builder.Default
-  private List<File> coveredFiles = new ArrayList<>();
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID projectId;
+    private String name;
+    private String description;
+    private ProjectParams projectParams;
+    private ProjectResults projectResults;
+    @Builder.Default
+    private List<File> coveredFiles = new ArrayList<>();
 }

@@ -12,10 +12,10 @@ import java.util.UUID;
 @Data
 @Builder
 public class ProjectResults {
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private UUID id;
-  private UUID projectId;
-  private Status status;
-  private ProjectCoverageResult coverageResult;
-  private CodeAnalysisResult codeAnalysisResult;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    private UUID projectId;
+    private Status status;
+    private ProjectCoverageResult coverageResult;
+    private CodeAnalysisResult codeAnalysisResult;
 }

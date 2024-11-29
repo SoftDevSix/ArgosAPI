@@ -6,7 +6,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FileCoverageDtoTest {
+class FileCoverageDtoTests {
 
     @Test
     void testFileCoverageDtoCreation() {

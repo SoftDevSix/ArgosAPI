@@ -9,17 +9,17 @@ import java.util.UUID;
 
 @Repository
 public class ProjectRepository implements IProjectRepository {
-  Map<UUID, Project> projects;
+    Map<UUID, Project> projects;
 
-  public ProjectRepository() {
-    this.projects = new HashMap<>();
-  }
+    public ProjectRepository() {
+        this.projects = new HashMap<>();
+    }
 
-  public Project findById(UUID id) {
-    return this.projects.get(id);
-  }
+    public Project findById(UUID id) {
+        return this.projects.get(id);
+    }
 
-  public void save(Project project) {
-    projects.put(project.getProjectId(), project);
-  }
+    public void save(Project project) {
+        projects.put(project.getProjectId(), project);
+    }
 }

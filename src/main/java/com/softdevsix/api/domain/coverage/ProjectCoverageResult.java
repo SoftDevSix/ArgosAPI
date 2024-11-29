@@ -10,8 +10,8 @@ import java.util.UUID;
 @Data
 @Builder
 public class ProjectCoverageResult {
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private UUID id;
-  private float requiredCoverage;
-  private float totalCoverage;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    private float requiredCoverage;
+    private float totalCoverage;
 }

@@ -11,8 +11,8 @@ import java.util.UUID;
 @Data
 @Builder
 public class ProjectParams {
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private UUID id;
-  private float requiredCoveragePercentage;
-  private Rating requiredCodeRating;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    private float requiredCoveragePercentage;
+    private Rating requiredCodeRating;
 }

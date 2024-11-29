@@ -10,8 +10,8 @@ import java.util.UUID;
 @Data
 @Builder
 public class CodeAnalysisResult {
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private UUID id;
-  private Rating expectedRating;
-  private Rating actualRating;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    private Rating expectedRating;
+    private Rating actualRating;
 }

@@ -7,10 +7,10 @@ import java.util.UUID;
 
 @Repository
 public interface IFileRepository{
-  File createFile(File file);
-  File updateFile(File file);
-  File findById(UUID fileId);
-  List<File> getAll();
-  boolean deleteFile(UUID fileId);
+    File createFile(File file);
+    File updateFile(File file);
+    File findById(UUID fileId);
+    List<File> getAll();
+    boolean deleteFile(UUID fileId);
 
 }
