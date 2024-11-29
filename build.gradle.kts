@@ -1,10 +1,10 @@
 plugins {
     application
-    java
-    id("org.springframework.boot") version "3.3.5"
-    id("io.spring.dependency-management") version "1.1.6"
-    id("org.sonarqube") version "5.1.0.4882"
-    id("jacoco")
+    `jacoco`
+    alias(libs.plugins.sonarqube) apply true
+    alias(libs.plugins.dependency.management) apply true
+    alias(libs.plugins.springboot) apply true
+    alias(libs.plugins.lombok) apply true
 }
 
 group = "com.softdevsix.argos"
@@ -38,25 +38,19 @@ repositories {
     mavenCentral()
 }
 
-val springDocVersion = "2.6.0"
-val mockitoDocVersion = "5.5.0"
-
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-data-rest")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion")
-    implementation("org.flywaydb:flyway-core")
-    implementation("org.flywaydb:flyway-database-postgresql")
-    implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.springframework.boot:spring-boot-starter-json")
-    compileOnly("org.projectlombok:lombok")
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly("org.postgresql:postgresql")
-    annotationProcessor("org.projectlombok:lombok")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation ("org.mockito:mockito-core:$mockitoDocVersion")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation(libs.springboot.starter.web.rest)
+    implementation(libs.springboot.starter.web.jpa)
+    implementation(libs.springboot.starter)
+    implementation(libs.springdoc.openapi)
+    implementation(libs.flyway.core)
+    implementation(libs.flyway.database.postgresql)
+    implementation(libs.jackson.databind)
+    developmentOnly(libs.springboot.devtools)
+    runtimeOnly(libs.postgresql)
+    testImplementation(libs.springboot.starter.test)
+    testImplementation (libs.mockito.core)
+    testRuntimeOnly(libs.junit.launcher)
 }
 
 application {

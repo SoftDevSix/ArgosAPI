@@ -1,0 +1,47 @@
+{
+  "name": "org/example",
+  "reportPackages": [
+    {
+      "name": "org/example/domain/",
+      "reportClass": [
+        {
+          "name": "org/example/domain/Car",
+          "sourceFileName": "Car.java",
+          "methods": [
+            {
+              "name": "<init>",
+              "returnType": "()V",
+              "statements": [
+                {
+                  "statementNumber": 3,
+                  "covered": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org/example/",
+      "reportClass": [
+        {
+          "name": "org/example/App",
+          "sourceFileName": "App.java",
+          "methods": [
+            {
+              "name": "<init>",
+              "returnType": "()V",
+              "statements": [
+                {
+                  "statementNumber": 3,
+                  "covered": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
