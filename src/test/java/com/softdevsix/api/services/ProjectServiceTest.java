@@ -9,6 +9,7 @@ import com.softdevsix.api.domain.entities.project.ProjectResults;
 import com.softdevsix.api.domain.entities.project.Status;
 import com.softdevsix.api.domain.staticanalysis.CodeAnalysisResult;
 import com.softdevsix.api.domain.staticanalysis.Rating;
+import com.softdevsix.api.exceptions.ProjectNotFoundException;
 import com.softdevsix.api.repositories.IProjectRepository;
 import com.softdevsix.api.repositories.ProjectRepository;
 import org.junit.jupiter.api.Test;
@@ -18,9 +19,11 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ProjectServiceTest {
-    IProjectRepository projectRepository = new ProjectRepository();;
+class ProjectServiceTest {
+    IProjectRepository projectRepository = new ProjectRepository();
+
     private Project buildProject() {
         ProjectParams params = ProjectParams.builder()
                 .id(UUID.randomUUID())
@@ -86,7 +89,7 @@ public class ProjectServiceTest {
     }
 
     @Test
-    public void calculateProjectCoverageTest() {
+    void calculateProjectCoverageTest() {
         Project project = buildProject();
         ProjectService projectService = new ProjectService(projectRepository);
         projectRepository.save(project);
@@ -98,7 +101,7 @@ public class ProjectServiceTest {
     }
 
     @Test
-    public void calculateProjectStatus() {
+    void calculateProjectStatus() {
         Project project = buildProject();
         ProjectService projectService = new ProjectService(projectRepository);
         projectRepository.save(project);
@@ -107,5 +110,42 @@ public class ProjectServiceTest {
 
         Project updatedProject = projectService.getProjectById(project.getProjectId());
         assertEquals(Status.FAILED, updatedProject.getProjectResults().getStatus());
+    }
+
+    @Test
+    void getProjectById_ProjectNotFound() {
+        ProjectService projectService = new ProjectService(projectRepository);
+        UUID nonExistentId = UUID.randomUUID();
+
+        Exception exception = assertThrows(ProjectNotFoundException.class, () -> {
+            projectService.getProjectById(nonExistentId);
+        });
+
+        assertEquals("Project with Id: " + nonExistentId + " not found", exception.getMessage());
+    }
+
+    @Test
+    void calculateProjectRatingTest() {
+        Project project = buildProject();
+        ProjectService projectService = new ProjectService(projectRepository);
+        projectRepository.save(project);
+
+        projectService.calculateProjectRating(project.getProjectId());
+
+        Project updatedProject = projectService.getProjectById(project.getProjectId());
+        assertEquals(Rating.A, updatedProject.getProjectResults().getCodeAnalysisResult().getActualRating());
+    }
+
+    @Test
+    void calculateProjectResultsTest() {
+        Project project = buildProject();
+        ProjectService projectService = new ProjectService(projectRepository);
+        projectRepository.save(project);
+
+        ProjectResults results = projectService.calculateProjectResults(project.getProjectId());
+
+        assertEquals(50f, results.getCoverageResult().getTotalCoverage());
+        assertEquals(Rating.A, results.getCodeAnalysisResult().getActualRating());
+        assertEquals(Status.FAILED, results.getStatus());
     }
 }
