@@ -2,12 +2,9 @@ package com.softdevsix.api.services;
 
 import com.softdevsix.api.domain.entities.file.File;
 import com.softdevsix.api.domain.entities.file.MethodCoverageResult;
-import com.softdevsix.api.exceptions.ProjectNotFoundException;
 import com.softdevsix.api.repositories.IFileRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -79,6 +76,5 @@ public class FileService implements IFileService {
     public List<File> getAll() {
         return fileRepository.getAll();
     }
-
 
 }

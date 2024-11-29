@@ -22,8 +22,4 @@ public class FileCoverageDto {
         this.uncoveredLines = uncoveredLines;
     }
 
-    @Override
-    public String toString() {
-        return fileName + "\n"+pathFile+"\n"+linesCode+"\n"+methodCoverage+"\n"+coveragePercentage+"\n"+uncoveredLines.toString() ;
-    }
 }
