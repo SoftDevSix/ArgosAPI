@@ -5,7 +5,9 @@ springDocVersion = "2.6.0"
 sonarqube = "5.1.0.4882"
 mockito = "5.5.0"
 lombok = "8.11"
+jackson-core = "2.18.1"
 jackson-databind = "2.18.1"
+jackson-annotations ="2.18.1"
 
 [plugins]
 springboot = { id = "org.springframework.boot", version.ref = "springboot" }
@@ -25,8 +27,9 @@ springboot-json = { module = "org.springframework.boot:spring-boot-starter-json"
 springboot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
 junit-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
-jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson-databind" }
 flyway-core = { module = "org.flywaydb:flyway-core" }
 flyway-database-postgresql = { module = "org.flywaydb:flyway-database-postgresql" }
 postgresql = { module = "org.postgresql:postgresql" }
-
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson-core" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson-databind" }
+jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson-annotations" }
