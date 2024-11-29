@@ -2,7 +2,9 @@ package com.softdevsix.api.services;
 
 import com.softdevsix.api.domain.entities.file.File;
 import com.softdevsix.api.domain.entities.file.MethodCoverageResult;
+import com.softdevsix.api.exceptions.FileNotFoundException;
 import com.softdevsix.api.repositories.IFileRepository;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -18,9 +20,14 @@ public class FileService implements IFileService {
         this.fileRepository = fileRepository;
     }
 
+    @SneakyThrows
     @Override
     public File getFileById(UUID fileId) {
-        return fileRepository.findById(fileId);
+        File file = fileRepository.findById(fileId);
+        if (file == null) {
+            throw new FileNotFoundException("File with ID " + fileId + " not found.");
+        }
+        return file;
     }
 
     @Override
