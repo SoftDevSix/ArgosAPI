@@ -54,7 +54,7 @@ class FileCoverageControllerTests {
         ResponseEntity<FileCoverageDto> response = fileCoverageController.getFileCoverage(mockFileId);
 
         assertNotNull(response);
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(200, response.getStatusCode().value()); // Usando getStatusCode().value() en lugar de getStatusCodeValue()
         FileCoverageDto dto = response.getBody();
         assertNotNull(dto);
         assertEquals(mockFile.getFileName(), dto.getFileName());
@@ -73,7 +73,7 @@ class FileCoverageControllerTests {
         ResponseEntity<List<File>> response = fileCoverageController.getAll();
 
         assertNotNull(response);
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(200, response.getStatusCode().value()); // Usando getStatusCode().value() en lugar de getStatusCodeValue()
         List<File> files = response.getBody();
         assertNotNull(files);
         assertEquals(mockFiles.size(), files.size());
