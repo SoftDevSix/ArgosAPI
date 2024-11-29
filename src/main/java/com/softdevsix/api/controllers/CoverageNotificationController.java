@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/coverageNotification")
+@RequestMapping("/coverage/create-notification")
 public class CoverageNotificationController {
 
     private final IFileManagerClientRepository fileManagerClient;
