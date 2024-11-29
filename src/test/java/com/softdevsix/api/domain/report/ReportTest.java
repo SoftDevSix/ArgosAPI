@@ -10,26 +10,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import static com.softdevsix.api.Utils.readFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-class ReportTest {
-    public static String readFile(String path) {
-        try (InputStream fileInputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(path)) {
-            StringBuilder file = new StringBuilder();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                file.append(line).append("\n");
-            }
-            return file.toString();
-
-        } catch (IOException e) {
-            fail(e.getMessage(), e);
-            return "";
-        }
-    }
-
+public class ReportTest {
     @Test
     void verifyReportReader() {
         String jsonFile = readFile("coverage-report.json");
