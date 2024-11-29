@@ -63,7 +63,7 @@ public class FileService implements IFileService {
         List<Integer> uncoveredLines = new ArrayList<>();
         for (MethodCoverageResult methodCoverage : file.getCoverageResult().getAllStatements()) {
             for (Map.Entry<Integer, Boolean> entry : methodCoverage.getStatements().entrySet()) {
-                if (!entry.getValue()) {
+                if (entry.getValue() != null && !entry.getValue().booleanValue()) {
                     uncoveredLines.add(entry.getKey());
                 }
             }
