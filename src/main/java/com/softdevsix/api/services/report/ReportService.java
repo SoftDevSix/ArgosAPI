@@ -18,7 +18,6 @@ public class ReportService implements IReportService {
     }
 
     public void saveReportToDatabase(Report report) {
-        // TODO
         // Logic for saving the report to the database
         // A database repository will be used here (e.g. JPA or MongoDB)
     }
