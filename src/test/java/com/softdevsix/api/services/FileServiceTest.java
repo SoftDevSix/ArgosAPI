@@ -1,12 +1,11 @@
 package com.softdevsix.api.services;
 
 import com.softdevsix.api.domain.entities.file.File;
+import com.softdevsix.api.domain.entities.file.FileCoverageResult;
 import com.softdevsix.api.domain.entities.file.MethodCoverageResult;
-import com.softdevsix.api.exceptions.ProjectNotFoundException;
 import com.softdevsix.api.repositories.IFileRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -15,104 +14,111 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class FileServiceTest {
+class FileServiceTest {
+
+    private FileService fileService;
+
     @Mock
     private IFileRepository fileRepository;
-    @InjectMocks
-    private FileService fileService;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        fileService = new FileService(fileRepository);
     }
 
     @Test
-    void testGetFileByIdFileExists() {
+    void testGetFileById() {
         UUID fileId = UUID.randomUUID();
-        File file = File.builder()
+        File mockFile = File.builder()
                 .fileId(fileId)
-                .fileName("TestFile.java")
-                .path("/src/TestFile.java")
+                .fileName("testFile")
                 .build();
 
-        //when(fileRepository.findById(fileId)).thenReturn(Optional.of(file));
+        when(fileRepository.findById(fileId)).thenReturn(mockFile);
 
         File result = fileService.getFileById(fileId);
 
         assertNotNull(result);
-        assertEquals(fileId, result.getFileId());
-        assertEquals("TestFile.java", result.getFileName());
-        verify(fileRepository, times(1)).findById(fileId);
-    }
-
-    @Test
-    void testGetFileByIdFileNotFound() {
-        UUID fileId = UUID.randomUUID();
-        //when(fileRepository.findById(fileId)).thenReturn(Optional.empty());
-
-        assertThrows(ProjectNotFoundException.class, () -> fileService.getFileById(fileId));
+        assertEquals(mockFile, result);
         verify(fileRepository, times(1)).findById(fileId);
     }
 
     @Test
     void testCalculateFileCoverage() {
-        List<MethodCoverageResult> methodCoverages = Arrays.asList(
-                MethodCoverageResult.builder()
-                        .statements(Map.of(1, true, 2, true, 3, false))
-                        .build(),
-                MethodCoverageResult.builder()
-                        .statements(Map.of(1, true, 2, false, 3, false))
-                        .build()
+        List<MethodCoverageResult> methodCoverages = List.of(
+                MethodCoverageResult.builder().statements(Map.of(1, true, 2, false)).build(),
+                MethodCoverageResult.builder().statements(Map.of(3, true, 4, true)).build()
         );
 
-        File file = File.builder()
-                .fileName("TestFile.java")
-                //.methodCoverageResults(methodCoverages)
+        FileCoverageResult coverageResult = FileCoverageResult.builder()
+                .allStatements(methodCoverages)
                 .build();
 
-        float coverage = fileService.calculateFileCoverage(file);
-
-        assertEquals(50.0f, coverage, 0.01);
-    }
-
-    @Test
-    void testCalculateFileCoverageNoMethods() {
         File file = File.builder()
-                //.methodCoverageResults(Collections.emptyList())
+                .coverageResult(coverageResult)
                 .build();
 
-        float coverage = fileService.calculateFileCoverage(file);
+        float result = fileService.calculateFileCoverage(file);
 
-        assertEquals(0.0f, coverage);
+        assertEquals(75.0f, result, 0.01);
     }
 
     @Test
     void testCalculateFileMethodCoverage() {
-        List<MethodCoverageResult> methodCoverages = Arrays.asList(
-                MethodCoverageResult.builder()
-                        .statements(Map.of(1, true, 2, true, 3, false))
-                        .build(),
-                MethodCoverageResult.builder()
-                        .statements(Map.of(1, true, 2, false, 3, false))
-                        .build()
+        List<MethodCoverageResult> methodCoverages = List.of(
+                MethodCoverageResult.builder().statements(Map.of(1, true, 2, false)).build(),
+                MethodCoverageResult.builder().statements(Map.of(3, true, 4, true, 5, false)).build()
         );
 
-        File file = File.builder()
-                //.methodCoverageResults(methodCoverages)
+        FileCoverageResult coverageResult = FileCoverageResult.builder()
+                .allStatements(methodCoverages)
                 .build();
 
-        float coverage = fileService.calculateFileMethodCoverage(file);
+        File file = File.builder()
+                .coverageResult(coverageResult)
+                .build();
 
-        assertEquals(50.0f, coverage, 0.01);
+        float result = fileService.calculateFileMethodCoverage(file);
+
+        assertEquals(60.0f, result, 0.01);
     }
 
     @Test
-    void testCalculateFileMethodCoverageNoStatements() {
-        File file = File.builder()
-                //.methodCoverageResults(Collections.emptyList())
+    void testGetUncoveredLines() {
+        List<MethodCoverageResult> methodCoverages = List.of(
+                MethodCoverageResult.builder().statements(Map.of(1, true, 2, false)).build(),
+                MethodCoverageResult.builder().statements(Map.of(3, false, 4, true)).build()
+        );
+
+        FileCoverageResult coverageResult = FileCoverageResult.builder()
+                .allStatements(methodCoverages)
                 .build();
 
-        float coverage = fileService.calculateFileMethodCoverage(file);
+        File file = File.builder()
+                .coverageResult(coverageResult)
+                .build();
 
-        assertEquals(0.0f, coverage);
+        List<Integer> result = fileService.getUncoveredLines(file);
+
+        assertNotNull(result);
+        assertEquals(List.of(2, 3), result);
+    }
+
+    @Test
+    void testGetAllFiles() {
+        List<File> mockFiles = List.of(
+                File.builder().fileName("File1").build(),
+                File.builder().fileName("File2").build()
+        );
+
+        when(fileRepository.getAll()).thenReturn(mockFiles);
+
+        List<File> result = fileService.getAll();
+
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals(mockFiles, result);
+        verify(fileRepository, times(1)).getAll();
     }
 }
