@@ -13,9 +13,7 @@ public class SwaggerConfig {
     return new OpenAPI()
             .info(new Info()
                             .title("Argos API")
-                            .description("An application for verifying code coverage and quality of pull requests.")
-                            .version("1.0")
-                            .contact(new Contact()
-                                    .name("Argos Team")));
+                            .description("An application for verifying code coverage and file coverage in project.")
+                            .version("1.0"));
   }
 }
