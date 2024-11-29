@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/metrics")
+@RequestMapping("/coverage")
 public class ProjectMetricsController {
     private final IProjectService projectService;
 
