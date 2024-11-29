@@ -14,16 +14,16 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/metrics")
 public class ProjectMetricsController {
-    private final IProjectService PROJECTSERVICE;
+    private final IProjectService projectService;
 
     public ProjectMetricsController(IProjectService projectService) {
-        this.PROJECTSERVICE = projectService;
+        this.projectService = projectService;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProjectResults> getProjectMetrics(@PathVariable UUID id) {
         try {
-            ProjectResults results = PROJECTSERVICE.calculateProjectResults(id);
+            ProjectResults results = projectService.calculateProjectResults(id);
             return new ResponseEntity<>(results, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

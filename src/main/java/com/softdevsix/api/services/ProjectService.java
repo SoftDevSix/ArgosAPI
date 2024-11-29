@@ -15,14 +15,14 @@ import java.util.UUID;
 
 @Service
 public class ProjectService implements IProjectService {
-    private final IProjectRepository PROJECTREPOSITORY;
+    private final IProjectRepository projectRepository;
 
     public ProjectService(IProjectRepository projectRepository) {
-        this.PROJECTREPOSITORY = projectRepository;
+        this.projectRepository = projectRepository;
     }
 
     public Project getProjectById(UUID projectId) {
-        Project project = PROJECTREPOSITORY.findById(projectId);
+        Project project = projectRepository.findById(projectId);
         if (project == null) {
             throw new ProjectNotFoundException("Project with Id: " + projectId + " not found");
         }
@@ -41,13 +41,13 @@ public class ProjectService implements IProjectService {
         totalCoverage /= project.getCoveredFiles().size();
         project.getProjectResults().getCoverageResult().setTotalCoverage(totalCoverage);
 
-        PROJECTREPOSITORY.save(project);
+        projectRepository.save(project);
     }
 
     public void calculateProjectRating(UUID projectId) {
         Project project = getProjectById(projectId);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.A);
-        PROJECTREPOSITORY.save(project);
+        projectRepository.save(project);
     }
 
     public void calculateProjectStatus(UUID projectId) {
@@ -67,7 +67,7 @@ public class ProjectService implements IProjectService {
             projectResults.setStatus(Status.FAILED);
         }
 
-        PROJECTREPOSITORY.save(project);
+        projectRepository.save(project);
     }
 
     public ProjectResults calculateProjectResults(UUID projectId) {
