@@ -31,5 +31,5 @@ VALUES
 INSERT INTO
     method_coverage_result (method_coverage_id, file_coverage_id, statements)
 VALUES
-    ('bbbbbbbb', '9999999999', '{"1": true, "2": false}'::JSONB),
-    ('cccccccc-', 'aaaaaaaaaa', '{"1": true, "2": true}'::JSONB);
+    ('09564cc6-75ab-46be-8d1d-382586653ace', '9ce01882-7752-459f-8477-bd92918673d2', '{"1": true, "2": false}'::JSONB),
+    ('47a5d99d-d044-4056-b812-7001c3c67005', '16dbab3c-38dd-4ff7-8126-81b44685aceb', '{"1": true, "2": true}'::JSONB);
