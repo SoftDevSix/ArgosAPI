@@ -1,17 +1,12 @@
 spring:
-  flyway:
-    enabled: false
-  jpa:
-    hibernate:
-      ddl-auto: none
+  application:
+    name: argos-api
+    
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-server:
-  port: 8080
 
-logging:
-  level:
-    org.springframework: DEBUG
+  profiles:
+    active: dev
 
 file:
   manager:
