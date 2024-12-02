@@ -1,4 +1,4 @@
-package com.softdevsix.application.services;
+package com.softdevsix.application.services.Project;
 
 import com.softdevsix.domain.entities.coverage.ProjectCoverageResult;
 import com.softdevsix.domain.entities.file.File;
@@ -21,6 +21,7 @@ public class ProjectService implements IProjectService {
         this.projectRepository = projectRepository;
     }
 
+    @Override
     public Project getProjectById(UUID projectId) {
         Project project = projectRepository.findById(projectId);
         if (project == null) {
@@ -29,6 +30,7 @@ public class ProjectService implements IProjectService {
         return project;
     }
 
+    @Override
     public void calculateProjectCoverage(UUID projectId) {
         Project project = getProjectById(projectId);
 
@@ -44,12 +46,14 @@ public class ProjectService implements IProjectService {
         projectRepository.save(project);
     }
 
+    @Override
     public void calculateProjectRating(UUID projectId) {
         Project project = getProjectById(projectId);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.A);
         projectRepository.save(project);
     }
 
+    @Override
     public void calculateProjectStatus(UUID projectId) {
         Project project = getProjectById(projectId);
 
@@ -70,6 +74,7 @@ public class ProjectService implements IProjectService {
         projectRepository.save(project);
     }
 
+    @Override
     public ProjectResults calculateProjectResults(UUID projectId) {
         calculateProjectCoverage(projectId);
         calculateProjectRating(projectId);

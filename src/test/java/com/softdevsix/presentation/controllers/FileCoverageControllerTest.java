@@ -2,7 +2,7 @@ package com.softdevsix.presentation.controllers;
 
 import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.application.dto.FileCoverageDto;
-import com.softdevsix.application.services.IFileService;
+import com.softdevsix.application.services.File.IFileService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

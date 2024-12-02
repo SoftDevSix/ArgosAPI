@@ -1,7 +1,7 @@
 package com.softdevsix.presentation.controllers;
 
 import com.softdevsix.domain.entities.project.ProjectResults;
-import com.softdevsix.application.services.IProjectService;
+import com.softdevsix.application.services.Project.IProjectService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
