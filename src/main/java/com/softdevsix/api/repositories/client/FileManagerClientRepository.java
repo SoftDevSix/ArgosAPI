@@ -2,11 +2,14 @@ package com.softdevsix.api.repositories.client;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +35,13 @@ public class FileManagerClientRepository implements IFileManagerClientRepository
     @Override
     public List<String> listFiles(String projectId) {
         String url = baseUrl + FILES_ENDPOINT + "?" + PROJECT_ID_PARAM + "=" + projectId;
-        return restTemplate.getForObject(url, List.class);
+        ResponseEntity<List<String>> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<String>>() {}
+        );
+        return response.getBody();
     }
 
     @Override
@@ -54,7 +63,7 @@ public class FileManagerClientRepository implements IFileManagerClientRepository
                 .orElse(null);
 
         if (coveragePath != null) {
-            return Optional.of(getFileContent(projectId, coveragePath));
+            return Optional.ofNullable(getFileContent(projectId, coveragePath));
         }
         return Optional.empty();
     }
