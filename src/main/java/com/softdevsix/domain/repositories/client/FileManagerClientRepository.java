@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,7 @@ public class FileManagerClientRepository implements IFileManagerClientRepository
     private static final String PROJECT_ID_PARAM = "projectId";
     private static final String FILE_PATH_PARAM = "filePath";
     private static final String COVERAGE_JSON_FILENAME = "coverage.json";
+    private static final String PROJECTS_PATH_PREFIX = "projects";
 
     public FileManagerClientRepository(RestTemplate restTemplate,
                                        @Value("${file.manager.base-url}") String baseUrl) {
@@ -54,9 +56,11 @@ public class FileManagerClientRepository implements IFileManagerClientRepository
         List<String> files = listFiles(projectId);
         String coveragePath = files.stream()
                 .filter(file -> file.endsWith(COVERAGE_JSON_FILENAME) ||
-                        file.contains("/" + COVERAGE_JSON_FILENAME))
-                .map(file -> file.substring(
-                        file.lastIndexOf("projects/" + projectId + "/") + ("projects/" + projectId + "/").length()))
+                        file.contains(Paths.get(COVERAGE_JSON_FILENAME).toString()))
+                .map(file -> {
+                    String projectPrefix = Paths.get(PROJECTS_PATH_PREFIX, projectId).toString();
+                    return file.substring(file.lastIndexOf(projectPrefix) + projectPrefix.length() + 1);
+                })
                 .findFirst()
                 .orElse(null);
 
