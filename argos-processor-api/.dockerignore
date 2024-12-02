@@ -1,5 +1,5 @@
 # Ignore build directories and files and dependencies
-../.gradle/
+.gradle/
 build/
 # Ignore specific local or IDE configuration files
 *.iml

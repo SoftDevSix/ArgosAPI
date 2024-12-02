@@ -2,7 +2,7 @@ services:
   argos_api_app_stage:
     image: argos-api-app-stage
     build:
-      context: ..
+      context: .
       dockerfile: Dockerfile.stage
     ports:
       - "8082:8082"

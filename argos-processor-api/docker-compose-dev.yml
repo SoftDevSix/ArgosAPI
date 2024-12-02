@@ -2,7 +2,7 @@ services:
   argos_api_app_dev:
     image: argos-api-app-dev
     build:
-      context: ..
+      context: .
       dockerfile: Dockerfile.dev
     ports:
       - "8081:8081"

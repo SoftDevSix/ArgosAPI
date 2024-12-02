@@ -2,7 +2,7 @@ services:
   argos_api_app_prod:
     image: argos-api-app-prod
     build:
-      context: ..
+      context: .
       dockerfile: Dockerfile.prod
     ports:
       - "8083:8083"
