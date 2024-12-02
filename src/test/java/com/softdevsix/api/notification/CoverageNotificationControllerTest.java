@@ -30,7 +30,7 @@ public class CoverageNotificationControllerTest {
         String coverageJson = "{\"coverage\":90}";
 
         when(fileManagerClient.getCoverageJson(projectId)).thenReturn(Optional.of(coverageJson));
-        doNothing().when(reportService).processAndSaveReport(coverageJson);
+        doNothing().when(reportService).processAndSaveReport("", coverageJson);
 
         ResponseEntity<String> response = controller.notifyProjectCreation(projectId);
 
@@ -38,7 +38,7 @@ public class CoverageNotificationControllerTest {
         assertEquals("Coverage report processed successfully for project: " + projectId, response.getBody());
 
         verify(fileManagerClient).getCoverageJson(projectId);
-        verify(reportService).processAndSaveReport(coverageJson);
+        verify(reportService).processAndSaveReport("", coverageJson);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class CoverageNotificationControllerTest {
         assertEquals("Coverage JSON not found for project: " + projectId, response.getBody());
 
         verify(fileManagerClient).getCoverageJson(projectId);
-        verify(reportService, never()).processAndSaveReport(anyString());
+        verify(reportService, never()).processAndSaveReport("", anyString());
     }
 
     @Test
@@ -78,6 +78,6 @@ public class CoverageNotificationControllerTest {
         assertEquals("Error processing coverage report: FileManager error", response.getBody());
 
         verify(fileManagerClient).getCoverageJson(projectId);
-        verify(reportService, never()).processAndSaveReport(anyString());
+        verify(reportService, never()).processAndSaveReport("", anyString());
     }
 }

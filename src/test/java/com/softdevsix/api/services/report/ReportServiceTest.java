@@ -20,7 +20,7 @@ class ReportServiceTest {
         IFileRepository fileRepository = new FileMemoryRepository();
 
         ReportService reportService = new ReportService(null, projectRepository, fileRepository);
-        reportService.saveReportToDatabase(report);
+        reportService.saveReportToDatabase("", report);
         assertEquals(1, projectRepository.getAll().size());
         assertEquals(2+3, fileRepository.getAll().size());
     }
