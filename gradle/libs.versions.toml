@@ -1,7 +1,7 @@
 [versions]
-springboot = "3.3.4"
-dependencyManagement = "1.1.6"
-springDocVersion = "2.6.0"
+springboot = "3.4.0"
+dependency-management = "1.1.6"
+spring-doc-version = "2.6.0"
 sonarqube = "5.1.0.4882"
 mockito = "5.5.0"
 lombok = "8.11"
@@ -11,25 +11,24 @@ jackson-annotations ="2.18.1"
 
 [plugins]
 springboot = { id = "org.springframework.boot", version.ref = "springboot" }
-dependency-management = { id = "io.spring.dependency-management", version.ref = "dependencyManagement" }
+dependency-management = { id = "io.spring.dependency-management", version.ref = "dependency-management" }
 sonarqube = { id = "org.sonarqube", version.ref = "sonarqube" }
 lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
 
 [libraries]
-springboot-starter-web-rest = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
-springboot-starter-web-jpa = { module = "org.springframework.boot:spring-boot-starter-data-rest" }
+springboot-starter-web-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
 springboot-starter-web-security = { module = "org.springframework.boot:spring-boot-starter-security" }
-springboot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "springboot" }
-springdoc-openapi = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springDocVersion" }
-springboot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
 springboot-web = { module = "org.springframework.boot:spring-boot-starter-web" }
-springboot-json = { module = "org.springframework.boot:spring-boot-starter-json" }
-springboot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
-junit-launcher = { module = "org.junit.platform:junit-platform-launcher" }
-mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 flyway-core = { module = "org.flywaydb:flyway-core" }
 flyway-database-postgresql = { module = "org.flywaydb:flyway-database-postgresql" }
+springboot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
 postgresql = { module = "org.postgresql:postgresql" }
+springboot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+springboot-starter-security-test = { module = "org.springframework.security:spring-security-test"}
+junit-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+springdoc-openapi = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "spring-doc-version" }
+springboot-json = { module = "org.springframework.boot:spring-boot-starter-json" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson-core" }
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson-databind" }
 jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson-annotations" }
