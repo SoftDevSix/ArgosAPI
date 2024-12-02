@@ -2,7 +2,7 @@ package com.softdevsix.presentation.controllers;
 
 import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.application.dto.FileCoverageDto;
-import com.softdevsix.application.services.IFileService;
+import com.softdevsix.application.services.File.IFileService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

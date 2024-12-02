@@ -1,4 +1,4 @@
-package com.softdevsix.application.services;
+package com.softdevsix.application.services.Project;
 
 import com.softdevsix.domain.entities.project.Project;
 import com.softdevsix.domain.entities.project.ProjectResults;

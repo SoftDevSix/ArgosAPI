@@ -1,4 +1,4 @@
-package com.softdevsix.application.services;
+package com.softdevsix.application.services.File;
 
 import com.softdevsix.domain.entities.file.File;
 import java.util.List;
