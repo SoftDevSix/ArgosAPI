@@ -5,12 +5,13 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Service
 public class FileManagerClientRepository implements IFileManagerClientRepository{
 
     private final RestTemplate restTemplate;
@@ -31,14 +32,7 @@ public class FileManagerClientRepository implements IFileManagerClientRepository
     @Override
     public List<String> listFiles(String projectId) {
         String url = baseUrl + FILES_ENDPOINT + "?" + PROJECT_ID_PARAM + "=" + projectId;
-        ResponseEntity<List<String>> response = restTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {
-                }
-        );
-        return response.getBody();
+        return restTemplate.getForObject(url, List.class);
     }
 
     @Override
@@ -52,7 +46,10 @@ public class FileManagerClientRepository implements IFileManagerClientRepository
     public Optional<String> getCoverageJson(String projectId) {
         List<String> files = listFiles(projectId);
         String coveragePath = files.stream()
-                .filter(file -> file.contains(COVERAGE_JSON_FILENAME))
+                .filter(file -> file.endsWith(COVERAGE_JSON_FILENAME) ||
+                        file.contains("/" + COVERAGE_JSON_FILENAME))
+                .map(file -> file.substring(
+                        file.lastIndexOf("projects/" + projectId + "/") + ("projects/" + projectId + "/").length()))
                 .findFirst()
                 .orElse(null);
 
