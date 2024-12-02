@@ -1,20 +1,18 @@
 package com.softdevsix.domain.repositories.client;
 
+import lombok.Generated;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Generated
 public class FileManagerClientRepository implements IFileManagerClientRepository{
 
     private final RestTemplate restTemplate;

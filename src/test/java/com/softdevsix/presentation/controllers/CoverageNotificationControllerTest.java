@@ -30,7 +30,7 @@ public class CoverageNotificationControllerTest {
         String coverageJson = "{\"coverage\":90}";
 
         when(fileManagerClient.getCoverageJson(projectId)).thenReturn(Optional.of(coverageJson));
-        doNothing().when(reportService).processAndSaveReport(eq(projectId), eq(coverageJson));
+        doNothing().when(reportService).processAndSaveReport(projectId, coverageJson);
 
         ResponseEntity<String> response = controller.notifyProjectCreation(projectId);
 
@@ -38,7 +38,7 @@ public class CoverageNotificationControllerTest {
         assertEquals("Coverage report processed successfully for project: " + projectId, response.getBody());
 
         verify(fileManagerClient).getCoverageJson(projectId);
-        verify(reportService).processAndSaveReport(eq(projectId), eq(coverageJson));
+        verify(reportService).processAndSaveReport(projectId, coverageJson);
     }
 
     @Test
