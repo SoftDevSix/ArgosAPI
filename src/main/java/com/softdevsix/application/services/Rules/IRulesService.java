@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public interface IRulesService {
     void saveRules(ProjectParams projectParams, UUID projectId);
-    void executeProject(Project project, ProjectParamsRequestDTO paramsRequestDTO);
+    void executeProject(UUID projectId, ProjectParamsRequestDTO paramsRequestDTO);
 }

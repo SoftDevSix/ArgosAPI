@@ -3,6 +3,7 @@ package com.softdevsix.application.services.Rules;
 import com.softdevsix.application.dto.ProjectParamsRequestDTO;
 import com.softdevsix.application.services.File.IFileService;
 import com.softdevsix.application.services.Project.IProjectService;
+import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.domain.entities.project.Project;
 import com.softdevsix.domain.entities.project.ProjectParams;
 import com.softdevsix.domain.exceptions.BadRequestException;
@@ -38,16 +39,33 @@ public class RulesService implements IRulesService {
     }
 
     @Override
-    public void executeProject(Project project, ProjectParamsRequestDTO paramsRequestDTO) {
+    public void executeProject(UUID projectId, ProjectParamsRequestDTO paramsRequestDTO) {
+        Project project = PROJECT_SERVICE.getProjectById(projectId);
+
         if(project == null) throw new BadRequestException("Project cannot be null");
 
+        project.setName(paramsRequestDTO.getProjectName());
+        project.setDescription(paramsRequestDTO.getDescription());
+        PROJECT_SERVICE.updateProject(project);
+
+        calculateFilesCoverage(project);
+
         if(paramsRequestDTO.isProjectCoverage()) {
-            PROJECT_SERVICE.calculateProjectCoverage(project.getProjectId());
+            PROJECT_SERVICE.calculateProjectCoverage(projectId);
         }
         if(paramsRequestDTO.isProjectCoverage()) {
-            PROJECT_SERVICE.calculateProjectRating(project.getProjectId());
+            PROJECT_SERVICE.calculateProjectRating(projectId);
         }
 
-        PROJECT_SERVICE.calculateProjectStatus(project.getProjectId());
+        PROJECT_SERVICE.calculateProjectStatus(projectId);
+    }
+
+    private void calculateFilesCoverage(Project project) {
+        for(File file : project.getCoveredFiles()) {
+            file.getCoverageResult().setCoveragePercentage(FILE_SERVICE.calculateFileCoverage(file));
+            file.getCoverageResult().setMethodCoveragePercentage(FILE_SERVICE.calculateFileMethodCoverage(file));
+        }
+
+        PROJECT_SERVICE.updateProject(project);
     }
 }

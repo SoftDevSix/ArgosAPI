@@ -25,8 +25,8 @@ public class FileCoverageController {
                 file.getFileName(),
                 file.getPath(),
                 file.getLineCode(),
-                fileService.calculateFileMethodCoverage(file),
-                fileService.calculateFileCoverage(file),
+                file.getCoverageResult().getMethodCoveragePercentage(),
+                file.getCoverageResult().getCoveragePercentage(),
                 fileService.getUncoveredLines(file)
         );
 
