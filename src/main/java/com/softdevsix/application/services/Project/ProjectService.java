@@ -49,7 +49,7 @@ public class ProjectService implements IProjectService {
     @Override
     public void calculateProjectRating(UUID projectId) {
         Project project = getProjectById(projectId);
-        project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.A);
+        project.getProjectResults().getCodeAnalysisResult();
         projectRepository.save(project);
     }
 
