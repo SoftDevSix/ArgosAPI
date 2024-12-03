@@ -8,7 +8,9 @@ import com.softdevsix.domain.entities.project.Status;
 import com.softdevsix.domain.entities.staticanalysis.CodeAnalysisResult;
 import com.softdevsix.domain.entities.staticanalysis.Rating;
 import com.softdevsix.domain.exceptions.ProjectNotFoundException;
+import com.softdevsix.domain.repositories.IFileRepository;
 import com.softdevsix.domain.repositories.IProjectRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -16,9 +18,11 @@ import java.util.UUID;
 @Service
 public class ProjectService implements IProjectService {
     private final IProjectRepository projectRepository;
+    private final IFileRepository fileRepository;
 
-    public ProjectService(IProjectRepository projectRepository) {
+    public ProjectService(IProjectRepository projectRepository, @Qualifier("fileMemoryRepository") IFileRepository fileRepository) {
         this.projectRepository = projectRepository;
+        this.fileRepository = fileRepository;
     }
 
     public Project getProjectById(UUID projectId) {
@@ -30,6 +34,7 @@ public class ProjectService implements IProjectService {
     }
 
     public void calculateProjectCoverage(UUID projectId) {
+        System.out.println("project coverage calculation");
         Project project = getProjectById(projectId);
 
         float totalCoverage = 0f;
@@ -45,12 +50,14 @@ public class ProjectService implements IProjectService {
     }
 
     public void calculateProjectRating(UUID projectId) {
+        System.out.println("project rating calculation");
         Project project = getProjectById(projectId);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.A);
         projectRepository.save(project);
     }
 
     public void calculateProjectStatus(UUID projectId) {
+        System.out.println("project status calculation");
         Project project = getProjectById(projectId);
 
         ProjectResults projectResults = project.getProjectResults();
@@ -72,8 +79,11 @@ public class ProjectService implements IProjectService {
 
     public ProjectResults calculateProjectResults(UUID projectId) {
         calculateProjectCoverage(projectId);
+        System.out.println("primero");
         calculateProjectRating(projectId);
+        System.out.println("segundo");
         calculateProjectStatus(projectId);
+        System.out.println("tercero");
 
         return getProjectById(projectId).getProjectResults();
     }

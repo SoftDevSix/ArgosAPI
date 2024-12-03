@@ -21,4 +21,9 @@ public class Project {
     private ProjectResults projectResults;
     @Builder.Default
     private List<File> coveredFiles = new ArrayList<>();
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        return sb.append(projectId).append(" ").append(name).append(" ").append(description).append(" ").append(projectParams).append(" ").append(coveredFiles).append(" ").append(projectResults).toString();
+    }
 }
