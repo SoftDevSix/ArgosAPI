@@ -10,7 +10,6 @@ import com.softdevsix.domain.entities.staticanalysis.Rating;
 import com.softdevsix.domain.exceptions.ProjectNotFoundException;
 import com.softdevsix.domain.repositories.IProjectRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.UUID;
 
 @Service
@@ -24,6 +23,7 @@ public class ProjectService implements IProjectService {
     @Override
     public Project getProjectById(UUID projectId) {
         Project project = projectRepository.findById(projectId);
+        System.out.println(project);
         if (project == null) {
             throw new ProjectNotFoundException("Project with Id: " + projectId + " not found");
         }
@@ -43,14 +43,14 @@ public class ProjectService implements IProjectService {
         totalCoverage /= project.getCoveredFiles().size();
         project.getProjectResults().getCoverageResult().setTotalCoverage(totalCoverage);
 
-        projectRepository.save(project);
+        projectRepository.createProject(project);
     }
 
     @Override
     public void calculateProjectRating(UUID projectId) {
         Project project = getProjectById(projectId);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.A);
-        projectRepository.save(project);
+        projectRepository.createProject(project);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class ProjectService implements IProjectService {
             projectResults.setStatus(Status.FAILED);
         }
 
-        projectRepository.save(project);
+        projectRepository.createProject(project);
     }
 
     @Override
