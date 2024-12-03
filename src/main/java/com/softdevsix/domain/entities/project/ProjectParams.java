@@ -13,8 +13,6 @@ import java.util.UUID;
 public class ProjectParams {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private String projectName;
-    private String projectDescription;
     private Boolean projectCoverage;
     private float requiredCoveragePercentage;
     private Boolean projectCodeRating;

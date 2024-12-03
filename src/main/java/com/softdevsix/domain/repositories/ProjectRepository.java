@@ -10,18 +10,19 @@ import java.util.UUID;
 
 @Repository
 public class ProjectRepository implements IProjectRepository {
-    Map<UUID, Project> projects;
+    private static Map<UUID, Project> projects;
 
     public ProjectRepository() {
-        this.projects = new HashMap<>();
+        projects = new HashMap<>();
     }
 
     public Project findById(UUID id) {
-        return this.projects.get(id);
+        return projects.get(id);
     }
 
     public void save(Project project) {
         projects.put(project.getProjectId(), project);
+
     }
 
     public List<Project> getAll(){

@@ -19,8 +19,6 @@ public class RulesMemoryRepository implements IRulesRepository {
     private void initializeData() {
         ProjectParams rule1 = ProjectParams.builder()
                 .id(UUID.randomUUID())
-                .projectName("Project Alpha")
-                .projectDescription("Description for Project Alpha")
                 .projectCoverage(true)
                 .requiredCoveragePercentage(75.0f)
                 .projectCodeRating(true)
@@ -29,8 +27,6 @@ public class RulesMemoryRepository implements IRulesRepository {
 
         ProjectParams rule2 = ProjectParams.builder()
                 .id(UUID.randomUUID())
-                .projectName("Project Beta")
-                .projectDescription("Description for Project Beta")
                 .projectCoverage(false)
                 .requiredCoveragePercentage(0.0f)
                 .projectCodeRating(true)
@@ -39,8 +35,6 @@ public class RulesMemoryRepository implements IRulesRepository {
 
         ProjectParams rule3 = ProjectParams.builder()
                 .id(UUID.randomUUID())
-                .projectName("Project Gamma")
-                .projectDescription("Description for Project Gamma")
                 .projectCoverage(true)
                 .requiredCoveragePercentage(85.0f)
                 .projectCodeRating(true)
