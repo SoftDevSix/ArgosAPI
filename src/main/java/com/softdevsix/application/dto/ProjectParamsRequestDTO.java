@@ -1,7 +1,6 @@
 package com.softdevsix.application.dto;
 
 import com.softdevsix.domain.entities.staticanalysis.Rating;
-import lombok.Data;
 import lombok.Value;
 
 @Value

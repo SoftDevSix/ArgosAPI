@@ -28,7 +28,9 @@ class ProjectServiceTest {
     private Project buildProject() {
         ProjectParams params = ProjectParams.builder()
                 .id(UUID.randomUUID())
+                .projectCoverage(true)
                 .requiredCoveragePercentage(80f)
+                .projectRating(true)
                 .requiredCodeRating(Rating.B)
                 .build();
 
@@ -94,9 +96,11 @@ class ProjectServiceTest {
         ProjectService projectService = new ProjectService(projectRepository);
         projectRepository.save(project);
 
-        ProjectResults results = projectService.getProjectResults(project.getProjectId());
+        projectService.calculateProjectCoverage(project.getProjectId());
+        projectService.getProjectResults(project.getProjectId());
 
-        assertEquals(50f, results.getCoverageResult().getTotalCoverage());
+        Project updatedProject = projectService.getProjectById(project.getProjectId());
+        assertEquals(50f, updatedProject.getProjectResults().getCoverageResult().getTotalCoverage());
     }
 
     @Test
@@ -173,10 +177,9 @@ class ProjectServiceTest {
         ProjectService projectService = new ProjectService(projectRepository);
         projectRepository.save(project);
 
-        projectService.calculateProjectRating(project.getProjectId());
+        ProjectResults results = projectService.getProjectResults(project.getProjectId());
 
-        Project updatedProject = projectService.getProjectById(project.getProjectId());
-        assertEquals(Rating.A, updatedProject.getProjectResults().getCodeAnalysisResult().getActualRating());
+        assertEquals(Rating.A, results.getCodeAnalysisResult().getActualRating());
     }
 
     @Test
@@ -185,6 +188,9 @@ class ProjectServiceTest {
         ProjectService projectService = new ProjectService(projectRepository);
         projectRepository.save(project);
 
+        projectService.calculateProjectCoverage(project.getProjectId());
+        projectService.calculateProjectRating(project.getProjectId());
+        projectService.calculateProjectStatus(project.getProjectId());
         ProjectResults results = projectService.getProjectResults(project.getProjectId());
 
         assertEquals(50f, results.getCoverageResult().getTotalCoverage());
