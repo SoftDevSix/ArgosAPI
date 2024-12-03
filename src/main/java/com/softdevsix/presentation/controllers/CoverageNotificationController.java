@@ -2,6 +2,7 @@ package com.softdevsix.presentation.controllers;
 
 import com.softdevsix.domain.repositories.client.IFileManagerClientRepository;
 import com.softdevsix.application.services.report.IReportService;
+import lombok.Generated;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
+@Generated
 @RestController
 @RequestMapping("/coverage/create-notification")
 public class CoverageNotificationController {
@@ -32,7 +34,7 @@ public class CoverageNotificationController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body("Coverage JSON not found for project: " + projectId);
             }
-            reportService.processAndSaveReport(coverageJson.get());
+            reportService.processAndSaveReport(projectId, coverageJson.get());
 
             return ResponseEntity.ok("Coverage report processed successfully for project: " + projectId);
 
