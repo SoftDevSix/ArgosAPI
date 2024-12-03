@@ -2,6 +2,8 @@ package com.softdevsix.presentation.controllers;
 
 import com.softdevsix.application.services.Rules.IRulesService;
 import com.softdevsix.domain.entities.project.ProjectParams;
+import com.softdevsix.domain.exceptions.BadRequestException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +20,14 @@ public class RulesController {
     }
 
     @PostMapping("/{projectId}")
-    public ResponseEntity<String> setRules(@RequestBody ProjectParams params, @PathVariable UUID projectId) {
-        RULES_SERVICE.saveRules(params, projectId);
-        return new ResponseEntity<>("Project params added successfully.", HttpStatus.OK);
+    public ResponseEntity<String> setRules(@Valid @RequestBody ProjectParams params, @PathVariable UUID projectId) {
+        try {
+            RULES_SERVICE.saveRules(params, projectId);
+            return new ResponseEntity<>("Project params added successfully.", HttpStatus.OK);
+        } catch (BadRequestException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>("An unexpected error occurred. Please try again later." , HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
