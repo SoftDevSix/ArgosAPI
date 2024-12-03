@@ -3,6 +3,7 @@ package com.softdevsix.presentation.controllers;
 import com.softdevsix.application.services.Rules.IRulesService;
 import com.softdevsix.domain.entities.project.ProjectParams;
 import com.softdevsix.domain.exceptions.BadRequestException;
+import com.softdevsix.domain.exceptions.ProjectNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,8 @@ public class RulesController {
             return new ResponseEntity<>("Project params added successfully.", HttpStatus.OK);
         } catch (BadRequestException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (ProjectNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>("An unexpected error occurred. Please try again later." , HttpStatus.INTERNAL_SERVER_ERROR);
         }
