@@ -9,18 +9,21 @@ import com.softdevsix.domain.entities.staticanalysis.CodeAnalysisResult;
 import com.softdevsix.domain.entities.staticanalysis.Rating;
 import com.softdevsix.domain.exceptions.ProjectNotFoundException;
 import com.softdevsix.domain.repositories.ProjectRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@NoArgsConstructor
+@AllArgsConstructor
+@Component
 public class ProjectService implements IProjectService {
-    private ProjectRepository projectRepository;
-
-    public ProjectService(ProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
-    }
+    ProjectRepository projectRepository;
 
     public Project getProjectById(UUID projectId) {
         Optional<Project> optionalProject = projectRepository.findById(projectId);
@@ -65,11 +68,13 @@ public class ProjectService implements IProjectService {
         boolean analysisPassed = analysisResult.getActualRating().compareTo(analysisResult.getExpectedRating()) <= 0;
 
         if (coveragePassed && analysisPassed) {
+            System.out.println("se guardo wey *******************************");
             projectResults.setStatus(Status.PASSED);
         } else {
+            System.out.println("se guardo wey *******************************");
             projectResults.setStatus(Status.FAILED);
         }
-
+        System.out.println("se guardo wey *******************************");
         projectRepository.save(project);
     }
 

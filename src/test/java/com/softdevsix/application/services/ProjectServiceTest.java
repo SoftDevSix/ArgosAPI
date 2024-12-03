@@ -10,9 +10,17 @@ import com.softdevsix.domain.entities.project.Status;
 import com.softdevsix.domain.entities.staticanalysis.CodeAnalysisResult;
 import com.softdevsix.domain.entities.staticanalysis.Rating;
 import com.softdevsix.domain.exceptions.ProjectNotFoundException;
+import com.softdevsix.domain.repositories.ProjectRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,10 +30,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
+@AutoConfigureMockMvc
+@RunWith(SpringRunner.class)
 class ProjectServiceTest {
 
     @Autowired
-    ProjectService projectService;
+    private ProjectService projectService;
+
+    @MockBean
+    private ProjectRepository projectRepository;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        projectService = new ProjectService(projectRepository);
+    }
 
     private Project buildProject() {
         ProjectParams params = ProjectParams.builder()

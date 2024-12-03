@@ -56,6 +56,8 @@ dependencies {
     testImplementation(libs.springboot.starter.test)
     testImplementation (libs.mockito.core)
     testRuntimeOnly(libs.junit.launcher)
+    testImplementation("junit:junit:4.13.2")
+    implementation("com.h2database:h2:2.2.224")
 }
 
 application {

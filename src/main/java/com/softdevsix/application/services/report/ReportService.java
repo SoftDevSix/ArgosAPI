@@ -6,6 +6,8 @@ import com.softdevsix.domain.entities.report.Report;
 import com.softdevsix.application.mappers.json.ProjectMapper;
 import com.softdevsix.domain.repositories.IFileRepository;
 import com.softdevsix.domain.repositories.ProjectRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -13,17 +15,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Value
+@NoArgsConstructor(force = true)
+@AllArgsConstructor
 public class ReportService implements IReportService {
 
     JsonReportReader reportReader;
     ProjectRepository projectRepository;
     IFileRepository fileRepository;
 
-    public ReportService(JsonReportReader reportReader, ProjectRepository projectRepository, @Qualifier("fileMemoryRepository") IFileRepository fileRepository) {
-        this.reportReader = reportReader;
-        this.projectRepository = projectRepository;
-        this.fileRepository = fileRepository;
-    }
 
     public void processAndSaveReport(String coverageJson) {
         Report report = reportReader.read(coverageJson);
