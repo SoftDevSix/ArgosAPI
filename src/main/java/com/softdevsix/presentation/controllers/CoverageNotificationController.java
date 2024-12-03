@@ -32,7 +32,7 @@ public class CoverageNotificationController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body("Coverage JSON not found for project: " + projectId);
             }
-            reportService.processAndSaveReport(coverageJson.get());
+            reportService.processAndSaveReport(projectId, coverageJson.get());
 
             return ResponseEntity.ok("Coverage report processed successfully for project: " + projectId);
 

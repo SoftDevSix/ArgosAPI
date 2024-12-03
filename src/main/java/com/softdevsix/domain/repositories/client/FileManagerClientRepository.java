@@ -2,15 +2,19 @@ package com.softdevsix.domain.repositories.client;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Service
 public class FileManagerClientRepository implements IFileManagerClientRepository{
 
     private final RestTemplate restTemplate;
@@ -35,8 +39,7 @@ public class FileManagerClientRepository implements IFileManagerClientRepository
                 url,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<>() {
-                }
+                new ParameterizedTypeReference<List<String>>() {}
         );
         return response.getBody();
     }
@@ -52,12 +55,15 @@ public class FileManagerClientRepository implements IFileManagerClientRepository
     public Optional<String> getCoverageJson(String projectId) {
         List<String> files = listFiles(projectId);
         String coveragePath = files.stream()
-                .filter(file -> file.contains(COVERAGE_JSON_FILENAME))
+                .filter(file -> file.endsWith(COVERAGE_JSON_FILENAME) ||
+                        file.contains("/" + COVERAGE_JSON_FILENAME))
+                .map(file -> file.substring(
+                        file.lastIndexOf("projects/" + projectId + "/") + ("projects/" + projectId + "/").length()))
                 .findFirst()
                 .orElse(null);
 
         if (coveragePath != null) {
-            return Optional.of(getFileContent(projectId, coveragePath));
+            return Optional.ofNullable(getFileContent(projectId, coveragePath));
         }
         return Optional.empty();
     }

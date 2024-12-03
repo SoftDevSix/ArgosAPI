@@ -10,4 +10,4 @@ spring:
 
 file:
   manager:
-    base-url: http://localhost:8081/fileManager
+    base-url: http://localhost:8080/fileManager

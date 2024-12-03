@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
@@ -25,11 +26,11 @@ public class CoverageNotificationControllerTest {
 
         CoverageNotificationController controller = new CoverageNotificationController(fileManagerClient, reportService);
 
-        String projectId = "test-project";
+        String projectId = "6570409c-44d0-4ca5-b271-fe433a0a290a";
         String coverageJson = "{\"coverage\":90}";
 
         when(fileManagerClient.getCoverageJson(projectId)).thenReturn(Optional.of(coverageJson));
-        doNothing().when(reportService).processAndSaveReport(coverageJson);
+        doNothing().when(reportService).processAndSaveReport(eq(projectId), eq(coverageJson));
 
         ResponseEntity<String> response = controller.notifyProjectCreation(projectId);
 
@@ -37,7 +38,7 @@ public class CoverageNotificationControllerTest {
         assertEquals("Coverage report processed successfully for project: " + projectId, response.getBody());
 
         verify(fileManagerClient).getCoverageJson(projectId);
-        verify(reportService).processAndSaveReport(coverageJson);
+        verify(reportService).processAndSaveReport(eq(projectId), eq(coverageJson));
     }
 
     @Test
@@ -47,9 +48,9 @@ public class CoverageNotificationControllerTest {
 
         CoverageNotificationController controller = new CoverageNotificationController(fileManagerClient, reportService);
 
-        String projectId = "test-project";
+        String projectId = "6570409c-44d0-4ca5-b271-fe433a0a290a";
 
-        when(fileManagerClient.getCoverageJson(projectId)).thenReturn(null);
+        when(fileManagerClient.getCoverageJson(projectId)).thenReturn(Optional.empty());
 
         ResponseEntity<String> response = controller.notifyProjectCreation(projectId);
 
@@ -57,7 +58,7 @@ public class CoverageNotificationControllerTest {
         assertEquals("Coverage JSON not found for project: " + projectId, response.getBody());
 
         verify(fileManagerClient).getCoverageJson(projectId);
-        verify(reportService, never()).processAndSaveReport(anyString());
+        verify(reportService, never()).processAndSaveReport(eq(projectId), anyString());
     }
 
     @Test
@@ -67,7 +68,7 @@ public class CoverageNotificationControllerTest {
 
         CoverageNotificationController controller = new CoverageNotificationController(fileManagerClient, reportService);
 
-        String projectId = "test-project";
+        String projectId = "6570409c-44d0-4ca5-b271-fe433a0a290a";
 
         when(fileManagerClient.getCoverageJson(projectId)).thenThrow(new RuntimeException("FileManager error"));
 
@@ -77,6 +78,6 @@ public class CoverageNotificationControllerTest {
         assertEquals("Error processing coverage report: FileManager error", response.getBody());
 
         verify(fileManagerClient).getCoverageJson(projectId);
-        verify(reportService, never()).processAndSaveReport(anyString());
+        verify(reportService, never()).processAndSaveReport(eq(projectId), anyString());
     }
 }
