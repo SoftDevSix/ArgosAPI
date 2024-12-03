@@ -35,7 +35,7 @@ class FileServiceTest {
                 .fileName("testFile")
                 .build();
 
-        when(fileRepository.findById(fileId)).thenReturn(mockFile);
+        when(fileRepository.findById(fileId).get()).thenReturn(mockFile);
 
         File result = fileService.getFileById(fileId);
 
@@ -103,22 +103,5 @@ class FileServiceTest {
 
         assertNotNull(result);
         assertEquals(List.of(2, 3), result);
-    }
-
-    @Test
-    void testGetAllFiles() {
-        List<File> mockFiles = List.of(
-                File.builder().fileName("File1").build(),
-                File.builder().fileName("File2").build()
-        );
-
-        when(fileRepository.getAll()).thenReturn(mockFiles);
-
-        List<File> result = fileService.getAll();
-
-        assertNotNull(result);
-        assertEquals(2, result.size());
-        assertEquals(mockFiles, result);
-        verify(fileRepository, times(1)).getAll();
     }
 }

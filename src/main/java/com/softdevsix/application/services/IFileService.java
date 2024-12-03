@@ -9,5 +9,4 @@ public interface IFileService {
     float calculateFileCoverage(File file);
     float calculateFileMethodCoverage(File file);
     List<Integer> getUncoveredLines(File file);
-    List<File> getAll();
 }

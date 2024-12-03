@@ -32,9 +32,4 @@ public class FileCoverageController {
 
         return ResponseEntity.ok(dto);
     }
-
-    @GetMapping("/all")
-    public ResponseEntity<List<File>> getAll() {
-        return ResponseEntity.ok(fileService.getAll());
-    }
 }

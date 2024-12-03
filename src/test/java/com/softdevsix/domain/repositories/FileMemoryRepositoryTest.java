@@ -1,21 +1,20 @@
 package com.softdevsix.domain.repositories;
 
 import com.softdevsix.domain.entities.file.File;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
 class FileMemoryRepositoryTest {
 
-    private FileMemoryRepository repository;
-
-    @BeforeEach
-    void setUp() {
-        repository = new FileMemoryRepository();
-    }
+    @Autowired
+    private IFileRepository repository;
 
     @Test
     void testCreateFile() {
@@ -26,47 +25,12 @@ class FileMemoryRepositoryTest {
                 .coverageResult(null)
                 .build();
 
-        File createdFile = repository.createFile(file);
+        File createdFile = repository.save(file);
 
         assertNotNull(createdFile.getFileId());
         assertEquals("TestFile.java", createdFile.getFileName());
         assertEquals("/src/test/TestFile.java", createdFile.getPath());
         assertEquals(50, createdFile.getLineCode());
-    }
-
-    @Test
-    void testUpdateFile() {
-        File file = File.builder()
-                .fileName("OriginalFile.java")
-                .path("/src/original/OriginalFile.java")
-                .lineCode(100)
-                .coverageResult(null)
-                .build();
-
-        File createdFile = repository.createFile(file);
-        createdFile.setFileName("UpdatedFile.java");
-        createdFile.setPath("/src/updated/UpdatedFile.java");
-
-        File updatedFile = repository.updateFile(createdFile);
-
-        assertNotNull(updatedFile);
-        assertEquals("UpdatedFile.java", updatedFile.getFileName());
-        assertEquals("/src/updated/UpdatedFile.java", updatedFile.getPath());
-    }
-
-    @Test
-    void testUpdateNonexistentFile() {
-        File nonExistentFile = File.builder()
-                .fileId(UUID.randomUUID())
-                .fileName("NonExistent.java")
-                .path("/src/nonexistent/NonExistent.java")
-                .lineCode(30)
-                .coverageResult(null)
-                .build();
-
-        File result = repository.updateFile(nonExistentFile);
-
-        assertNull(result);
     }
 
     @Test
@@ -78,38 +42,29 @@ class FileMemoryRepositoryTest {
                 .coverageResult(null)
                 .build();
 
-        File createdFile = repository.createFile(file);
-
-        File foundFile = repository.findById(createdFile.getFileId());
-
-        assertNotNull(foundFile);
-        assertEquals(createdFile.getFileId(), foundFile.getFileId());
+        File createdFile = repository.save(file);
+        Optional<File> optionalFile = repository.findById(createdFile.getFileId());
+        assertTrue(optionalFile.isPresent());
+        assertEquals(createdFile.getFileId(), optionalFile.get().getFileId());
     }
 
     @Test
     void testFindByIdNonexistent() {
-        File result = repository.findById(UUID.randomUUID());
-
-        assertNull(result);
+        Optional<File> optionalFile = repository.findById(UUID.randomUUID());
+        assertTrue(optionalFile.isEmpty());
     }
 
     @Test
     void testGetAll() {
-        List<File> initialFiles = repository.getAll();
-        int initialSize = initialFiles.size();
-
+        long initialSize = repository.count();
         File file = File.builder()
                 .fileName("ListFile.java")
                 .path("/src/list/ListFile.java")
                 .lineCode(60)
                 .coverageResult(null)
                 .build();
-
-        repository.createFile(file);
-
-        List<File> allFiles = repository.getAll();
-
-        assertEquals(initialSize + 1, allFiles.size());
+        repository.save(file);
+        assertEquals(initialSize + 1, repository.count());
     }
 
     @Test
@@ -121,17 +76,14 @@ class FileMemoryRepositoryTest {
                 .coverageResult(null)
                 .build();
 
-        File createdFile = repository.createFile(file);
-        boolean deleted = repository.deleteFile(createdFile.getFileId());
-
-        assertTrue(deleted);
-        assertNull(repository.findById(createdFile.getFileId()));
+        File createdFile = repository.save(file);
+        repository.deleteById(createdFile.getFileId());
+        Optional<File> optionalFile = repository.findById(createdFile.getFileId());
+        assertTrue(optionalFile.isEmpty());
     }
 
     @Test
     void testDeleteNonexistentFile() {
-        boolean result = repository.deleteFile(UUID.randomUUID());
-
-        assertFalse(result);
+        repository.deleteById(UUID.randomUUID());
     }
 }

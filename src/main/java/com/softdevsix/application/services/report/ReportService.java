@@ -19,7 +19,7 @@ public class ReportService implements IReportService {
     ProjectRepository projectRepository;
     IFileRepository fileRepository;
 
-    public ReportService(JsonReportReader reportReader, ProjectRepository projectRepository, @Qualifier("fileMemoryRepository") IFileRepository fileRepository) {
+    public ReportService(JsonReportReader reportReader, ProjectRepository projectRepository, IFileRepository fileRepository) {
         this.reportReader = reportReader;
         this.projectRepository = projectRepository;
         this.fileRepository = fileRepository;
@@ -34,9 +34,7 @@ public class ReportService implements IReportService {
         ProjectMapper mapper = new ProjectMapper();
         Project project = mapper.handleReport(report);
         projectRepository.save(project);
-        for (File coveredFile : project.getCoveredFiles()) {
-            fileRepository.createFile(coveredFile);
-        }
+        fileRepository.saveAll(project.getCoveredFiles());
     }
 }
 

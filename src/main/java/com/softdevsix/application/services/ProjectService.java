@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @Service
 public class ProjectService implements IProjectService {
-    private ProjectRepository projectRepository;
+    private final ProjectRepository projectRepository;
 
     public ProjectService(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
