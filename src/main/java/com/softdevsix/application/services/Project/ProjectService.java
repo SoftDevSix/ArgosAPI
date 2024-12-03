@@ -43,14 +43,14 @@ public class ProjectService implements IProjectService {
         totalCoverage /= project.getCoveredFiles().size();
         project.getProjectResults().getCoverageResult().setTotalCoverage(totalCoverage);
 
-        projectRepository.save(project);
+        projectRepository.createProject(project);
     }
 
     @Override
     public void calculateProjectRating(UUID projectId) {
         Project project = getProjectById(projectId);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.A);
-        projectRepository.save(project);
+        projectRepository.createProject(project);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class ProjectService implements IProjectService {
             projectResults.setStatus(Status.FAILED);
         }
 
-        projectRepository.save(project);
+        projectRepository.createProject(project);
     }
 
     @Override
