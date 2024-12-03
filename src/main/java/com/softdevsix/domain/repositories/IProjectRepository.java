@@ -13,5 +13,7 @@ public interface IProjectRepository {
 
     void save(Project project);
 
+    void update(Project project);
+
     List<Project> getAll();
 }

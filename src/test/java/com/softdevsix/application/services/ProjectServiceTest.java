@@ -94,10 +94,9 @@ class ProjectServiceTest {
         ProjectService projectService = new ProjectService(projectRepository);
         projectRepository.save(project);
 
-        projectService.calculateProjectResults(project.getProjectId());
+        ProjectResults results = projectService.getProjectResults(project.getProjectId());
 
-        Project updatedProject = projectService.getProjectById(project.getProjectId());
-        assertEquals(50f, updatedProject.getProjectResults().getCoverageResult().getTotalCoverage());
+        assertEquals(50f, results.getCoverageResult().getTotalCoverage());
     }
 
     @Test
@@ -186,7 +185,7 @@ class ProjectServiceTest {
         ProjectService projectService = new ProjectService(projectRepository);
         projectRepository.save(project);
 
-        ProjectResults results = projectService.calculateProjectResults(project.getProjectId());
+        ProjectResults results = projectService.getProjectResults(project.getProjectId());
 
         assertEquals(50f, results.getCoverageResult().getTotalCoverage());
         assertEquals(Rating.A, results.getCodeAnalysisResult().getActualRating());

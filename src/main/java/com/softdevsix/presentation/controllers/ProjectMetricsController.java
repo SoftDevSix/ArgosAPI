@@ -2,6 +2,7 @@ package com.softdevsix.presentation.controllers;
 
 import com.softdevsix.domain.entities.project.ProjectResults;
 import com.softdevsix.application.services.Project.IProjectService;
+import com.softdevsix.domain.exceptions.ProjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,10 +24,12 @@ public class ProjectMetricsController {
     @GetMapping("/{id}")
     public ResponseEntity<ProjectResults> getProjectMetrics(@PathVariable UUID id) {
         try {
-            ProjectResults results = projectService.calculateProjectResults(id);
+            ProjectResults results = projectService.getProjectResults(id);
             return new ResponseEntity<>(results, HttpStatus.OK);
-        } catch (Exception e) {
+        } catch (ProjectNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

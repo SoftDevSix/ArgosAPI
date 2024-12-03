@@ -1,5 +1,7 @@
 package com.softdevsix.application.services;
 
+import com.softdevsix.application.services.File.FileService;
+import com.softdevsix.application.services.File.IFileService;
 import com.softdevsix.application.services.Project.IProjectService;
 import com.softdevsix.application.services.Rules.IRulesService;
 import com.softdevsix.application.services.Rules.RulesService;
@@ -17,12 +19,14 @@ import static org.mockito.Mockito.*;
 public class RulesServiceTest {
 
     private IProjectService projectService;
+    private IFileService fileService;
     private IRulesService rulesService;
 
     @BeforeEach
     public void setUp() {
         projectService = mock(IProjectService.class);
-        rulesService = new RulesService(projectService);
+        fileService = mock(IFileService.class);
+        rulesService = new RulesService(projectService, fileService);
     }
 
     private Project buildProject() {

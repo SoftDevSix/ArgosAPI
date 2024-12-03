@@ -1,5 +1,6 @@
 package com.softdevsix.presentation.controllers;
 
+import com.softdevsix.application.dto.ProjectParamsRequestDTO;
 import com.softdevsix.application.services.Rules.IRulesService;
 import com.softdevsix.domain.entities.project.ProjectParams;
 import com.softdevsix.domain.exceptions.BadRequestException;
@@ -21,8 +22,16 @@ public class RulesController {
     }
 
     @PostMapping("/{projectId}")
-    public ResponseEntity<String> setRules(@Valid @RequestBody ProjectParams params, @PathVariable UUID projectId) {
+    public ResponseEntity<String> setRules(@Valid @RequestBody ProjectParamsRequestDTO paramsDTO, @PathVariable UUID projectId) {
         try {
+            ProjectParams params = ProjectParams.builder()
+                    .projectName(paramsDTO.getProjectName())
+                    .description(paramsDTO.getDescription())
+                    .projectCoverage(paramsDTO.isProjectCoverage())
+                    .requiredCoveragePercentage(paramsDTO.getRequiredCoveragePercentage())
+                    .projectRating(paramsDTO.isProjectRating())
+                    .requiredCodeRating(paramsDTO.getRequiredCodeRating())
+                    .build();
             RULES_SERVICE.saveRules(params, projectId);
             return new ResponseEntity<>("Project params added successfully.", HttpStatus.OK);
         } catch (BadRequestException e) {

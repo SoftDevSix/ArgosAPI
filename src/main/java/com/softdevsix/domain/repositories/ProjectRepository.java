@@ -24,6 +24,8 @@ public class ProjectRepository implements IProjectRepository {
         projects.put(project.getProjectId(), project);
     }
 
+    public void update(Project project) {projects.put(project.getProjectId(), project);}
+
     public List<Project> getAll(){
         return projects.values().stream().toList();
     }
