@@ -10,9 +10,9 @@ import com.softdevsix.domain.entities.project.Status;
 import com.softdevsix.domain.entities.staticanalysis.CodeAnalysisResult;
 import com.softdevsix.domain.entities.staticanalysis.Rating;
 import com.softdevsix.domain.exceptions.ProjectNotFoundException;
-import com.softdevsix.domain.repositories.IProjectRepository;
-import com.softdevsix.domain.repositories.ProjectRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,8 +21,11 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@SpringBootTest
 class ProjectServiceTest {
-    IProjectRepository projectRepository = new ProjectRepository();
+
+    @Autowired
+    ProjectService projectService;
 
     private Project buildProject() {
         ProjectParams params = ProjectParams.builder()
@@ -90,9 +93,6 @@ class ProjectServiceTest {
     @Test
     void calculateProjectCoverageTest() {
         Project project = buildProject();
-        ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
-
         projectService.calculateProjectResults(project.getProjectId());
 
         Project updatedProject = projectService.getProjectById(project.getProjectId());
@@ -104,9 +104,6 @@ class ProjectServiceTest {
         Project project = buildProject();
         project.getProjectResults().getCoverageResult().setTotalCoverage(85f);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.B);
-        ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
-
         projectService.calculateProjectStatus(project.getProjectId());
 
         Project updatedProject = projectService.getProjectById(project.getProjectId());
@@ -118,8 +115,6 @@ class ProjectServiceTest {
         Project project = buildProject();
         project.getProjectResults().getCoverageResult().setTotalCoverage(85f);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.C);
-        ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
 
         projectService.calculateProjectStatus(project.getProjectId());
 
@@ -132,8 +127,6 @@ class ProjectServiceTest {
         Project project = buildProject();
         project.getProjectResults().getCoverageResult().setTotalCoverage(70f);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.B);
-        ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
 
         projectService.calculateProjectStatus(project.getProjectId());
 
@@ -146,8 +139,6 @@ class ProjectServiceTest {
         Project project = buildProject();
         project.getProjectResults().getCoverageResult().setTotalCoverage(70f);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.C);
-        ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
 
         projectService.calculateProjectStatus(project.getProjectId());
 
@@ -157,7 +148,6 @@ class ProjectServiceTest {
 
     @Test
     void getProjectById_ProjectNotFound() {
-        ProjectService projectService = new ProjectService(projectRepository);
         UUID nonExistentId = UUID.randomUUID();
 
         Exception exception = assertThrows(ProjectNotFoundException.class, () -> {
@@ -170,8 +160,6 @@ class ProjectServiceTest {
     @Test
     void calculateProjectRatingTest() {
         Project project = buildProject();
-        ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
 
         projectService.calculateProjectRating(project.getProjectId());
 
@@ -182,8 +170,6 @@ class ProjectServiceTest {
     @Test
     void calculateProjectResultsTest() {
         Project project = buildProject();
-        ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
 
         ProjectResults results = projectService.calculateProjectResults(project.getProjectId());
 

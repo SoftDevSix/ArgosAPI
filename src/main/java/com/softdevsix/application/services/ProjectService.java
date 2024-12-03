@@ -8,25 +8,28 @@ import com.softdevsix.domain.entities.project.Status;
 import com.softdevsix.domain.entities.staticanalysis.CodeAnalysisResult;
 import com.softdevsix.domain.entities.staticanalysis.Rating;
 import com.softdevsix.domain.exceptions.ProjectNotFoundException;
-import com.softdevsix.domain.repositories.IProjectRepository;
+import com.softdevsix.domain.repositories.ProjectRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class ProjectService implements IProjectService {
-    private final IProjectRepository projectRepository;
+    private ProjectRepository projectRepository;
 
-    public ProjectService(IProjectRepository projectRepository) {
+    public ProjectService(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
 
     public Project getProjectById(UUID projectId) {
-        Project project = projectRepository.findById(projectId);
-        if (project == null) {
+        Optional<Project> optionalProject = projectRepository.findById(projectId);
+
+
+        if (optionalProject.isEmpty()) {
             throw new ProjectNotFoundException("Project with Id: " + projectId + " not found");
         }
-        return project;
+        return optionalProject.get();
     }
 
     public void calculateProjectCoverage(UUID projectId) {

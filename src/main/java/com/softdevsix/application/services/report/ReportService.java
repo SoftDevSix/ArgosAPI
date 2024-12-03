@@ -5,7 +5,7 @@ import com.softdevsix.domain.entities.project.Project;
 import com.softdevsix.domain.entities.report.Report;
 import com.softdevsix.application.mappers.json.ProjectMapper;
 import com.softdevsix.domain.repositories.IFileRepository;
-import com.softdevsix.domain.repositories.IProjectRepository;
+import com.softdevsix.domain.repositories.ProjectRepository;
 import lombok.Value;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 public class ReportService implements IReportService {
 
     JsonReportReader reportReader;
-    IProjectRepository projectRepository;
+    ProjectRepository projectRepository;
     IFileRepository fileRepository;
 
-    public ReportService(JsonReportReader reportReader, IProjectRepository projectRepository, @Qualifier("fileMemoryRepository") IFileRepository fileRepository) {
+    public ReportService(JsonReportReader reportReader, ProjectRepository projectRepository, @Qualifier("fileMemoryRepository") IFileRepository fileRepository) {
         this.reportReader = reportReader;
         this.projectRepository = projectRepository;
         this.fileRepository = fileRepository;
