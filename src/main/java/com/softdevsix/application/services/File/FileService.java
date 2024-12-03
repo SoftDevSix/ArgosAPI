@@ -54,8 +54,8 @@ public class FileService implements IFileService {
         int coveredStatements = 0;
 
         for (MethodCoverageResult methodCoverage : file.getCoverageResult().getAllStatements()) {
+            totalStatements += methodCoverage.getStatements().size();
             for (Map.Entry<Integer, Boolean> entry : methodCoverage.getStatements().entrySet()) {
-                totalStatements++;
                 if (entry.getValue() != null && entry.getValue()) {
                     coveredStatements++;
                 }
