@@ -5,7 +5,6 @@ import com.softdevsix.domain.entities.file.MethodCoverageResult;
 import com.softdevsix.domain.exceptions.FileNotFoundException;
 import com.softdevsix.domain.repositories.IFileRepository;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -14,7 +13,11 @@ import java.util.*;
 public class FileService implements IFileService {
     private IFileRepository fileRepository;
 
-    public FileService(@Qualifier("fileMemoryRepository") IFileRepository fileRepository) {
+//    public FileService(@Qualifier("fileMemoryRepository") IFileRepository fileRepository) {
+//        this.fileRepository = fileRepository;
+//    }
+
+    public FileService(IFileRepository fileRepository) {
         this.fileRepository = fileRepository;
     }
 

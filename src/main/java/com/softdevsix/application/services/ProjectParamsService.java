@@ -4,7 +4,6 @@ import com.softdevsix.application.mappers.requests.ProjectParamsCreateRequest;
 import com.softdevsix.application.mappers.requests.ProjectParamsUpdateRequest;
 import com.softdevsix.application.mappers.responses.ProjectParamsResponse;
 import com.softdevsix.domain.entities.project.ProjectParams;
-import com.softdevsix.domain.entities.staticanalysis.Rating;
 import com.softdevsix.domain.repositories.IProjectParamsRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +22,7 @@ public class ProjectParamsService implements IProjectParamsService {
     public ProjectParamsResponse createProjectParams(ProjectParamsCreateRequest projectParamsCreateRequest) {
         ProjectParams projectParam = new ProjectParams();
         projectParam.setRequiredCoveragePercentage(projectParamsCreateRequest.requiredCoveragePercentage());
-        projectParam.setRequiredCodeRating(Rating.valueOf(projectParamsCreateRequest.requiredCodeRating()));
+        projectParam.setRequiredCodeRating(projectParamsCreateRequest.requiredCodeRating());
 
         ProjectParams persistedProjectParam = iProjectParamsRepository.save(projectParam);
 
@@ -54,7 +53,7 @@ public class ProjectParamsService implements IProjectParamsService {
 
         ProjectParams projectParam = new ProjectParams();
         projectParam.setRequiredCoveragePercentage(projectParamsUpdateRequest.requiredCoveragePercentage());
-        projectParam.setRequiredCodeRating(Rating.valueOf(projectParamsUpdateRequest.requiredCodeRating()));
+        projectParam.setRequiredCodeRating(projectParamsUpdateRequest.requiredCodeRating());
 
         ProjectParams persistedProjectParam = iProjectParamsRepository.save(projectParam);
 

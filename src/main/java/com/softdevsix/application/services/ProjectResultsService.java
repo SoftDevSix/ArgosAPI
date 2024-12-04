@@ -1,10 +1,8 @@
 package com.softdevsix.application.services;
 
 import com.softdevsix.domain.entities.coverage.ProjectCoverageResult;
-import com.softdevsix.domain.entities.project.Project;
 import com.softdevsix.domain.entities.project.ProjectParams;
 import com.softdevsix.domain.entities.project.ProjectResults;
-import com.softdevsix.domain.entities.project.Status;
 import com.softdevsix.domain.entities.staticanalysis.CodeAnalysisResult;
 import com.softdevsix.domain.repositories.IProjectResultsRepository;
 import org.springframework.stereotype.Service;
@@ -47,7 +45,7 @@ public class ProjectResultsService implements IProjectResultsService {
         Optional<CodeAnalysisResult> codeAnalysisResult = iCodeAnalysisResultService.getProjectRatingById(projectId);
         Optional<ProjectCoverageResult> coverageResult = iProjectCoverageResultService.getProjectCoverageById(projectId);
 
-        Status status = calculateProjectStatus(codeAnalysisResult.get(), coverageResult.get(), projectParams.get());
+        String status = calculateProjectStatus(codeAnalysisResult.get(), coverageResult.get(), projectParams.get());
 
         ProjectResults projectResults = ProjectResults.builder()
                 .status(status)
@@ -58,14 +56,14 @@ public class ProjectResultsService implements IProjectResultsService {
         return Optional.of(iProjectResultsRepository.save(projectResults));
     }
 
-    private Status calculateProjectStatus(CodeAnalysisResult codeAnalysisResult,
+    private String calculateProjectStatus(CodeAnalysisResult codeAnalysisResult,
                                           ProjectCoverageResult coverageResult,
                                           ProjectParams projectParams) {
         if (codeAnalysisResult.getActualRating() == projectParams.getRequiredCodeRating() &&
                 coverageResult.getTotalCoverage() >= projectParams.getRequiredCoveragePercentage()) {
-            return Status.PASSED;
+            return "Passed";
         } else {
-            return Status.FAILED;
+            return "Failed";
         }
     }
 

@@ -23,7 +23,13 @@ public class ReportService implements IReportService {
     IProjectRepository projectRepository;
     IFileRepository fileRepository;
 
-    public ReportService(JsonReportReader reportReader, @Qualifier("projectRepository") IProjectRepository projectRepository, @Qualifier("fileMemoryRepository") IFileRepository fileRepository) {
+//    public ReportService(JsonReportReader reportReader, @Qualifier("projectRepository") IProjectRepository projectRepository, @Qualifier("fileMemoryRepository") IFileRepository fileRepository) {
+//        this.reportReader = reportReader;
+//        this.projectRepository = projectRepository;
+//        this.fileRepository = fileRepository;
+//    }
+
+    public ReportService(JsonReportReader reportReader, IProjectRepository projectRepository, IFileRepository fileRepository) {
         this.reportReader = reportReader;
         this.projectRepository = projectRepository;
         this.fileRepository = fileRepository;
