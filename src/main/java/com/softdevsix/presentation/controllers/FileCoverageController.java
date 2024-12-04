@@ -1,6 +1,6 @@
 package com.softdevsix.presentation.controllers;
 
-import com.softdevsix.application.services.IProjectService;
+import com.softdevsix.application.services.Project.IProjectService;
 import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.application.dto.FileCoverageDto;
 import com.softdevsix.application.services.File.IFileService;
