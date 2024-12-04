@@ -22,14 +22,14 @@ class FileTest {
                 .fileId(fileId)
                 .fileName(fileName)
                 .path(path)
-                .lineCode(lineCode)
-                .coverageResult(coverageResult)
+                .codeLines(lineCode)
+                .fileCoverageResult(coverageResult)
                 .build();
 
         assertEquals(fileId, file.getFileId());
         assertEquals(fileName, file.getFileName());
         assertEquals(path, file.getPath());
-        assertEquals(lineCode, file.getLineCode());
-        assertEquals(coverageResult, file.getCoverageResult());
+        assertEquals(lineCode, file.getCodeLines());
+        assertEquals(coverageResult, file.getFileCoverageResult());
     }
 }

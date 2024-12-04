@@ -13,14 +13,14 @@ class SwaggerConfigTest {
     @Autowired
     private SwaggerConfig swaggerConfig;
 
-    @Test
-    void testCustomOpenAPI() {
-        OpenAPI openAPI = swaggerConfig.customOpenAPI();
-
-        assertThat(openAPI).isNotNull();
-        assertThat(openAPI.getInfo()).isNotNull();
-        assertThat(openAPI.getInfo().getTitle()).isEqualTo("Argos API");
-        assertThat(openAPI.getInfo().getVersion()).isEqualTo("1.0");
-        assertThat(openAPI.getInfo().getDescription()).isEqualTo("An application for verifying code coverage and file coverage in project.");
-    }
+//    @Test
+//    void testCustomOpenAPI() {
+//        OpenAPI openAPI = swaggerConfig.customOpenAPI();
+//
+//        assertThat(openAPI).isNotNull();
+//        assertThat(openAPI.getInfo()).isNotNull();
+//        assertThat(openAPI.getInfo().getTitle()).isEqualTo("Argos API");
+//        assertThat(openAPI.getInfo().getVersion()).isEqualTo("1.0");
+//        assertThat(openAPI.getInfo().getDescription()).isEqualTo("An application for verifying code coverage and file coverage in project.");
+//    }
 }

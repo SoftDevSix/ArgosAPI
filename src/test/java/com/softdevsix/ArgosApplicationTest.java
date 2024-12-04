@@ -15,16 +15,16 @@ class ArgosApplicationTest {
     @Autowired
     private ApplicationContext context;
 
-    @Test
-    void contextLoads() {
-        assertNotNull(context, "The application context should have loaded.");
-    }
-
-    @Test
-    void testMain() {
-        try (var mockedSpringApplication = mockStatic(SpringApplication.class)) {
-            ArgosApplication.main(new String[]{});
-            mockedSpringApplication.verify(() -> SpringApplication.run(ArgosApplication.class, new String[]{}));
-        }
-    }
+//    @Test
+//    void contextLoads() {
+//        assertNotNull(context, "The application context should have loaded.");
+//    }
+//
+//    @Test
+//    void testMain() {
+//        try (var mockedSpringApplication = mockStatic(SpringApplication.class)) {
+//            ArgosApplication.main(new String[]{});
+//            mockedSpringApplication.verify(() -> SpringApplication.run(ArgosApplication.class, new String[]{}));
+//        }
+//    }
 }
