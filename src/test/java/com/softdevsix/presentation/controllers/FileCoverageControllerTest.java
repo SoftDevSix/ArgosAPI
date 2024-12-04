@@ -43,18 +43,28 @@ class FileCoverageControllerTest {
     }
 
     @Test
-    void testGetAllFiles() {
-        List<File> mockFiles = Arrays.asList(mockFile, File.builder().build());
-        when(fileService.getAll()).thenReturn(mockFiles);
+    void testGetFileCoverage() {
+        float methodCoverage = 80.0f;
+        float fileCoverage = 90.0f;
+        List<Integer> uncoveredLines = Arrays.asList(10, 20, 30);
 
-        ResponseEntity<List<File>> response = fileCoverageController.getAll();
+        when(fileService.getFileById(mockFileId)).thenReturn(mockFile);
+        when(fileService.calculateFileMethodCoverage(mockFile)).thenReturn(methodCoverage);
+        when(fileService.calculateFileCoverage(mockFile)).thenReturn(fileCoverage);
+        when(fileService.getUncoveredLines(mockFile)).thenReturn(uncoveredLines);
+
+        ResponseEntity<FileCoverageDto> response = fileCoverageController.getFileCoverage(mockFileId);
 
         assertNotNull(response);
-        assertEquals(200, response.getStatusCode().value()); // Usando getStatusCode().value() en lugar de getStatusCodeValue()
-        List<File> files = response.getBody();
-        assertNotNull(files);
-        assertEquals(mockFiles.size(), files.size());
-        assertEquals(mockFiles, files);
+        assertEquals(200, response.getStatusCode().value());
+        FileCoverageDto dto = response.getBody();
+        assertNotNull(dto);
+        assertEquals(mockFile.getFileName(), dto.getFileName());
+        assertEquals(mockFile.getPath(), dto.getPathFile());
+        assertEquals(mockFile.getLineCode(), dto.getLinesCode());
+        assertEquals(methodCoverage, dto.getMethodCoverage());
+        assertEquals(fileCoverage, dto.getCoveragePercentage());
+        assertEquals(uncoveredLines, dto.getUncoveredLines());
     }
 }
 

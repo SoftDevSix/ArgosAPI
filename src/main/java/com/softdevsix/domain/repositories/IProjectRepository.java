@@ -1,6 +1,7 @@
 package com.softdevsix.domain.repositories;
 
 
+import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.domain.entities.project.Project;
 import org.springframework.stereotype.Repository;
 
@@ -9,11 +10,11 @@ import java.util.UUID;
 
 @Repository
 public interface IProjectRepository {
-    Project findById(UUID id);
-
-    void save(Project project);
 
     void update(Project project);
-
+    Project createProject(Project project);
+    Project updateProject(Project project);
+    Project findById(UUID proyectId);
     List<Project> getAll();
+    boolean deleteFile(UUID ProjectId);
 }

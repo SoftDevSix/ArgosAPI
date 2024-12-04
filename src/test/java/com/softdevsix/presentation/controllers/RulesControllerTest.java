@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class RulesControllerTest {
+class RulesControllerTest {
     @Mock
     private IRulesService rulesService;
 
@@ -34,7 +34,7 @@ public class RulesControllerTest {
     }
 
     @Test
-    public void setRulesWithPostMethod() throws Exception {
+    void setRulesWithPostMethod() throws Exception {
         UUID projectId = UUID.randomUUID();
 
         String requestBody = """

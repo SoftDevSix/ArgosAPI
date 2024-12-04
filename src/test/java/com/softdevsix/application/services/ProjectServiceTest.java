@@ -94,7 +94,7 @@ class ProjectServiceTest {
     void calculateProjectCoverageTest() {
         Project project = buildProject();
         ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
+        projectRepository.createProject(project);
 
         projectService.calculateProjectCoverage(project.getProjectId());
         projectService.getProjectResults(project.getProjectId());
@@ -109,7 +109,7 @@ class ProjectServiceTest {
         project.getProjectResults().getCoverageResult().setTotalCoverage(85f);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.B);
         ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
+        projectRepository.createProject(project);
 
         projectService.calculateProjectStatus(project.getProjectId());
 
@@ -123,7 +123,7 @@ class ProjectServiceTest {
         project.getProjectResults().getCoverageResult().setTotalCoverage(85f);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.C);
         ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
+        projectRepository.createProject(project);
 
         projectService.calculateProjectStatus(project.getProjectId());
 
@@ -137,7 +137,7 @@ class ProjectServiceTest {
         project.getProjectResults().getCoverageResult().setTotalCoverage(70f);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.B);
         ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
+        projectRepository.createProject(project);
 
         projectService.calculateProjectStatus(project.getProjectId());
 
@@ -151,7 +151,7 @@ class ProjectServiceTest {
         project.getProjectResults().getCoverageResult().setTotalCoverage(70f);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.C);
         ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
+        projectRepository.createProject(project);
 
         projectService.calculateProjectStatus(project.getProjectId());
 
@@ -175,7 +175,7 @@ class ProjectServiceTest {
     void calculateProjectRatingTest() {
         Project project = buildProject();
         ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
+        projectRepository.createProject(project);
 
         ProjectResults results = projectService.getProjectResults(project.getProjectId());
 
@@ -186,7 +186,7 @@ class ProjectServiceTest {
     void calculateProjectResultsTest() {
         Project project = buildProject();
         ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
+        projectRepository.createProject(project);
 
         projectService.calculateProjectCoverage(project.getProjectId());
         projectService.calculateProjectRating(project.getProjectId());
