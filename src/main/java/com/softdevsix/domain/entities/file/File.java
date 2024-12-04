@@ -30,7 +30,9 @@ public class File {
     @Column(name = "code_lines")
     private int codeLines;
 
-    private FileCoverageResult coverageResult;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "coverage_result_id", referencedColumnName = "id")
+    private FileCoverageResult fileCoverageResult;
 
     @ManyToOne()
     @JoinColumn(name = "project_id")

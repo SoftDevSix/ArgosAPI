@@ -1,16 +1,17 @@
 package com.softdevsix.domain.entities.file;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Table(name = "file_coverage_result")
 @Data
 @Builder
 @NoArgsConstructor
@@ -21,9 +22,16 @@ public class FileCoverageResult {
     @Column(name = "file_coverage_id")
     private UUID id;
 
-    private float methodCoveragePercentage;
-
+    @Column(name = "coverage_percentage")
     private float coveragePercentage;
 
-    private List<MethodCoverageResult> allStatements = new ArrayList<>();
+    @Column(name = "method_coverage_percentage")
+    private float methodCoveragePercentage;
+
+    @OneToMany(mappedBy = "fileCoverageResult", cascade = CascadeType.ALL)
+    @JsonIgnore()
+    private List<MethodCoverageResult> methodCoverageResults;
+
+    @OneToOne(mappedBy = "fileCoverageResult")
+    private File file;
 }

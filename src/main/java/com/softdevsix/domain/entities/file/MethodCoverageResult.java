@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Entity
+@Table(name = "method_coverage_result")
 @Data
 @Builder
 @NoArgsConstructor
@@ -21,7 +22,16 @@ public class MethodCoverageResult {
     @Column(name = "method_coverage_id")
     private UUID id;
 
+    @Column(name = "coverage_percentage")
     private float coveragePercentage;
-    @Builder.Default
-    private Map<Integer, Boolean> statements = new HashMap<>();
+
+    @ElementCollection
+    @CollectionTable(name = "method_statements",
+            joinColumns = @JoinColumn(name = "method_coverage_id"))
+    @Column(name = "statement_executed")
+    private Map<Integer, Boolean> methodStatements;
+
+    @ManyToOne()
+    @JoinColumn(name = "coverage_result_id")
+    private FileCoverageResult fileCoverageResult;
 }

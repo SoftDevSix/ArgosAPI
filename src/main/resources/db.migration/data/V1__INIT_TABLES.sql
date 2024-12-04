@@ -5,9 +5,9 @@ CREATE TABLE project (
     project_params_id UUID,
     project_results_id UUID,
     CONSTRAINT fk_project_params
-        FOREIGN KEY (project_params_id) REFERENCES project_params(project_params_id),
+        FOREIGN KEY (project_params_id) REFERENCES project_params(project_params_id) ON DELETE CASCADE,
     CONSTRAINT fk_project_results
-        FOREIGN KEY (project_results_id) REFERENCES project_results(project_results_id)
+        FOREIGN KEY (project_results_id) REFERENCES project_results(project_results_id) ON DELETE CASCADE
 );
 
 CREATE TABLE project_params (
@@ -22,9 +22,9 @@ CREATE TABLE project_results (
     project_coverage_result_id UUID,
     code_analysis_result_id UUID,
     CONSTRAINT fk_coverage_result
-        FOREIGN KEY (project_coverage_result_id) REFERENCES project_coverage_result(project_coverage_result_id),
+        FOREIGN KEY (project_coverage_result_id) REFERENCES project_coverage_result(project_coverage_result_id) ON DELETE CASCADE,
     CONSTRAINT fk_code_analysis_result
-        FOREIGN KEY (code_analysis_result_id) REFERENCES code_analysis_result(code_analysis_result_id)
+        FOREIGN KEY (code_analysis_result_id) REFERENCES code_analysis_result(code_analysis_result_id) ON DELETE CASCADE
 );
 
 CREATE TABLE project_coverage_result (
@@ -43,21 +43,33 @@ CREATE TABLE file (
     path TEXT NOT NULL,
     code_lines INT NOT NULL,
     project_id UUID,
+    coverage_result_id UUID,
     CONSTRAINT fk_project
-        FOREIGN KEY (project_id) REFERENCES project(project_id)
+        FOREIGN KEY (project_id) REFERENCES project(project_id) ON DELETE CASCADE,
+    CONSTRAINT fk_coverage_result
+        FOREIGN KEY (coverage_result_id) REFERENCES file_coverage_result (file_coverage_id) ON DELETE CASCADE
 );
 
 CREATE TABLE file_coverage_result (
     file_coverage_id UUID PRIMARY KEY,
-    file_id UUID NOT NULL,
-    all_statements JSONB NOT NULL,
-    FOREIGN KEY (file_id) REFERENCES file(file_id) ON DELETE CASCADE
+    coverage_percentage FLOAT NOT NULL,
+    method_coverage_percentage FLOAT NOT NULL
 );
 
 CREATE TABLE method_coverage_result (
     method_coverage_id UUID PRIMARY KEY,
-    statements JSONB NOT NULL,
-    FOREIGN KEY (file_coverage_id) REFERENCES file_coverage_result(file_coverage_id) ON DELETE CASCADE
+    coverage_percentage FLOAT NOT NULL,
+    coverage_result_id UUID NOT NULL,
+    CONSTRAINT fk_coverage_result
+        FOREIGN KEY (coverage_result_id) REFERENCES file_coverage_result (file_coverage_id) ON DELETE CASCADE
+);
+
+CREATE TABLE method_statements (
+    method_coverage_id UUID NOT NULL,
+    key INT NOT NULL,
+    value BOOLEAN NOT NULL,
+    CONSTRAINT fk_method_coverage
+        FOREIGN KEY (method_coverage_id) REFERENCES method_coverage_result (method_coverage_id) ON DELETE CASCADE
 );
 
 CREATE TYPE project_rating AS ENUM ('A', 'B', 'C', 'D');
