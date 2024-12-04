@@ -42,21 +42,20 @@ public class ProjectResultsService implements IProjectResultsService {
 
     @Override
     public Optional<ProjectResults> calculateProjectResults(UUID projectId) {
-        Optional<ProjectParams> projectParams = iProjectParamsService.findByProjectId(projectId)
-                .orElseThrow(() -> new RuntimeException("Project parameters not found"));
+        Optional<ProjectParams> projectParams = iProjectParamsService.getProjectParamsByProjectId(projectId);
 
         Optional<CodeAnalysisResult> codeAnalysisResult = iCodeAnalysisResultService.getProjectRatingById(projectId);
         Optional<ProjectCoverageResult> coverageResult = iProjectCoverageResultService.getProjectCoverageById(projectId);
 
-        Status status = calculateProjectStatus(codeAnalysisResult, coverageResult, projectParams);
+        Status status = calculateProjectStatus(codeAnalysisResult.get(), coverageResult.get(), projectParams.get());
 
-        Optional<ProjectResults> projectResults = ProjectResults.builder()
+        ProjectResults projectResults = ProjectResults.builder()
                 .status(status)
-                .codeAnalysisResult(codeAnalysisResult)
-                .coverageResult(coverageResult)
+                .codeAnalysisResult(codeAnalysisResult.get())
+                .coverageResult(coverageResult.get())
                 .build();
 
-        return Optional.of(iProjectResultsRepository.save(projectResults.get()));
+        return Optional.of(iProjectResultsRepository.save(projectResults));
     }
 
     private Status calculateProjectStatus(CodeAnalysisResult codeAnalysisResult,

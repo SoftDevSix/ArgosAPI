@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface IProjectParamsService {
     ProjectParamsResponse createProjectParams(ProjectParamsCreateRequest projectParams);
-    Optional<ProjectParams> findById(UUID id);
-    Optional<ProjectParams> findByProjectId(UUID projectId);
+    Optional<ProjectParams> getProjectParamsById(UUID id);
+    Optional<ProjectParams> getProjectParamsByProjectId(UUID projectId);
     ProjectParamsResponse updateProjectParams(UUID id, ProjectParamsUpdateRequest projectParams);
 }

@@ -15,7 +15,7 @@ import java.util.Map;
 public class FileMapper {
     public MethodCoverageResult handleReportMethod(ReportMethod reportMethod) {
         MethodCoverageResult methodResult = MethodCoverageResult.builder().build();
-        Map<Integer, Boolean> resultStatements = methodResult.getStatements();
+        Map<Integer, Boolean> resultStatements = methodResult.getMethodStatements();
         for (ReportLine statement : reportMethod.getStatements()) {
             resultStatements.put(statement.getStatementNumber(), statement.isCovered());
         }
@@ -25,7 +25,7 @@ public class FileMapper {
 
     public FileCoverageResult handleReportClass(ReportClass reportClass) {
         FileCoverageResult result = FileCoverageResult.builder().build();
-        List<MethodCoverageResult> statements = result.getAllStatements();
+        List<MethodCoverageResult> statements = result.getMethodCoverageResults();
         for (ReportMethod method : reportClass.getMethods()) {
             statements.add(handleReportMethod(method));
         }
@@ -41,8 +41,7 @@ public class FileMapper {
         for (ReportClass reportClass : reportClassList) {
             file = File.builder()
                     .fileName(reportClass.getSourceFileName())
-                    .path(reportClass.getName())
-                    .coverageResult(handleReportClass(reportClass)).build();
+                    .fileCoverageResult(handleReportClass(reportClass)).build();
             mappedFileList.add(file);
         }
         return mappedFileList;

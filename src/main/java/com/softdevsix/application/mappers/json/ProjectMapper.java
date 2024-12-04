@@ -22,7 +22,7 @@ public class ProjectMapper {
     public Project handleReport(Report report) {
         return Project.builder()
                 .name(report.getName())
-                .coveredFiles(handleReportPackageList(report.getReportPackages()))
+                .files(handleReportPackageList(report.getReportPackages()))
                 .build();
     }
 }

@@ -38,12 +38,10 @@ public class ReportService implements IReportService {
         ProjectMapper mapper = new ProjectMapper();
         Project project = mapper.handleReport(report);
         project.setProjectId(UUID.fromString(idProject));
-        List<File> files = new ArrayList<>();
-        for (File coveredFile : project.getCoveredFiles()) {
-            files.add(fileRepository.createFile(coveredFile));
-        }
-        project.setCoveredFiles(files);
         projectRepository.save(project);
+        for (File coveredFile : project.getFiles()) {
+//            fileRepository.createFile(coveredFile);
+        }
     }
 }
 

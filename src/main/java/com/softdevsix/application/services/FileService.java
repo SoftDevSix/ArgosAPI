@@ -32,9 +32,9 @@ public class FileService implements IFileService {
         float totalMethodCoverage = 0f;
         int methodCount = 0;
 
-        for (MethodCoverageResult methodCoverage : file.getCoverageResult().getAllStatements()) {
-            int totalStatements = methodCoverage.getStatements().size();
-            int coveredStatements = (int) methodCoverage.getStatements().values().stream().filter(Boolean::booleanValue).count();
+        for (MethodCoverageResult methodCoverage : file.getFileCoverageResult().getMethodCoverageResults()) {
+            int totalStatements = methodCoverage.getMethodStatements().size();
+            int coveredStatements = (int) methodCoverage.getMethodStatements().values().stream().filter(Boolean::booleanValue).count();
 
             if (totalStatements > 0) {
                 totalMethodCoverage += (coveredStatements * 100f) / totalStatements;
@@ -50,8 +50,8 @@ public class FileService implements IFileService {
         int totalStatements = 0;
         int coveredStatements = 0;
 
-        for (MethodCoverageResult methodCoverage : file.getCoverageResult().getAllStatements()) {
-            for (Map.Entry<Integer, Boolean> entry : methodCoverage.getStatements().entrySet()) {
+        for (MethodCoverageResult methodCoverage : file.getFileCoverageResult().getMethodCoverageResults()) {
+            for (Map.Entry<Integer, Boolean> entry : methodCoverage.getMethodStatements().entrySet()) {
                 totalStatements++;
                 if (entry.getValue() != null && entry.getValue()) {
                     coveredStatements++;
@@ -65,8 +65,8 @@ public class FileService implements IFileService {
     @Override
     public List<Integer> getUncoveredLines(File file) {
         List<Integer> uncoveredLines = new ArrayList<>();
-        for (MethodCoverageResult methodCoverage : file.getCoverageResult().getAllStatements()) {
-            for (Map.Entry<Integer, Boolean> entry : methodCoverage.getStatements().entrySet()) {
+        for (MethodCoverageResult methodCoverage : file.getFileCoverageResult().getMethodCoverageResults()) {
+            for (Map.Entry<Integer, Boolean> entry : methodCoverage.getMethodStatements().entrySet()) {
                 if (entry.getValue() != null && !entry.getValue().booleanValue()) {
                     uncoveredLines.add(entry.getKey());
                 }
@@ -78,7 +78,7 @@ public class FileService implements IFileService {
 
     @Override
     public List<File> getAll() {
-        return fileRepository.getAll();
+        return fileRepository.findAll();
     }
 
 }

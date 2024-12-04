@@ -35,7 +35,7 @@ public class ProjectCoverageResultService implements IProjectCoverageResultServi
     public Optional<ProjectCoverageResult> calculateProjectCoverage(UUID projectId) {
         Optional<Project> project = iProjectService.getProjectById(projectId);
 
-        float totalCoverage = calculateTotalCoverage(project);
+        float totalCoverage = calculateTotalCoverage(project.get());
 
         ProjectCoverageResult coverageResult = ProjectCoverageResult.builder()
                 .totalCoverage(totalCoverage)
@@ -44,14 +44,14 @@ public class ProjectCoverageResultService implements IProjectCoverageResultServi
         return Optional.of(iProjectCoverageResultRepository.save(coverageResult));
     }
 
-    private float calculateTotalCoverage(Optional<Project> project) {
+    private float calculateTotalCoverage(Project project) {
         float totalCoverage = 0f;
 
-        for (File file : project.getCoveredFiles()) {
-            totalCoverage += file.getCoverageResult().getCoveragePercentage();
+        for (File file : project.getFiles()) {
+            totalCoverage += file.getFileCoverageResult().getCoveragePercentage();
         }
 
-        totalCoverage /= project.getCoveredFiles().size();
+        totalCoverage /= project.getFiles().size();
         project.getProjectResults().getCoverageResult().setTotalCoverage(totalCoverage);
 
 //        projectRepository.save(project.get());
