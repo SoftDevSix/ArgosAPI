@@ -1,8 +1,6 @@
 package com.softdevsix.domain.repositories;
 
 import com.softdevsix.domain.entities.file.File;
-import com.softdevsix.domain.entities.file.FileCoverageResult;
-import com.softdevsix.domain.entities.file.MethodCoverageResult;
 import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +9,7 @@ import java.util.UUID;
 
 @Repository
 public class FileMemoryRepository implements IFileRepository {
-    private final static Map<UUID, File> files = new HashMap<>();
+    private final Map<UUID, File> files = new HashMap<>();
 
     @Override
     public File createFile(File file) {
