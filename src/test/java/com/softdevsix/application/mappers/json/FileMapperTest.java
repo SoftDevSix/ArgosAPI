@@ -7,9 +7,7 @@ import com.softdevsix.domain.entities.report.Report;
 import com.softdevsix.domain.entities.report.ReportClass;
 import com.softdevsix.domain.entities.report.ReportMethod;
 import com.softdevsix.domain.entities.report.ReportPackage;
-
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
 import java.util.Map;
 

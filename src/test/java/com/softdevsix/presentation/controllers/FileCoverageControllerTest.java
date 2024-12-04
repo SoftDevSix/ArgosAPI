@@ -51,7 +51,7 @@ class FileCoverageControllerTest {
         when(fileService.calculateFileCoverage(mockFile)).thenReturn(fileCoverage);
         when(fileService.getUncoveredLines(mockFile)).thenReturn(uncoveredLines);
 
-        ResponseEntity<FileCoverageDto> response = fileCoverageController.getFileCoverage(mockFileId);
+        ResponseEntity<FileCoverageDto> response = fileCoverageController.getFileCoverage(mockFileId, "");
 
         assertNotNull(response);
         assertEquals(200, response.getStatusCode().value()); // Usando getStatusCode().value() en lugar de getStatusCodeValue()

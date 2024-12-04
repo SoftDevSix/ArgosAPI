@@ -11,10 +11,9 @@ import java.util.UUID;
 
 @Repository
 public class FileMemoryRepository implements IFileRepository {
-    private final Map<UUID, File> files;
+    private final static Map<UUID, File> files = new HashMap<>();
 
     public FileMemoryRepository() {
-        this.files = new HashMap<>();
         initializeData();
     }
 

@@ -1,25 +1,32 @@
 package com.softdevsix.presentation.controllers;
 
+import com.softdevsix.application.services.IFileService;
+import com.softdevsix.application.services.IProjectService;
 import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.application.dto.FileCoverageDto;
-import com.softdevsix.application.services.IFileService;
+import com.softdevsix.domain.entities.project.Project;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/coverage/file/")
+@RequestMapping("/coverage/project/")
 public class FileCoverageController {
     private final IFileService fileService;
+    private final IProjectService projectService;
 
-    public FileCoverageController(IFileService fileService) {
+    public FileCoverageController(IFileService fileService, IProjectService projectService) {
         this.fileService = fileService;
+        this.projectService = projectService;
     }
 
-    @GetMapping("/{idFile}")
-    public ResponseEntity<FileCoverageDto> getFileCoverage(@PathVariable UUID idFile) {
-        File file = fileService.getFileById(idFile);
+    @GetMapping("/{idProject}/")
+    public ResponseEntity<FileCoverageDto> getFileCoverage(@PathVariable UUID idProject, @RequestParam String filePath) {
+        Project project = projectService.getProjectById(idProject);
+        // TODO : We need to save the file manager path and there is no entity for that,
+        //  so it should be an equals and not a contains.
+        UUID fileId = project.getCoveredFiles().stream().filter(f -> filePath.contains(f.getPath())).findFirst().get().getFileId();
+        File file = fileService.getFileById(fileId);
 
         FileCoverageDto dto = new FileCoverageDto(
                 file.getFileName(),
@@ -33,8 +40,4 @@ public class FileCoverageController {
         return ResponseEntity.ok(dto);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<File>> getAll() {
-        return ResponseEntity.ok(fileService.getAll());
-    }
 }
