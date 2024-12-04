@@ -13,11 +13,6 @@ public class ProjectRepository implements IProjectRepository {
 
     public ProjectRepository() {
         this.projects = new HashMap<>();
-        initializeDatabase();
-    }
-
-    private void initializeDatabase() {
-
     }
 
     @Override

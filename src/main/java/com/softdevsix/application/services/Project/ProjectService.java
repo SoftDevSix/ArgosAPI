@@ -24,7 +24,6 @@ public class ProjectService implements IProjectService {
     @Override
     public Project getProjectById(UUID projectId) {
         Project project = projectRepository.findById(projectId);
-        System.out.println(project);
         if (project == null) {
             throw new ProjectNotFoundException("Project with Id: " + projectId + " not found");
         }
