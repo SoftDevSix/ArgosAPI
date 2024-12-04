@@ -21,9 +21,8 @@ public class CodeAnalysisResult {
     @Column(name = "code_analysis_result_id")
     private UUID id;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "actual_rating", nullable = false)
-    private Rating actualRating;
+    private String actualRating;
 
     @OneToOne(mappedBy = "codeAnalysisResult")
     private ProjectResults projectResults;

@@ -1,6 +1,5 @@
 package com.softdevsix.domain.entities.project;
 
-import com.softdevsix.domain.entities.staticanalysis.Rating;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,9 +23,8 @@ public class ProjectParams {
     @Column(name = "required_coverage_percentage")
     private float requiredCoveragePercentage;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "required_code_rating")
-    private Rating requiredCodeRating;
+    @Column(name = "required_code_rating", nullable = false)
+    private String requiredCodeRating;
 
     @OneToOne(mappedBy = "projectParams")
     private Project project;

@@ -22,16 +22,15 @@ public class ProjectResults {
     @Column(name = "project_results_id")
     private UUID id;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private Status status;
+    private String status;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "project_coverage_result_id", referencedColumnName = "id")
+    @JoinColumn(name = "project_coverage_result_id", referencedColumnName = "project_coverage_result_id")
     private ProjectCoverageResult coverageResult;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "code_analysis_result_id", referencedColumnName = "id")
+    @JoinColumn(name = "code_analysis_result_id", referencedColumnName = "code_analysis_result_id")
     private CodeAnalysisResult codeAnalysisResult;
 
     @OneToOne(mappedBy = "projectResults")
