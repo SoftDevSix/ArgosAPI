@@ -16,8 +16,10 @@ public class Project {
     private UUID projectId;
     private String name;
     private String description;
-    private ProjectParams projectParams;
-    private ProjectResults projectResults;
+    @Builder.Default
+    private ProjectParams projectParams = ProjectParams.builder().build();
+    @Builder.Default
+    private ProjectResults projectResults = ProjectResults.builder().build();
     @Builder.Default
     private List<File> coveredFiles = new ArrayList<>();
 }
