@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -26,12 +25,15 @@ public class MethodCoverageResult {
     private float coveragePercentage;
 
     @ElementCollection
-    @CollectionTable(name = "method_statements",
-            joinColumns = @JoinColumn(name = "method_coverage_id"))
+    @CollectionTable(
+            name = "method_statements",
+            joinColumns = @JoinColumn(name = "method_coverage_id")
+    )
+    @MapKeyColumn(name = "statement_key")
     @Column(name = "statement_executed")
     private Map<Integer, Boolean> methodStatements;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "coverage_result_id")
     private FileCoverageResult fileCoverageResult;
 }

@@ -23,18 +23,18 @@ public class Project {
     @Column(name = "project_id")
     private UUID projectId;
 
-    @Column(name = "title")
+    @Column(name = "name")
     private String name;
 
     @Column(name = "description")
     private String description;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "project_params_id", referencedColumnName = "id")
+    @JoinColumn(name = "project_params_id", referencedColumnName = "project_params_id")
     private ProjectParams projectParams;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "project_results_id", referencedColumnName = "id")
+    @JoinColumn(name = "project_results_id", referencedColumnName = "project_results_id")
     private ProjectResults projectResults;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
