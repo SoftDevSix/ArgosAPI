@@ -7,7 +7,6 @@ import com.softdevsix.domain.repositories.IFileRepository;
 import com.softdevsix.domain.repositories.IProjectRepository;
 import com.softdevsix.domain.repositories.ProjectRepository;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ReportServiceTest {

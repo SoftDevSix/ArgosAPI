@@ -23,6 +23,7 @@ public class FileCoverageController {
     @GetMapping("/{idProject}/")
     public ResponseEntity<FileCoverageDto> getFileCoverage(@PathVariable UUID idProject, @RequestParam String filePath) {
         Project project = projectService.getProjectById(idProject);
+
         // TODO : We need to save the file manager path and there is no entity for that,
         //  so it should be an equals and not a contains.
         UUID fileId = project.getCoveredFiles().stream().filter(f -> filePath.contains(f.getPath())).findFirst().get().getFileId();
