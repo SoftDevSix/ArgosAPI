@@ -1,6 +1,5 @@
 package com.softdevsix.domain.entities.staticanalysis;
 
-import com.softdevsix.domain.entities.coverage.ProjectCoverageResult;
 import com.softdevsix.domain.entities.project.ProjectResults;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
