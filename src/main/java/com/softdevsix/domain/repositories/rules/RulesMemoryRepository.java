@@ -1,4 +1,4 @@
-package com.softdevsix.domain.repositories;
+package com.softdevsix.domain.repositories.rules;
 
 import com.softdevsix.domain.entities.project.ProjectParams;
 import com.softdevsix.domain.entities.staticanalysis.Rating;
@@ -8,7 +8,6 @@ import java.util.*;
 
 @Repository
 public class RulesMemoryRepository implements IRulesRepository {
-
     private final Map<UUID, ProjectParams> projectRules;
 
     public RulesMemoryRepository() {

@@ -1,4 +1,4 @@
-package com.softdevsix.domain.repositories;
+package com.softdevsix.domain.repositories.project;
 
 import com.softdevsix.domain.entities.project.Project;
 import org.springframework.stereotype.Repository;
@@ -9,10 +9,15 @@ import java.util.UUID;
 
 @Repository
 public class ProjectRepository implements IProjectRepository {
-    private static Map<UUID, Project> projects;
+    private Map<UUID, Project> projects;
 
     public ProjectRepository() {
-        projects = new HashMap<>();
+        this.projects = new HashMap<>();
+        initializeDatabase();
+    }
+
+    private void initializeDatabase() {
+
     }
 
     @Override

@@ -4,8 +4,8 @@ import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.domain.entities.project.Project;
 import com.softdevsix.domain.entities.report.Report;
 import com.softdevsix.application.mappers.json.ProjectMapper;
-import com.softdevsix.domain.repositories.IFileRepository;
-import com.softdevsix.domain.repositories.IProjectRepository;
+import com.softdevsix.domain.repositories.file.IFileRepository;
+import com.softdevsix.domain.repositories.project.IProjectRepository;
 import lombok.Value;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -27,11 +27,13 @@ public class ReportService implements IReportService {
         this.fileRepository = fileRepository;
     }
 
+    @Override
     public void processAndSaveReport(String idProject, String coverageJson) {
         Report report = reportReader.read(coverageJson);
         saveReportToDatabase(idProject, report);
     }
 
+    @Override
     public void saveReportToDatabase(String idProject, Report report) {
         ProjectMapper mapper = new ProjectMapper();
         Project project = mapper.handleReport(report);

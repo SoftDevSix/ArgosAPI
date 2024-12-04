@@ -9,7 +9,7 @@ import com.softdevsix.domain.entities.project.Status;
 import com.softdevsix.domain.entities.staticanalysis.CodeAnalysisResult;
 import com.softdevsix.domain.entities.staticanalysis.Rating;
 import com.softdevsix.domain.exceptions.ProjectNotFoundException;
-import com.softdevsix.domain.repositories.IProjectRepository;
+import com.softdevsix.domain.repositories.project.IProjectRepository;
 import org.springframework.stereotype.Service;
 import java.util.UUID;
 
@@ -38,7 +38,7 @@ public class ProjectService implements IProjectService {
         if (existingProject == null) {
             throw new ProjectNotFoundException("Project with Id: " + projectId + " not found");
         }
-        projectRepository.save(project);
+        projectRepository.createProject(project);
     }
 
     @Override
@@ -63,22 +63,15 @@ public class ProjectService implements IProjectService {
         totalCoverage /= project.getCoveredFiles().size();
         project.getProjectResults().getCoverageResult().setTotalCoverage(totalCoverage);
 
-<<<<<<< HEAD
         projectRepository.update(project);
-=======
-        projectRepository.createProject(project);
->>>>>>> feature/cs-56/post-endpoint-to-rules
     }
 
     @Override
     public void calculateProjectRating(UUID projectId) {
         Project project = getProjectById(projectId);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.A);
-<<<<<<< HEAD
+
         projectRepository.update(project);
-=======
-        projectRepository.createProject(project);
->>>>>>> feature/cs-56/post-endpoint-to-rules
     }
 
     @Override
@@ -97,11 +90,7 @@ public class ProjectService implements IProjectService {
             projectResults.setStatus(Status.FAILED);
         }
 
-<<<<<<< HEAD
         projectRepository.update(project);
-=======
-        projectRepository.createProject(project);
->>>>>>> feature/cs-56/post-endpoint-to-rules
     }
 
     private boolean getCoverageStatus(ProjectParams params, ProjectResults results) {

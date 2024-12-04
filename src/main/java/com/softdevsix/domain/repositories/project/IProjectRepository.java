@@ -1,7 +1,6 @@
-package com.softdevsix.domain.repositories;
+package com.softdevsix.domain.repositories.project;
 
 
-import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.domain.entities.project.Project;
 import org.springframework.stereotype.Repository;
 
