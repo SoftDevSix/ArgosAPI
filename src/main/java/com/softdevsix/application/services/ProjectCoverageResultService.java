@@ -37,11 +37,11 @@ public class ProjectCoverageResultService implements IProjectCoverageResultServi
 
         float totalCoverage = calculateTotalCoverage(project);
 
-        Optional<ProjectCoverageResult> coverageResult = ProjectCoverageResult.builder()
+        ProjectCoverageResult coverageResult = ProjectCoverageResult.builder()
                 .totalCoverage(totalCoverage)
                 .build();
 
-        return Optional.of(iProjectCoverageResultRepository.save(coverageResult.get()));
+        return Optional.of(iProjectCoverageResultRepository.save(coverageResult));
     }
 
     private float calculateTotalCoverage(Optional<Project> project) {

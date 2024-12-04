@@ -4,10 +4,12 @@ import com.softdevsix.domain.entities.project.Project;
 import com.softdevsix.domain.entities.staticanalysis.CodeAnalysisResult;
 import com.softdevsix.domain.entities.staticanalysis.Rating;
 import com.softdevsix.domain.repositories.ICodeAnalysisResultRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public class CodeAnalysisResultService implements ICodeAnalysisResultService {
     private final ICodeAnalysisResultRepository iCodeAnalysisResultRepository;
     private final IProjectService iProjectService;
@@ -36,11 +38,11 @@ public class CodeAnalysisResultService implements ICodeAnalysisResultService {
 
         Rating actualRating = performCodeAnalysis(project);
 
-        Optional<CodeAnalysisResult> analysisResult = CodeAnalysisResult.builder()
+        CodeAnalysisResult analysisResult = CodeAnalysisResult.builder()
                 .actualRating(actualRating)
                 .build();
 
-        return Optional.of(iCodeAnalysisResultRepository.save(analysisResult.get()));
+        return Optional.of(iCodeAnalysisResultRepository.save(analysisResult));
     }
 
     private Rating performCodeAnalysis(Optional<Project> project) {
