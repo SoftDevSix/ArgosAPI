@@ -32,7 +32,7 @@ public class FileCoverageController {
         Project project = projectService.getProjectById(idProject);
 
         UUID fileId = project.getCoveredFiles().stream().filter(f -> filePath.contains(f.getPath())).findFirst().orElseThrow(() -> new IllegalArgumentException("File not found"))
-                .getFileId();;
+                .getFileId();
         File file = fileService.getFileById(fileId);
 
         FileCoverageDto dto = new FileCoverageDto(
