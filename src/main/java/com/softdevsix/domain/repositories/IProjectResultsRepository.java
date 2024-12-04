@@ -1,13 +1,12 @@
 package com.softdevsix.domain.repositories;
 
-
-import com.softdevsix.domain.entities.project.Project;
+import com.softdevsix.domain.entities.project.ProjectResults;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface IProjectRepository extends JpaRepository<Project, UUID> {
+public interface IProjectResultsRepository extends JpaRepository<ProjectResults, UUID> {
 }

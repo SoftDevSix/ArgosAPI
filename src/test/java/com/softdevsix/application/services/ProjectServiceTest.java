@@ -11,7 +11,6 @@ import com.softdevsix.domain.entities.staticanalysis.CodeAnalysisResult;
 import com.softdevsix.domain.entities.staticanalysis.Rating;
 import com.softdevsix.domain.exceptions.ProjectNotFoundException;
 import com.softdevsix.domain.repositories.IProjectRepository;
-import com.softdevsix.domain.repositories.ProjectRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

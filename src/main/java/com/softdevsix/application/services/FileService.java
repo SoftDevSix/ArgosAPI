@@ -7,10 +7,8 @@ import com.softdevsix.domain.repositories.IFileRepository;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+
+import java.util.*;
 
 @Service
 public class FileService implements IFileService {
@@ -20,11 +18,10 @@ public class FileService implements IFileService {
         this.fileRepository = fileRepository;
     }
 
-    @SneakyThrows
     @Override
-    public File getFileById(UUID fileId) {
-        File file = fileRepository.findById(fileId);
-        if (file == null) {
+    public Optional<File> getFileById(UUID fileId) {
+        Optional<File> file = fileRepository.findById(fileId);
+        if (file.isEmpty()) {
             throw new FileNotFoundException("File with ID " + fileId + " not found.");
         }
         return file;

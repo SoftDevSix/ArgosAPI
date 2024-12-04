@@ -1,16 +1,14 @@
 package com.softdevsix.application.services;
 
-import com.softdevsix.domain.entities.coverage.ProjectCoverageResult;
-import com.softdevsix.domain.entities.file.File;
+import com.softdevsix.application.mappers.requests.ProjectCreateRequest;
+import com.softdevsix.application.mappers.requests.ProjectUpdateRequest;
+import com.softdevsix.application.mappers.responses.ProjectResponse;
 import com.softdevsix.domain.entities.project.Project;
-import com.softdevsix.domain.entities.project.ProjectResults;
-import com.softdevsix.domain.entities.project.Status;
-import com.softdevsix.domain.entities.staticanalysis.CodeAnalysisResult;
-import com.softdevsix.domain.entities.staticanalysis.Rating;
 import com.softdevsix.domain.exceptions.ProjectNotFoundException;
 import com.softdevsix.domain.repositories.IProjectRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -21,60 +19,35 @@ public class ProjectService implements IProjectService {
         this.projectRepository = projectRepository;
     }
 
-    public Project getProjectById(UUID projectId) {
-        Project project = projectRepository.findById(projectId);
-        if (project == null) {
+    @Override
+    public Optional<Project> getProjectById(UUID projectId) {
+        Optional<Project> projectOptional = projectRepository.findById(projectId);
+
+        if (projectOptional.isEmpty()) {
             throw new ProjectNotFoundException("Project with Id: " + projectId + " not found");
         }
-        return project;
+
+        return projectOptional;
     }
 
-    public void calculateProjectCoverage(UUID projectId) {
-        Project project = getProjectById(projectId);
-
-        float totalCoverage = 0f;
-
-        for (File file : project.getCoveredFiles()) {
-            totalCoverage += file.getCoverageResult().getCoveragePercentage();
-        }
-
-        totalCoverage /= project.getCoveredFiles().size();
-        project.getProjectResults().getCoverageResult().setTotalCoverage(totalCoverage);
-
-        projectRepository.save(project);
+    @Override
+    public ProjectResponse createProject(ProjectCreateRequest projectCreateRequest) {
+        // TODO: Review repository on GitHub
+        return null;
     }
 
-    public void calculateProjectRating(UUID projectId) {
-        Project project = getProjectById(projectId);
-        project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.A);
-        projectRepository.save(project);
+    @Override
+    public ProjectResponse updateProject(UUID projectId, ProjectUpdateRequest projectUpdateRequest) {
+        // TODO: Review repository on GitHub
+        return null;
     }
 
-    public void calculateProjectStatus(UUID projectId) {
-        Project project = getProjectById(projectId);
-
-        ProjectResults projectResults = project.getProjectResults();
-
-        ProjectCoverageResult coverageResult = projectResults.getCoverageResult();
-        boolean coveragePassed = coverageResult.getTotalCoverage() >= coverageResult.getRequiredCoverage();
-
-        CodeAnalysisResult analysisResult = projectResults.getCodeAnalysisResult();
-        boolean analysisPassed = analysisResult.getActualRating().compareTo(analysisResult.getExpectedRating()) <= 0;
-
-        if (coveragePassed && analysisPassed) {
-            projectResults.setStatus(Status.PASSED);
-        } else {
-            projectResults.setStatus(Status.FAILED);
-        }
-
-        projectRepository.save(project);
-    }
-
-    public ProjectResults calculateProjectResults(UUID projectId) {
-        calculateProjectCoverage(projectId);
-        calculateProjectRating(projectId);
-        calculateProjectStatus(projectId);
-
-        return getProjectById(projectId).getProjectResults();
-    }
+//    @Override
+//    public Optional<ProjectResults> calculateProjectResults(UUID projectId) {
+//        calculateProjectCoverage(projectId);
+//        calculateProjectRating(projectId);
+//        calculateProjectStatus(projectId);
+//
+//        return getProjectById(projectId).getProjectResults();
+//    }
 }
