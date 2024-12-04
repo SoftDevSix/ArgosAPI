@@ -23,16 +23,17 @@ public class ProjectController {
 
     @GetMapping("/description/{id}")
     public ResponseEntity<Object> getProjectById(@PathVariable UUID id) {
-        try {
-            Project project = projectService.getProjectById(id);
-
-            return new ResponseEntity<>(
-                    new ProjectResponse(project.getName(), project.getDescription()),
-                    HttpStatus.OK
-            );
-        } catch (Exception e) {
-            return new ResponseEntity<>("Project not found", HttpStatus.NOT_FOUND);
-        }
+//        try {
+//            Project project = projectService.getProjectById(id);
+//
+//            return new ResponseEntity<>(
+//                    new ProjectResponse(project.getName(), project.getDescription()),
+//                    HttpStatus.OK
+//            );
+//        } catch (Exception e) {
+//            return new ResponseEntity<>("Project not found", HttpStatus.NOT_FOUND);
+//        }
+        return null;
     }
 
     private static class ProjectResponse {

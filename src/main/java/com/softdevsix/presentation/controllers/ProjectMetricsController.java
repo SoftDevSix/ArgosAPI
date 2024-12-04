@@ -22,11 +22,12 @@ public class ProjectMetricsController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProjectResults> getProjectMetrics(@PathVariable UUID id) {
-        try {
-            ProjectResults results = projectService.calculateProjectResults(id);
-            return new ResponseEntity<>(results, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+//        try {
+//            ProjectResults results = projectService.calculateProjectResults(id);
+//            return new ResponseEntity<>(results, HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+        return null;
     }
 }
