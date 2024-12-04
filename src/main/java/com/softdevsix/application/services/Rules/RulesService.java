@@ -46,6 +46,7 @@ public class RulesService implements IRulesService {
 
         project.setName(paramsRequestDTO.getProjectName());
         project.setDescription(paramsRequestDTO.getDescription());
+        project.getProjectResults().setProjectId(projectId);
         PROJECT_SERVICE.updateProject(project);
 
         calculateFilesCoverage(project);
