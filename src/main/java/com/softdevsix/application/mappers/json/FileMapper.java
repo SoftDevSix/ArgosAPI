@@ -40,6 +40,7 @@ public class FileMapper {
         for (ReportClass reportClass : reportClassList) {
             file = File.builder()
                     .fileName(reportClass.getSourceFileName())
+                    .path(reportClass.getName())
                     .coverageResult(handleReportClass(reportClass)).build();
             mappedFileList.add(file);
         }
