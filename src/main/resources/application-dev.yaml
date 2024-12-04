@@ -15,7 +15,7 @@ spring:
 
   flyway:
     enabled: true
-    locations: classpath:db/migration/data, classpath:db/migration/structure
+    locations: classpath:db.migration/data, classpath:db.migration/structure
     validate-on-migrate: true
 
   jpa:
