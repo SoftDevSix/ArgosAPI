@@ -32,18 +32,18 @@ public class FileCoverageController {
     public ResponseEntity<FileCoverageDto> getFileCoverage(@PathVariable UUID idProject, @RequestParam String filePath) {
         Project project = projectService.getProjectById(idProject);
 
-        UUID fileId = project.getCoveredFiles().stream().filter(f -> filePath.contains(f.getPath())).findFirst().orElseThrow(() -> new ProjectNotFoundException("File not found"))
+        UUID fileId = project.getFiles().stream().filter(f -> filePath.contains(f.getPath())).findFirst().orElseThrow(() -> new ProjectNotFoundException("File not found"))
                 .getFileId();
-        File file = fileService.getFileById(fileId);
+        FileCoverageDto dto = fileService.getFileById(fileId);
 
-        FileCoverageDto dto = new FileCoverageDto(
-                file.getFileName(),
-                file.getPath(),
-                file.getLineCode(),
-                fileService.calculateFileMethodCoverage(file),
-                fileService.calculateFileCoverage(file),
-                fileService.getUncoveredLines(file)
-        );
+//        FileCoverageDto dto = new FileCoverageDto(
+//                file.getFileName(),
+//                file.getPath(),
+//                file.getLineCode(),
+//                fileService.calculateFileMethodCoverage(file),
+//                fileService.calculateFileCoverage(file),
+//                fileService.getUncoveredLines(file)
+//        );
 
         return ResponseEntity.ok(dto);
     }
