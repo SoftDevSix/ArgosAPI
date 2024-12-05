@@ -2,7 +2,7 @@ name: Deployment
 
 on:
   push:
-    branches: [production]
+    branches: production
 
 jobs:
   docker:
@@ -32,3 +32,4 @@ jobs:
 
       - name: Deploy to Server
         run: echo "Deployment"
+        
