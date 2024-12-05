@@ -25,7 +25,7 @@ public class ProjectService implements IProjectService {
     public Project getProjectById(UUID projectId) {
         Project project = projectRepository.findById(projectId);
         if (project == null) {
-            throw new ProjectNotFoundException("Project with Id: " + projectId + " not found");
+            throw new ProjectNotFoundException(throwProjectNotFoundMessage(projectId));
         }
         return project;
     }
@@ -35,7 +35,7 @@ public class ProjectService implements IProjectService {
         UUID projectId = project.getProjectId();
         Project existingProject = projectRepository.findById(projectId);
         if (existingProject == null) {
-            throw new ProjectNotFoundException("Project with Id: " + projectId + " not found");
+            throw new ProjectNotFoundException(throwProjectNotFoundMessage(projectId));
         }
         projectRepository.createProject(project);
     }
@@ -44,7 +44,7 @@ public class ProjectService implements IProjectService {
     public ProjectResults getProjectResults(UUID projectId) {
         Project project = projectRepository.findById(projectId);
         if (project == null) {
-            throw new ProjectNotFoundException("Project with Id: " + projectId + " not found");
+            throw new ProjectNotFoundException(throwProjectNotFoundMessage(projectId));
         }
         return project.getProjectResults();
     }
@@ -110,4 +110,7 @@ public class ProjectService implements IProjectService {
         }
     }
 
+    private String throwProjectNotFoundMessage(UUID projectId) {
+        return "Project with Id: " + projectId + " not found";
+    }
 }
