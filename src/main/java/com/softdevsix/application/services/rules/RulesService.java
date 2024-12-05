@@ -39,7 +39,7 @@ public class RulesService implements IRulesService {
     }
 
     @Override
-    public void executeProject(UUID projectId, ProjectParamsRequestDTO paramsRequestDTO) {
+    public Project executeProject(UUID projectId, ProjectParamsRequestDTO paramsRequestDTO) {
         Project project = projectService.getProjectById(projectId);
 
         if(project == null) throw new BadRequestException("Project cannot be null");
@@ -59,6 +59,8 @@ public class RulesService implements IRulesService {
         }
 
         projectService.calculateProjectStatus(projectId);
+
+        return projectService.getProjectById(projectId);
     }
 
     private void calculateFilesCoverage(Project project) {
