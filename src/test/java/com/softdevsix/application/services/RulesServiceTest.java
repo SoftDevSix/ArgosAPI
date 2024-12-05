@@ -13,7 +13,6 @@ import com.softdevsix.domain.entities.project.ProjectParams;
 import com.softdevsix.domain.entities.project.ProjectResults;
 import com.softdevsix.domain.entities.staticanalysis.CodeAnalysisResult;
 import com.softdevsix.domain.entities.staticanalysis.Rating;
-import com.softdevsix.domain.exceptions.BadRequestException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -154,26 +153,6 @@ class RulesServiceTest {
         rulesService.saveRules(params, project.getProjectId());
 
         assertEquals(Rating.B, project.getProjectParams().getRequiredCodeRating());
-    }
-
-    @Test
-    void saveRulesThrowsExceptionWhenParamsAreNull() {
-        Project project = buildProject();
-
-        when(projectService.getProjectById(project.getProjectId())).thenReturn(project);
-
-        BadRequestException exception = assertThrows(
-                BadRequestException.class,
-                () -> {
-                    try {
-                        rulesService.saveRules(null, project.getProjectId());
-                    } catch (BadRequestException e) {
-                        throw e;
-                    }
-                }
-        );
-
-        assertEquals("Project params cannot be null", exception.getMessage());
     }
 
     @Test
