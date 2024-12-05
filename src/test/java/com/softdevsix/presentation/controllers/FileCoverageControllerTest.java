@@ -3,6 +3,8 @@ package com.softdevsix.presentation.controllers;
 import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.application.dto.FileCoverageDto;
 import com.softdevsix.application.services.File.IFileService;
+import com.softdevsix.domain.entities.file.FileCoverageResult;
+import com.softdevsix.domain.entities.file.MethodCoverageResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -10,9 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -32,11 +32,34 @@ class FileCoverageControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         mockFileId = UUID.randomUUID();
+        Map<Integer, Boolean> methodStatements = new HashMap<>();
+        methodStatements.put(1, true);
+        methodStatements.put(2, true);
+        methodStatements.put(3, false);
+        methodStatements.put(4, true);
+        methodStatements.put(5, true);
+        methodStatements.put(6, true);
+        methodStatements.put(7, true);
+        methodStatements.put(8, true);
+        methodStatements.put(9, true);
+        methodStatements.put(10, true);
+
+        MethodCoverageResult methodCoverage = MethodCoverageResult.builder()
+                .statements(methodStatements)
+                .build();
+
+        FileCoverageResult coverageResult = FileCoverageResult.builder()
+                .allStatements(Arrays.asList(methodCoverage))
+                .coveragePercentage(90.0f)
+                .methodCoveragePercentage(80.0f)
+                .build();
+
         mockFile = File.builder()
                 .fileId(mockFileId)
                 .fileName("TestFile.java")
                 .path("/src/test/TestFile.java")
                 .lineCode(100)
+                .coverageResult(coverageResult)
                 .build();
     }
 
@@ -64,6 +87,5 @@ class FileCoverageControllerTest {
         assertEquals(fileCoverage, dto.getCoveragePercentage());
         assertEquals(uncoveredLines, dto.getUncoveredLines());
     }
-
 }
 

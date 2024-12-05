@@ -4,7 +4,7 @@ import com.softdevsix.application.services.File.FileService;
 import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.domain.entities.file.FileCoverageResult;
 import com.softdevsix.domain.entities.file.MethodCoverageResult;
-import com.softdevsix.domain.repositories.IFileRepository;
+import com.softdevsix.domain.repositories.file.IFileRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

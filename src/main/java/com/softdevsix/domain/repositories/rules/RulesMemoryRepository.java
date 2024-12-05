@@ -1,4 +1,4 @@
-package com.softdevsix.domain.repositories;
+package com.softdevsix.domain.repositories.rules;
 
 import com.softdevsix.domain.entities.project.ProjectParams;
 import com.softdevsix.domain.entities.staticanalysis.Rating;
@@ -8,7 +8,6 @@ import java.util.*;
 
 @Repository
 public class RulesMemoryRepository implements IRulesRepository {
-
     private final Map<UUID, ProjectParams> projectRules;
 
     public RulesMemoryRepository() {
@@ -21,7 +20,7 @@ public class RulesMemoryRepository implements IRulesRepository {
                 .id(UUID.randomUUID())
                 .projectCoverage(true)
                 .requiredCoveragePercentage(75.0f)
-                .projectCodeRating(true)
+                .projectRating(true)
                 .requiredCodeRating(Rating.B)
                 .build();
 
@@ -29,7 +28,7 @@ public class RulesMemoryRepository implements IRulesRepository {
                 .id(UUID.randomUUID())
                 .projectCoverage(false)
                 .requiredCoveragePercentage(0.0f)
-                .projectCodeRating(true)
+                .projectRating(true)
                 .requiredCodeRating(Rating.C)
                 .build();
 
@@ -37,7 +36,7 @@ public class RulesMemoryRepository implements IRulesRepository {
                 .id(UUID.randomUUID())
                 .projectCoverage(true)
                 .requiredCoveragePercentage(85.0f)
-                .projectCodeRating(true)
+                .projectRating(true)
                 .requiredCodeRating(Rating.A)
                 .build();
 

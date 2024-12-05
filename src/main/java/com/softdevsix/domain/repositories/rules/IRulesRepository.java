@@ -1,4 +1,4 @@
-package com.softdevsix.domain.repositories;
+package com.softdevsix.domain.repositories.rules;
 
 import com.softdevsix.domain.entities.project.ProjectParams;
 
