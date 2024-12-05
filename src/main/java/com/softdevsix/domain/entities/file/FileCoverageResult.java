@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,7 +31,8 @@ public class FileCoverageResult {
 
     @OneToMany(mappedBy = "fileCoverageResult", cascade = CascadeType.ALL)
     @JsonIgnore()
-    private List<MethodCoverageResult> methodCoverageResults;
+    @Builder.Default
+    private List<MethodCoverageResult> methodCoverageResults = new ArrayList<>();
 
     @OneToOne(mappedBy = "fileCoverageResult")
     private File file;

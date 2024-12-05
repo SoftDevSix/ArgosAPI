@@ -45,9 +45,8 @@ public class ReportService implements IReportService {
         Project project = mapper.handleReport(report);
         project.setProjectId(UUID.fromString(idProject));
         projectRepository.save(project);
-        for (File coveredFile : project.getFiles()) {
-//            fileRepository.createFile(coveredFile);
-        }
+        project.getFiles().forEach(file -> file.setProject(project));
+        fileRepository.saveAll(project.getFiles());
     }
 }
 

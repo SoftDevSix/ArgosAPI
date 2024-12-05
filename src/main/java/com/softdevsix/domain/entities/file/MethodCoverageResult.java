@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -31,7 +32,8 @@ public class MethodCoverageResult {
     )
     @MapKeyColumn(name = "statement_key")
     @Column(name = "statement_executed")
-    private Map<Integer, Boolean> methodStatements;
+    @Builder.Default
+    private Map<Integer, Boolean> methodStatements = new HashMap<>();
 
     @ManyToOne
     @JoinColumn(name = "coverage_result_id")
