@@ -1,5 +1,6 @@
 package com.softdevsix.domain.entities.staticanalysis;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.softdevsix.domain.entities.project.ProjectResults;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,5 +26,6 @@ public class CodeAnalysisResult {
     private String actualRating;
 
     @OneToOne(mappedBy = "codeAnalysisResult")
+    @JsonIgnore
     private ProjectResults projectResults;
 }

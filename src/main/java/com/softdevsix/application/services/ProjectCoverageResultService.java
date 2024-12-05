@@ -33,9 +33,9 @@ public class ProjectCoverageResultService implements IProjectCoverageResultServi
 
     @Override
     public Optional<ProjectCoverageResult> calculateProjectCoverage(UUID projectId) {
-        Optional<Project> project = iProjectService.getProjectById(projectId);
+        Project project = iProjectService.getProjectById(projectId);
 
-        float totalCoverage = calculateTotalCoverage(project.get());
+        float totalCoverage = calculateTotalCoverage(project);
 
         ProjectCoverageResult coverageResult = ProjectCoverageResult.builder()
                 .totalCoverage(totalCoverage)

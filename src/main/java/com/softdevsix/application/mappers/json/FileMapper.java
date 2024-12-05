@@ -1,5 +1,6 @@
 package com.softdevsix.application.mappers.json;
 
+import com.softdevsix.application.dto.FileCoverageDto;
 import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.domain.entities.file.FileCoverageResult;
 import com.softdevsix.domain.entities.file.MethodCoverageResult;
@@ -7,12 +8,28 @@ import com.softdevsix.domain.entities.report.ReportClass;
 import com.softdevsix.domain.entities.report.ReportLine;
 import com.softdevsix.domain.entities.report.ReportMethod;
 import com.softdevsix.domain.entities.report.ReportPackage;
+import com.softdevsix.utils.calculate.CoverageProcesor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class FileMapper {
+
+    public static FileCoverageDto FileToFileDto(File file){
+
+        FileCoverageDto fileDto = new FileCoverageDto(
+                file.getFileName(),
+                file.getPath(),
+                file.getCodeLines(),
+                CoverageProcesor.calculateFileMethodCoverage(file),
+                CoverageProcesor.calculateFileCoverage(file),
+                CoverageProcesor.getUncoveredLines(file)
+        );
+        return fileDto;
+    }
+
+
     public MethodCoverageResult handleReportMethod(ReportMethod reportMethod) {
         MethodCoverageResult methodResult = MethodCoverageResult.builder().build();
         Map<Integer, Boolean> resultStatements = methodResult.getMethodStatements();

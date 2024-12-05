@@ -2,6 +2,7 @@ package com.softdevsix.presentation.controllers;
 
 import com.softdevsix.domain.entities.project.Project;
 import com.softdevsix.application.services.IProjectService;
+import com.softdevsix.domain.exceptions.FileNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,18 +23,11 @@ public class ProjectController {
     }
 
     @GetMapping("/description/{id}")
-    public ResponseEntity<Object> getProjectById(@PathVariable UUID id) {
-//        try {
-//            Project project = projectService.getProjectById(id);
-//
-//            return new ResponseEntity<>(
-//                    new ProjectResponse(project.getName(), project.getDescription()),
-//                    HttpStatus.OK
-//            );
-//        } catch (Exception e) {
-//            return new ResponseEntity<>("Project not found", HttpStatus.NOT_FOUND);
-//        }
-        return null;
+    public ResponseEntity<ProjectResponse> getProjectById(@PathVariable UUID id) {
+            Project project = projectService.getProjectById(id);
+            return new ResponseEntity<>(
+                    new ProjectResponse(project.getName(), project.getDescription()),
+                    HttpStatus.OK);
     }
 
     private static class ProjectResponse {

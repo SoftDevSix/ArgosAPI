@@ -33,7 +33,7 @@ public class CodeAnalysisResultService implements ICodeAnalysisResultService {
 
     @Override
     public Optional<CodeAnalysisResult> calculateProjectRating(UUID projectId) {
-        Optional<Project> project = iProjectService.getProjectById(projectId);
+        Project project = iProjectService.getProjectById(projectId);
 
         String actualRating = performCodeAnalysis(project);
 
@@ -44,7 +44,7 @@ public class CodeAnalysisResultService implements ICodeAnalysisResultService {
         return Optional.of(iCodeAnalysisResultRepository.save(analysisResult));
     }
 
-    private String performCodeAnalysis(Optional<Project> project) {
+    private String performCodeAnalysis(Project project) {
         return "A";
     }
 

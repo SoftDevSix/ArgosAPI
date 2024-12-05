@@ -1,5 +1,6 @@
 package com.softdevsix.domain.entities.coverage;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.softdevsix.domain.entities.project.ProjectResults;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,5 +26,6 @@ public class ProjectCoverageResult {
     private float totalCoverage;
 
     @OneToOne(mappedBy = "coverageResult")
+    @JsonIgnore
     private ProjectResults projectResults;
 }

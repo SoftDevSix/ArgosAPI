@@ -1,7 +1,9 @@
 package com.softdevsix.application.mappers.json;
 
+import com.softdevsix.application.mappers.responses.ProjectResultsResponse;
 import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.domain.entities.project.Project;
+import com.softdevsix.domain.entities.project.ProjectResults;
 import com.softdevsix.domain.entities.report.Report;
 import com.softdevsix.domain.entities.report.ReportPackage;
 
@@ -24,5 +26,13 @@ public class ProjectMapper {
                 .name(report.getName())
                 .files(handleReportPackageList(report.getReportPackages()))
                 .build();
+    }
+
+    public static ProjectResultsResponse ProjectResultToProjectResultResp(ProjectResults projectresults){
+        return new ProjectResultsResponse(
+                projectresults.getStatus(),
+                projectresults.getCoverageResult(),
+                projectresults.getCodeAnalysisResult()
+        );
     }
 }

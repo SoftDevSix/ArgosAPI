@@ -1,6 +1,7 @@
 package com.softdevsix.domain.entities.project;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.softdevsix.domain.entities.file.File;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

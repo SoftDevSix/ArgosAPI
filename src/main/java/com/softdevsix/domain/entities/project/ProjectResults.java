@@ -1,12 +1,10 @@
 package com.softdevsix.domain.entities.project;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.softdevsix.domain.entities.coverage.ProjectCoverageResult;
 import com.softdevsix.domain.entities.staticanalysis.CodeAnalysisResult;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -16,6 +14,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class ProjectResults {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -34,5 +33,6 @@ public class ProjectResults {
     private CodeAnalysisResult codeAnalysisResult;
 
     @OneToOne(mappedBy = "projectResults")
+    @JsonIgnore
     private Project project;
 }
