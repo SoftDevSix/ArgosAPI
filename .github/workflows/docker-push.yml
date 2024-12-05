@@ -31,5 +31,4 @@ jobs:
           docker push ${IMAGE_NAME}
 
       - name: Deploy to Server
-        run: echo "Deployment"
-        
+        run: echo "Deployment
