@@ -11,11 +11,9 @@ import com.softdevsix.domain.entities.file.FileCoverageResult;
 import com.softdevsix.domain.entities.project.Project;
 import com.softdevsix.domain.entities.project.ProjectParams;
 import com.softdevsix.domain.entities.project.ProjectResults;
-import com.softdevsix.domain.entities.project.Status;
 import com.softdevsix.domain.entities.staticanalysis.CodeAnalysisResult;
 import com.softdevsix.domain.entities.staticanalysis.Rating;
 import com.softdevsix.domain.exceptions.BadRequestException;
-import com.softdevsix.domain.repositories.project.IProjectRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -166,7 +164,13 @@ class RulesServiceTest {
 
         BadRequestException exception = assertThrows(
                 BadRequestException.class,
-                () -> rulesService.saveRules(null, project.getProjectId())
+                () -> {
+                    try {
+                        rulesService.saveRules(null, project.getProjectId());
+                    } catch (BadRequestException e) {
+                        throw e;
+                    }
+                }
         );
 
         assertEquals("Project params cannot be null", exception.getMessage());
