@@ -13,7 +13,7 @@ public interface IProjectRepository {
     void update(Project project);
     Project createProject(Project project);
     Project updateProject(Project project);
-    Project findById(UUID proyectId);
+    Project findById(UUID projectId);
     List<Project> getAll();
-    boolean deleteFile(UUID ProjectId);
+    boolean deleteFile(UUID projectId);
 }

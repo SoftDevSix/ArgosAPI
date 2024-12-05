@@ -1,7 +1,6 @@
-package com.softdevsix.application.services.Rules;
+package com.softdevsix.application.services.rules;
 
 import com.softdevsix.application.dto.ProjectParamsRequestDTO;
-import com.softdevsix.domain.entities.project.Project;
 import com.softdevsix.domain.entities.project.ProjectParams;
 
 import java.util.UUID;

@@ -1,8 +1,8 @@
-package com.softdevsix.application.services.Rules;
+package com.softdevsix.application.services.rules;
 
 import com.softdevsix.application.dto.ProjectParamsRequestDTO;
-import com.softdevsix.application.services.File.IFileService;
-import com.softdevsix.application.services.Project.IProjectService;
+import com.softdevsix.application.services.file.IFileService;
+import com.softdevsix.application.services.project.IProjectService;
 import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.domain.entities.project.Project;
 import com.softdevsix.domain.entities.project.ProjectParams;
@@ -13,19 +13,19 @@ import java.util.UUID;
 
 @Service
 public class RulesService implements IRulesService {
-    private final IProjectService PROJECT_SERVICE;
-    private final IFileService FILE_SERVICE;
+    private final IProjectService projectService;
+    private final IFileService fileService;
 
     public RulesService(IProjectService projectService, IFileService fileService) {
-        this.PROJECT_SERVICE = projectService;
-        this.FILE_SERVICE = fileService;
+        this.projectService = projectService;
+        this.fileService = fileService;
     }
 
     @Override
     public void saveRules(ProjectParams projectParams, UUID projectId) {
         if(projectParams == null) throw new BadRequestException("Project params cannot be null");
 
-        Project project = PROJECT_SERVICE.getProjectById(projectId);
+        Project project = projectService.getProjectById(projectId);
 
         project.setProjectParams(projectParams);
 
@@ -35,38 +35,38 @@ public class RulesService implements IRulesService {
         if(projectParams.isProjectRating())
             project.getProjectResults().getCodeAnalysisResult().setExpectedRating(projectParams.getRequiredCodeRating());
 
-        PROJECT_SERVICE.updateProject(project);
+        projectService.updateProject(project);
     }
 
     @Override
     public void executeProject(UUID projectId, ProjectParamsRequestDTO paramsRequestDTO) {
-        Project project = PROJECT_SERVICE.getProjectById(projectId);
+        Project project = projectService.getProjectById(projectId);
 
         if(project == null) throw new BadRequestException("Project cannot be null");
 
         project.setName(paramsRequestDTO.getProjectName());
         project.setDescription(paramsRequestDTO.getDescription());
         project.getProjectResults().setProjectId(projectId);
-        PROJECT_SERVICE.updateProject(project);
+        projectService.updateProject(project);
 
         calculateFilesCoverage(project);
 
         if(paramsRequestDTO.isProjectCoverage()) {
-            PROJECT_SERVICE.calculateProjectCoverage(projectId);
+            projectService.calculateProjectCoverage(projectId);
         }
         if(paramsRequestDTO.isProjectCoverage()) {
-            PROJECT_SERVICE.calculateProjectRating(projectId);
+            projectService.calculateProjectRating(projectId);
         }
 
-        PROJECT_SERVICE.calculateProjectStatus(projectId);
+        projectService.calculateProjectStatus(projectId);
     }
 
     private void calculateFilesCoverage(Project project) {
         for(File file : project.getCoveredFiles()) {
-            file.getCoverageResult().setCoveragePercentage(FILE_SERVICE.calculateFileCoverage(file));
-            file.getCoverageResult().setMethodCoveragePercentage(FILE_SERVICE.calculateFileMethodCoverage(file));
+            file.getCoverageResult().setCoveragePercentage(fileService.calculateFileCoverage(file));
+            file.getCoverageResult().setMethodCoveragePercentage(fileService.calculateFileMethodCoverage(file));
         }
 
-        PROJECT_SERVICE.updateProject(project);
+        projectService.updateProject(project);
     }
 }

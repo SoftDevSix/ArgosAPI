@@ -1,7 +1,7 @@
 package com.softdevsix.presentation.controllers;
 
 import com.softdevsix.domain.entities.project.Project;
-import com.softdevsix.application.services.Project.IProjectService;
+import com.softdevsix.application.services.project.IProjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

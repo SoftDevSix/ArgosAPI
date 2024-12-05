@@ -1,7 +1,7 @@
 package com.softdevsix.presentation.controllers;
 
 import com.softdevsix.domain.entities.project.ProjectResults;
-import com.softdevsix.application.services.Project.IProjectService;
+import com.softdevsix.application.services.project.IProjectService;
 import com.softdevsix.domain.exceptions.ProjectNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,6 @@
 package com.softdevsix.application.services;
 
-import com.softdevsix.application.services.Project.ProjectService;
+import com.softdevsix.application.services.project.ProjectService;
 import com.softdevsix.domain.entities.coverage.ProjectCoverageResult;
 import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.domain.entities.file.FileCoverageResult;

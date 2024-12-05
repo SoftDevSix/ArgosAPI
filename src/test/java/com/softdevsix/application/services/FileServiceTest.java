@@ -1,6 +1,6 @@
 package com.softdevsix.application.services;
 
-import com.softdevsix.application.services.File.FileService;
+import com.softdevsix.application.services.file.FileService;
 import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.domain.entities.file.FileCoverageResult;
 import com.softdevsix.domain.entities.file.MethodCoverageResult;

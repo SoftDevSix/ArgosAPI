@@ -1,6 +1,6 @@
 package com.softdevsix.presentation.controllers;
 
-import com.softdevsix.application.services.Rules.IRulesService;
+import com.softdevsix.application.services.rules.IRulesService;
 import com.softdevsix.domain.entities.project.ProjectParams;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

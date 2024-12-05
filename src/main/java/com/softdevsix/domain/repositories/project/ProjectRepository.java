@@ -34,8 +34,8 @@ public class ProjectRepository implements IProjectRepository {
         return project;
     }
 
-    public Project findById(UUID id) {
-        return projects.get(id);
+    public Project findById(UUID projectId) {
+        return projects.get(projectId);
     }
 
     public void update(Project project) {projects.put(project.getProjectId(), project);}
@@ -45,7 +45,7 @@ public class ProjectRepository implements IProjectRepository {
     }
 
     @Override
-    public boolean deleteFile(UUID ProjectId) {
-        return projects.remove(ProjectId) != null;
+    public boolean deleteFile(UUID projectId) {
+        return projects.remove(projectId) != null;
     }
 }

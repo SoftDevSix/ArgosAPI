@@ -4,7 +4,7 @@ import com.softdevsix.application.dto.CodeAnalysisResultDTO;
 import com.softdevsix.application.dto.CoverageResultDTO;
 import com.softdevsix.application.dto.ProjectResultDTO;
 import com.softdevsix.domain.entities.project.ProjectResults;
-import com.softdevsix.application.services.Project.IProjectService;
+import com.softdevsix.application.services.project.IProjectService;
 import com.softdevsix.domain.exceptions.ProjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

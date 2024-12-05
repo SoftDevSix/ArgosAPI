@@ -1,10 +1,9 @@
 package com.softdevsix.application.services;
 
-import com.softdevsix.application.services.File.FileService;
-import com.softdevsix.application.services.File.IFileService;
-import com.softdevsix.application.services.Project.IProjectService;
-import com.softdevsix.application.services.Rules.IRulesService;
-import com.softdevsix.application.services.Rules.RulesService;
+import com.softdevsix.application.services.file.IFileService;
+import com.softdevsix.application.services.project.IProjectService;
+import com.softdevsix.application.services.rules.IRulesService;
+import com.softdevsix.application.services.rules.RulesService;
 import com.softdevsix.domain.entities.project.Project;
 import com.softdevsix.domain.entities.project.ProjectParams;
 import com.softdevsix.domain.entities.staticanalysis.Rating;
@@ -16,14 +15,13 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class RulesServiceTest {
-
+class RulesServiceTest {
     private IProjectService projectService;
     private IFileService fileService;
     private IRulesService rulesService;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         projectService = mock(IProjectService.class);
         fileService = mock(IFileService.class);
         rulesService = new RulesService(projectService, fileService);
@@ -46,7 +44,7 @@ public class RulesServiceTest {
     }
 
     @Test
-    public void setProjectParamsNotNullTest() {
+    void setProjectParamsNotNullTest() {
         Project project = buildProject();
 
         when(projectService.getProjectById(project.getProjectId())).thenReturn(project);
@@ -59,7 +57,7 @@ public class RulesServiceTest {
     }
 
     @Test
-    public void projectParamsCoveragePercentageTest() {
+    void projectParamsCoveragePercentageTest() {
         Project project = buildProject();
 
         when(projectService.getProjectById(project.getProjectId())).thenReturn(project);
@@ -72,7 +70,7 @@ public class RulesServiceTest {
     }
 
     @Test
-    public void projectParamsCodeRatingTest() {
+    void projectParamsCodeRatingTest() {
         Project project = buildProject();
 
         when(projectService.getProjectById(project.getProjectId())).thenReturn(project);

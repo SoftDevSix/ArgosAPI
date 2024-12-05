@@ -1,4 +1,4 @@
-package com.softdevsix.application.services.Project;
+package com.softdevsix.application.services.project;
 
 import com.softdevsix.domain.entities.coverage.ProjectCoverageResult;
 import com.softdevsix.domain.entities.file.File;

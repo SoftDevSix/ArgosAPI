@@ -1,8 +1,7 @@
 package com.softdevsix.presentation.controllers;
 
 import com.softdevsix.application.dto.ProjectParamsRequestDTO;
-import com.softdevsix.application.services.Rules.IRulesService;
-import com.softdevsix.domain.entities.project.Project;
+import com.softdevsix.application.services.rules.IRulesService;
 import com.softdevsix.domain.entities.project.ProjectParams;
 import com.softdevsix.domain.exceptions.BadRequestException;
 import com.softdevsix.domain.exceptions.ProjectNotFoundException;
@@ -16,10 +15,10 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/rules/")
 public class RulesController {
-    private final IRulesService RULES_SERVICE;
+    private final IRulesService rulesService;
 
     public RulesController(IRulesService rulesService) {
-        this.RULES_SERVICE = rulesService;
+        this.rulesService = rulesService;
     }
 
     @PostMapping("/{projectId}")
@@ -31,8 +30,8 @@ public class RulesController {
                     .projectRating(paramsDTO.isProjectRating())
                     .requiredCodeRating(paramsDTO.getRequiredCodeRating())
                     .build();
-            RULES_SERVICE.saveRules(params, projectId);
-            RULES_SERVICE.executeProject(projectId, paramsDTO);
+            rulesService.saveRules(params, projectId);
+            rulesService.executeProject(projectId, paramsDTO);
             return new ResponseEntity<>("Project params added successfully.", HttpStatus.OK);
         } catch (BadRequestException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
