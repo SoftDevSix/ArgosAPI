@@ -15,6 +15,7 @@ import com.softdevsix.domain.repositories.IProjectRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -24,9 +25,18 @@ public class ProjectService implements IProjectService {
 
     @Override
     public Project getProjectById(UUID projectId) {
-        Project projectOptional = projectRepository.findById(projectId)
-                .orElseThrow(() -> new FileNotFoundException("Project not found"));;
-        return projectOptional;
+        Optional<Project> projectOptional = Optional.empty();
+        for (Project dbProject : projectRepository.findAll()) {
+            if (dbProject.getProjectId().equals(projectId)){
+                projectOptional =  Optional.of(dbProject);
+                break;
+            }
+        }
+        if (projectOptional.isEmpty()){
+            throw new FileNotFoundException("Project not found");
+        }
+
+        return projectOptional.get();
     }
 
     @Override

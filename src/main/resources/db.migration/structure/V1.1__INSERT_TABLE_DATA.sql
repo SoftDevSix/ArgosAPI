@@ -20,11 +20,11 @@ VALUES
     ('8c3446f7-2422-4a7e-8566-9b6b017fee03', 'Failed',
      'd6ccfc8b-0ae9-4768-a191-0aa8a1c1ba42', 'e8019e12-5de4-4954-a283-837ff10e59cc');
 
-INSERT INTO project (project_id, name, description, project_params_id, project_results_id)
+INSERT INTO project (id, project_id, name, description, project_params_id, project_results_id)
 VALUES
-    ('4fbfd945-4cab-4ce0-bd59-99bccb1cfb5e', 'Project Alpha', 'Description for Project Alpha',
+    ('4fbfd945-4cab-4ce0-bd59-99bccb1cfb5e', 'afc199e9-ab2a-4759-aa3b-fd5ca7306013', 'Project Alpha', 'Description for Project Alpha',
      '83c6c8f9-05c5-4973-8e56-55ec17faca22', '640381dc-0099-4e9e-aa37-c8350edb7f5e'),
-    ('805edeba-87d1-4593-b83d-1335bf63ef48', 'Project Beta', 'Description for Project Beta',
+    ('805edeba-87d1-4593-b83d-1335bf63ef48', 'afc199e9-ab2a-4759-eeee-fd5ca7306013', 'Project Beta', 'Description for Project Beta',
      '785984c1-6761-4702-b8d5-8cb98ec473c2', '8c3446f7-2422-4a7e-8566-9b6b017fee03');
 
 INSERT INTO file_coverage_result (file_coverage_id, coverage_percentage, method_coverage_percentage)

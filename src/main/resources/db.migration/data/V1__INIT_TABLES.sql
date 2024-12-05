@@ -26,7 +26,8 @@ CREATE TABLE project_results (
 );
 
 CREATE TABLE project (
-    project_id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY,
+    project_id UUID,
     name VARCHAR(255) NOT NULL,
     description TEXT,
     project_params_id UUID,
@@ -62,13 +63,13 @@ CREATE TABLE method_statements (
 
 CREATE TABLE file (
     file_id UUID PRIMARY KEY,
-    file_name VARCHAR(15) NOT NULL,
-    path TEXT NOT NULL,
-    code_lines INT NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
+    path TEXT NULL,
+    code_lines INT NULL,
     project_id UUID,
     coverage_result_id UUID,
     CONSTRAINT fk_project
-        FOREIGN KEY (project_id) REFERENCES project(project_id) ON DELETE CASCADE,
+        FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE,
     CONSTRAINT fk_coverage_result
         FOREIGN KEY (coverage_result_id) REFERENCES file_coverage_result (file_coverage_id) ON DELETE CASCADE
 );

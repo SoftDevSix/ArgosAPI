@@ -21,7 +21,10 @@ import java.util.UUID;
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "project_id")
+    @Column(name = "id")
+    private UUID id;
+
+    @Column(name = "projectId")
     private UUID projectId;
 
     @Column(name = "name")
