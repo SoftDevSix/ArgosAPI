@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -39,9 +41,12 @@ public class ReportService implements IReportService {
         Project project = mapper.handleReport(report);
         project.setProjectId(UUID.fromString(idProject));
         projectRepository.createProject(project);
+        List<File> files = new ArrayList<>();
         for (File coveredFile : project.getCoveredFiles()) {
-            fileRepository.createFile(coveredFile);
+            files.add(fileRepository.createFile(coveredFile));
         }
+        project.setCoveredFiles(files);
+        projectRepository.updateProject(project);
     }
 }
 
