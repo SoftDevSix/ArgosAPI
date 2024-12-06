@@ -6,6 +6,7 @@ import com.softdevsix.domain.entities.report.Report;
 import com.softdevsix.application.mappers.json.ProjectMapper;
 import com.softdevsix.domain.repositories.IFileRepository;
 import com.softdevsix.domain.repositories.IProjectRepository;
+import lombok.AllArgsConstructor;
 import lombok.Value;
 import org.springframework.beans.factory.annotation.Qualifier;
 

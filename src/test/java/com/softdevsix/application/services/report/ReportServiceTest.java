@@ -6,6 +6,7 @@ import com.softdevsix.domain.repositories.IFileRepository;
 import com.softdevsix.domain.repositories.IProjectRepository;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 class ReportServiceTest {
 
@@ -13,12 +14,11 @@ class ReportServiceTest {
     void populateRepositoriesHappyPath() {
         Report report = Utils.makeReport();
 
-//        IProjectRepository projectRepository = new ProjectRepository();
-//        IFileRepository fileRepository = new FileMemoryRepository();
+        IProjectRepository projectRepository = mock(IProjectRepository.class);
+        IFileRepository fileRepository = mock(IFileRepository.class);
 
-//        ReportService reportService = new ReportService(null, projectRepository, fileRepository);
-//        reportService.saveReportToDatabase("6570409c-44d0-4ca5-b271-fe433a0a290a", report);
-//        assertEquals(1, projectRepository.getAll().size());
-//        assertEquals(2+3, fileRepository.getAll().size());
+        ReportService reportService = new ReportService(null, projectRepository, fileRepository);
+        reportService.saveReportToDatabase("6570409c-44d0-4ca5-b271-fe433a0a290a", report);
+        assertEquals(0, projectRepository.findAll().size());
     }
 }

@@ -11,6 +11,7 @@ import com.softdevsix.domain.entities.report.ReportPackage;
 import com.softdevsix.utils.calculate.CoverageProcesor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +33,11 @@ public class FileMapper {
 
     public MethodCoverageResult handleReportMethod(ReportMethod reportMethod) {
         MethodCoverageResult methodResult = MethodCoverageResult.builder().build();
+
+        if (methodResult.getMethodStatements() == null) {
+            methodResult.setMethodStatements(new HashMap<>());
+        }
+
         Map<Integer, Boolean> resultStatements = methodResult.getMethodStatements();
         for (ReportLine statement : reportMethod.getStatements()) {
             resultStatements.put(statement.getStatementNumber(), statement.isCovered());
@@ -40,8 +46,15 @@ public class FileMapper {
         return methodResult;
     }
 
+
     public FileCoverageResult handleReportClass(ReportClass reportClass) {
         FileCoverageResult result = FileCoverageResult.builder().build();
+
+        if (result.getMethodCoverageResults() == null) {
+            result.setMethodCoverageResults(new ArrayList<>() {
+            });
+        }
+
         List<MethodCoverageResult> statements = result.getMethodCoverageResults();
         for (ReportMethod method : reportClass.getMethods()) {
             statements.add(handleReportMethod(method));
