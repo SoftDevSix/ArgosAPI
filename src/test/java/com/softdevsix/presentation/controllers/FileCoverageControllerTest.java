@@ -1,9 +1,9 @@
 package com.softdevsix.presentation.controllers;
 
-import com.softdevsix.application.services.IProjectService;
+import com.softdevsix.application.services.project.IProjectService;
 import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.application.dto.FileCoverageDto;
-import com.softdevsix.application.services.IFileService;
+import com.softdevsix.application.services.file.IFileService;
 import com.softdevsix.domain.entities.file.FileCoverageResult;
 import com.softdevsix.domain.entities.file.MethodCoverageResult;
 import com.softdevsix.domain.entities.project.Project;
@@ -38,6 +38,7 @@ class FileCoverageControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         mockFileId = UUID.randomUUID();
+
         mockProjectId = UUID.randomUUID();
 
         Map<Integer, Boolean> methodStatements = new HashMap<>();
@@ -103,6 +104,5 @@ class FileCoverageControllerTest {
         assertEquals(fileCoverage, dto.getCoveragePercentage());
         assertEquals(uncoveredLines, dto.getUncoveredLines());
     }
-
 }
 

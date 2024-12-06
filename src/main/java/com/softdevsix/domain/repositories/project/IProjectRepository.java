@@ -1,4 +1,4 @@
-package com.softdevsix.domain.repositories;
+package com.softdevsix.domain.repositories.project;
 
 
 import com.softdevsix.domain.entities.project.Project;
@@ -9,9 +9,9 @@ import java.util.UUID;
 
 @Repository
 public interface IProjectRepository {
-    Project findById(UUID id);
-
-    void save(Project project);
-
+    void update(Project project);
+    Project createProject(Project project);
+    Project updateProject(Project project);
+    Project findById(UUID projectId);
     List<Project> getAll();
 }

@@ -1,7 +1,8 @@
 package com.softdevsix.presentation.controllers;
 
 import com.softdevsix.domain.entities.project.ProjectResults;
-import com.softdevsix.application.services.IProjectService;
+import com.softdevsix.application.services.project.IProjectService;
+import com.softdevsix.domain.exceptions.ProjectNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -37,7 +38,7 @@ class ProjectMetricsControllerTest {
         ProjectResults mockResults = ProjectResults.builder()
                 .projectId(projectId)
                 .build();
-        when(projectService.calculateProjectResults(projectId)).thenReturn(mockResults);
+        when(projectService.getProjectResults(projectId)).thenReturn(mockResults);
 
         mockMvc.perform(get("/coverage/project/{id}", projectId))
                 .andExpect(status().isOk());
@@ -46,7 +47,7 @@ class ProjectMetricsControllerTest {
     @Test
     void testGetProjectMetrics_NotFound() throws Exception {
         UUID projectId = UUID.randomUUID();
-        when(projectService.calculateProjectResults(projectId)).thenThrow(new RuntimeException("Project not found"));
+        when(projectService.getProjectResults(projectId)).thenThrow(new ProjectNotFoundException("Project not found"));
 
         mockMvc.perform(get("/coverage/project/{id}", projectId))
                 .andExpect(status().isNotFound());

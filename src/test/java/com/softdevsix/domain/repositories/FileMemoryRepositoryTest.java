@@ -1,6 +1,7 @@
 package com.softdevsix.domain.repositories;
 
 import com.softdevsix.domain.entities.file.File;
+import com.softdevsix.domain.repositories.file.FileMemoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
