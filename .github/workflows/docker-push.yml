@@ -2,7 +2,7 @@ name: Deployment
 
 on:
   push:
-    branches: feature/test-072/production
+    branches: production
 
 jobs:
   build-and-push:
