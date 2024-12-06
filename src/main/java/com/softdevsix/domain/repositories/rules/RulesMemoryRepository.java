@@ -12,37 +12,6 @@ public class RulesMemoryRepository implements IRulesRepository {
 
     public RulesMemoryRepository() {
         this.projectRules = new HashMap<>();
-        initializeData();
-    }
-
-    private void initializeData() {
-        ProjectParams rule1 = ProjectParams.builder()
-                .id(UUID.randomUUID())
-                .projectCoverage(true)
-                .requiredCoveragePercentage(75.0f)
-                .projectRating(true)
-                .requiredCodeRating(Rating.B)
-                .build();
-
-        ProjectParams rule2 = ProjectParams.builder()
-                .id(UUID.randomUUID())
-                .projectCoverage(false)
-                .requiredCoveragePercentage(0.0f)
-                .projectRating(true)
-                .requiredCodeRating(Rating.C)
-                .build();
-
-        ProjectParams rule3 = ProjectParams.builder()
-                .id(UUID.randomUUID())
-                .projectCoverage(true)
-                .requiredCoveragePercentage(85.0f)
-                .projectRating(true)
-                .requiredCodeRating(Rating.A)
-                .build();
-
-        createRule(rule1);
-        createRule(rule2);
-        createRule(rule3);
     }
 
     @Override

@@ -43,9 +43,4 @@ public class ProjectRepository implements IProjectRepository {
     public List<Project> getAll(){
         return projects.values().stream().toList();
     }
-
-    @Override
-    public boolean deleteFile(UUID projectId) {
-        return projects.remove(projectId) != null;
-    }
 }

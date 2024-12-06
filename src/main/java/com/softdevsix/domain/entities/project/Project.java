@@ -13,6 +13,7 @@ import java.util.UUID;
 @Data
 @Builder
 public class Project {
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID projectId;
     private String name;
     private String description;

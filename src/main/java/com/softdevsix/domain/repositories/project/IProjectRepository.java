@@ -9,11 +9,9 @@ import java.util.UUID;
 
 @Repository
 public interface IProjectRepository {
-
     void update(Project project);
     Project createProject(Project project);
     Project updateProject(Project project);
     Project findById(UUID projectId);
     List<Project> getAll();
-    boolean deleteFile(UUID projectId);
 }
