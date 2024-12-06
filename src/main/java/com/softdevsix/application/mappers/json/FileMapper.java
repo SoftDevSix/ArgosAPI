@@ -7,7 +7,6 @@ import com.softdevsix.domain.entities.report.ReportClass;
 import com.softdevsix.domain.entities.report.ReportLine;
 import com.softdevsix.domain.entities.report.ReportMethod;
 import com.softdevsix.domain.entities.report.ReportPackage;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

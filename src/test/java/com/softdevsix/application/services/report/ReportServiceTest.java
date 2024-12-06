@@ -2,10 +2,10 @@ package com.softdevsix.application.services.report;
 
 import com.softdevsix.infrastructure.utils.Utils;
 import com.softdevsix.domain.entities.report.Report;
-import com.softdevsix.domain.repositories.FileMemoryRepository;
-import com.softdevsix.domain.repositories.IFileRepository;
-import com.softdevsix.domain.repositories.IProjectRepository;
-import com.softdevsix.domain.repositories.ProjectRepository;
+import com.softdevsix.domain.repositories.file.FileMemoryRepository;
+import com.softdevsix.domain.repositories.file.IFileRepository;
+import com.softdevsix.domain.repositories.project.IProjectRepository;
+import com.softdevsix.domain.repositories.project.ProjectRepository;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

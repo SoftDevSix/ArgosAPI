@@ -1,7 +1,7 @@
 package com.softdevsix.presentation.controllers;
 
-import com.softdevsix.application.services.IFileService;
-import com.softdevsix.application.services.IProjectService;
+import com.softdevsix.application.services.file.IFileService;
+import com.softdevsix.application.services.project.IProjectService;
 import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.application.dto.FileCoverageDto;
 import com.softdevsix.domain.entities.project.Project;
@@ -40,8 +40,8 @@ public class FileCoverageController {
                 file.getFileName(),
                 file.getPath(),
                 file.getLineCode(),
-                fileService.calculateFileMethodCoverage(file),
-                fileService.calculateFileCoverage(file),
+                file.getCoverageResult().getMethodCoveragePercentage(),
+                file.getCoverageResult().getCoveragePercentage(),
                 fileService.getUncoveredLines(file)
         );
 

@@ -1,9 +1,9 @@
-package com.softdevsix.application.services;
+package com.softdevsix.application.services.file;
 
 import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.domain.entities.file.MethodCoverageResult;
 import com.softdevsix.domain.exceptions.FileNotFoundException;
-import com.softdevsix.domain.repositories.IFileRepository;
+import com.softdevsix.domain.repositories.file.IFileRepository;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -54,8 +54,8 @@ public class FileService implements IFileService {
         int coveredStatements = 0;
 
         for (MethodCoverageResult methodCoverage : file.getCoverageResult().getAllStatements()) {
+            totalStatements += methodCoverage.getStatements().size();
             for (Map.Entry<Integer, Boolean> entry : methodCoverage.getStatements().entrySet()) {
-                totalStatements++;
                 if (entry.getValue() != null && entry.getValue()) {
                     coveredStatements++;
                 }

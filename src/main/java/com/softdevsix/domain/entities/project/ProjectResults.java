@@ -16,6 +16,8 @@ public class ProjectResults {
     private UUID id;
     private UUID projectId;
     private Status status;
-    private ProjectCoverageResult coverageResult;
-    private CodeAnalysisResult codeAnalysisResult;
+    @Builder.Default
+    private ProjectCoverageResult coverageResult = ProjectCoverageResult.builder().build();
+    @Builder.Default
+    private CodeAnalysisResult codeAnalysisResult = CodeAnalysisResult.builder().build();
 }

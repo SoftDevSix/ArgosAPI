@@ -1,5 +1,6 @@
 package com.softdevsix.application.services;
 
+import com.softdevsix.application.services.project.ProjectService;
 import com.softdevsix.domain.entities.coverage.ProjectCoverageResult;
 import com.softdevsix.domain.entities.file.File;
 import com.softdevsix.domain.entities.file.FileCoverageResult;
@@ -10,8 +11,8 @@ import com.softdevsix.domain.entities.project.Status;
 import com.softdevsix.domain.entities.staticanalysis.CodeAnalysisResult;
 import com.softdevsix.domain.entities.staticanalysis.Rating;
 import com.softdevsix.domain.exceptions.ProjectNotFoundException;
-import com.softdevsix.domain.repositories.IProjectRepository;
-import com.softdevsix.domain.repositories.ProjectRepository;
+import com.softdevsix.domain.repositories.project.IProjectRepository;
+import com.softdevsix.domain.repositories.project.ProjectRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -27,7 +28,9 @@ class ProjectServiceTest {
     private Project buildProject() {
         ProjectParams params = ProjectParams.builder()
                 .id(UUID.randomUUID())
+                .projectCoverage(true)
                 .requiredCoveragePercentage(80f)
+                .projectRating(true)
                 .requiredCodeRating(Rating.B)
                 .build();
 
@@ -91,9 +94,10 @@ class ProjectServiceTest {
     void calculateProjectCoverageTest() {
         Project project = buildProject();
         ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
+        projectRepository.createProject(project);
 
-        projectService.calculateProjectResults(project.getProjectId());
+        projectService.calculateProjectCoverage(project.getProjectId());
+        projectService.getProjectResults(project.getProjectId());
 
         Project updatedProject = projectService.getProjectById(project.getProjectId());
         assertEquals(50f, updatedProject.getProjectResults().getCoverageResult().getTotalCoverage());
@@ -105,7 +109,7 @@ class ProjectServiceTest {
         project.getProjectResults().getCoverageResult().setTotalCoverage(85f);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.B);
         ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
+        projectRepository.createProject(project);
 
         projectService.calculateProjectStatus(project.getProjectId());
 
@@ -119,7 +123,7 @@ class ProjectServiceTest {
         project.getProjectResults().getCoverageResult().setTotalCoverage(85f);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.C);
         ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
+        projectRepository.createProject(project);
 
         projectService.calculateProjectStatus(project.getProjectId());
 
@@ -133,7 +137,7 @@ class ProjectServiceTest {
         project.getProjectResults().getCoverageResult().setTotalCoverage(70f);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.B);
         ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
+        projectRepository.createProject(project);
 
         projectService.calculateProjectStatus(project.getProjectId());
 
@@ -147,7 +151,7 @@ class ProjectServiceTest {
         project.getProjectResults().getCoverageResult().setTotalCoverage(70f);
         project.getProjectResults().getCodeAnalysisResult().setActualRating(Rating.C);
         ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
+        projectRepository.createProject(project);
 
         projectService.calculateProjectStatus(project.getProjectId());
 
@@ -171,21 +175,23 @@ class ProjectServiceTest {
     void calculateProjectRatingTest() {
         Project project = buildProject();
         ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
+        projectRepository.createProject(project);
 
-        projectService.calculateProjectRating(project.getProjectId());
+        ProjectResults results = projectService.getProjectResults(project.getProjectId());
 
-        Project updatedProject = projectService.getProjectById(project.getProjectId());
-        assertEquals(Rating.A, updatedProject.getProjectResults().getCodeAnalysisResult().getActualRating());
+        assertEquals(Rating.A, results.getCodeAnalysisResult().getActualRating());
     }
 
     @Test
     void calculateProjectResultsTest() {
         Project project = buildProject();
         ProjectService projectService = new ProjectService(projectRepository);
-        projectRepository.save(project);
+        projectRepository.createProject(project);
 
-        ProjectResults results = projectService.calculateProjectResults(project.getProjectId());
+        projectService.calculateProjectCoverage(project.getProjectId());
+        projectService.calculateProjectRating(project.getProjectId());
+        projectService.calculateProjectStatus(project.getProjectId());
+        ProjectResults results = projectService.getProjectResults(project.getProjectId());
 
         assertEquals(50f, results.getCoverageResult().getTotalCoverage());
         assertEquals(Rating.A, results.getCodeAnalysisResult().getActualRating());

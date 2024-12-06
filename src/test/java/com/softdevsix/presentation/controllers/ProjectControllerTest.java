@@ -1,6 +1,6 @@
 package com.softdevsix.presentation.controllers;
 
-import com.softdevsix.application.services.IProjectService;
+import com.softdevsix.application.services.project.IProjectService;
 import com.softdevsix.domain.entities.project.Project;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
