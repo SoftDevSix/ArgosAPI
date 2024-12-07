@@ -29,7 +29,7 @@ public class FileManagerClientRepository implements IFileManagerClientRepository
     public FileManagerClientRepository(RestTemplate restTemplate,
                                        @Value("${file.manager.base-url}") String baseUrl) {
         this.restTemplate = restTemplate;
-        this.baseUrl = baseUrl;
+        this.baseUrl = String.format("%s/fileManager", baseUrl);
     }
 
     @Override

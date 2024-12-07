@@ -5,7 +5,7 @@ on:
     branches: production
 
 jobs:
-  docker:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,11 +23,8 @@ jobs:
           DOCKER_USERNAME: argoscs
           IMAGE_NAME: argoscs/api
         run: |
+          echo "Building Docker image..."
           docker build -t ${IMAGE_NAME} -f Dockerfile.prod .
 
-      - name: Push Docker Image
-        run: |
+          echo "Pushing Docker image..."
           docker push ${IMAGE_NAME}
-
-      - name: Deploy to Server
-        run: echo "Deployment"

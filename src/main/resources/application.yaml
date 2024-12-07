@@ -10,4 +10,4 @@ spring:
 
 file:
   manager:
-    base-url: http://localhost:8080/fileManager
+    base-url: ${ARGOS_FILE_MANAGER_API_ADDRESS:http://localhost:8080}
