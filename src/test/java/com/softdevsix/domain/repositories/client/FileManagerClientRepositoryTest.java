@@ -22,9 +22,10 @@ class FileManagerClientRepositoryTest {
     void testGetCoverageJson() {
         RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
 
-        String baseUrl = "http://localhost:8080/fileManager";
+        String baseUrl = "http://localhost:8080";
 
         IFileManagerClientRepository fileManager = new FileManagerClientRepository(restTemplate, baseUrl);
+        baseUrl += "/fileManager";
 
         String projectId = "6570409c-44d0-4ca5-b271-fe433a0a290a";
 

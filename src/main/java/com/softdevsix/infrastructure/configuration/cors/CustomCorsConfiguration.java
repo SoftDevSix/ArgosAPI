@@ -12,7 +12,7 @@ public class CustomCorsConfiguration implements CorsConfigurationSource {
     @Override
     public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of(System.getenv("ArgosUI_address"), System.getenv("ArgosFileManager_address")));
+        config.setAllowedOrigins(List.of(System.getenv("ARGOS_UI_ADDRESS")));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
         config.setAllowedHeaders(List.of("*"));
         return config;
